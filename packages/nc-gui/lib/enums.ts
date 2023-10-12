@@ -1,11 +1,5 @@
 export enum ClientType {
-  MYSQL = 'mysql2',
-  MSSQL = 'mssql',
-  PG = 'pg',
-  SQLITE = 'sqlite3',
-  VITESS = 'vitess',
-  SNOWFLAKE = 'snowflake',
-  DATABRICKS = 'databricks',
+  PG = 'pg'
 }
 
 export enum Language {

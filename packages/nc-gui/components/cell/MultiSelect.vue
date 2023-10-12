@@ -59,8 +59,6 @@ const { getMeta } = useMetas()
 
 const { isUIAllowed } = useRoles()
 
-const { isPg, isMysql } = useBase()
-
 // a variable to keep newly created options value
 // temporary until it's add the option to column meta
 const tempSelectedOptsState = reactive<string[]>([])
@@ -148,18 +146,6 @@ const selectedTitles = computed(() =>
   modelValue
     ? Array.isArray(modelValue)
       ? modelValue
-      : isMysql(column.value.source_id)
-      ? modelValue
-          .toString()
-          .split(',')
-          .sort((a, b) => {
-            const opa = options.value.find((el) => el.title === a)
-            const opb = options.value.find((el) => el.title === b)
-            if (opa && opb) {
-              return opa.order! - opb.order!
-            }
-            return 0
-          })
       : modelValue.toString().split(',')
     : [],
 )
@@ -263,18 +249,11 @@ async function addIfMissingAndSave() {
 
       // todo: refactor and avoid repetition
       if (updatedColMeta.cdf) {
-        // Postgres returns default value wrapped with single quotes & casted with type so we have to get value between single quotes to keep it unified for all databases
-        if (isPg(column.value.source_id)) {
-          updatedColMeta.cdf = updatedColMeta.cdf.substring(
-            updatedColMeta.cdf.indexOf(`'`) + 1,
-            updatedColMeta.cdf.lastIndexOf(`'`),
-          )
-        }
+        updatedColMeta.cdf = updatedColMeta.cdf.substring(
+          updatedColMeta.cdf.indexOf(`'`) + 1,
+          updatedColMeta.cdf.lastIndexOf(`'`),
+        )
 
-        // Mysql escapes single quotes with backslash so we keep quotes but others have to unescaped
-        if (!isMysql(column.value.source_id) && !isPg(column.value.source_id)) {
-          updatedColMeta.cdf = updatedColMeta.cdf.replace(/''/g, "'")
-        }
       }
 
       await $api.dbTableColumn.update(

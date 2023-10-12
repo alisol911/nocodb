@@ -8,10 +8,9 @@ const column = inject(ColumnInj) as Ref<ColumnType & { colOptions: { error: any 
 
 const cellValue = inject(CellValueInj)
 
-const { isPg } = useBase()
 
 const result = computed(() =>
-  isPg(column.value.source_id) ? renderValue(handleTZ(cellValue?.value)) : renderValue(cellValue?.value),
+  renderValue(cellValue?.value),
 )
 
 const urls = computed(() => replaceUrlsWithLink(result.value))

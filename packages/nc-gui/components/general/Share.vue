@@ -22,11 +22,11 @@ const {
 } = defineProps<Props>()
 
 const summaryArr = [
-  'Instant #Rest & #GraphQL APIs on any #SQL Database (Supports : MySQL, PostgresSQL, MsSQL, SQLite, MariaDB) #nocodb ',
-  'Instantly generate #Rest & #GraphQL APIs on any #SQL Database (Supports : MySQL, PostgresSQL, MsSQL, SQLite, MariaDB) #nocodb',
+  'Instant #Rest & #GraphQL APIs on any #SQL Database (Supports : PostgresSQL) #nocodb ',
+  'Instantly generate #Rest & #GraphQL APIs on any #SQL Database (Supports : PostgresSQL) #nocodb',
   'Instant #serverless Rest & #GraphQL APIs on any Database #nocodb',
-  'Instant APIs on any SQL Database (Supports : #REST #GraphQL #MySQL, #PostgresSQL, #MsSQL, #SQLite, #MariaDB) #nocodb',
-  'Generate Instant APIs on any SQL Database (Supports : #REST #GraphQL #MySQL, #PostgresSQL, #MsSQL, #SQLite, #MariaDB) #nocodb',
+  'Instant APIs on any SQL Database (Supports : PostgresSQL) #nocodb',
+  'Generate Instant APIs on any SQL Database (Supports : PostgresSQL) #nocodb',
 ]
 
 const shareUrl = computed(() => encodeURIComponent(url))

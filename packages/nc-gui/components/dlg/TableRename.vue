@@ -23,7 +23,7 @@ const { updateTab } = useTabs()
 const { loadProjectTables } = useTablesStore()
 
 const baseStore = useBase()
-const { loadTables, isMysql, isMssql, isPg } = baseStore
+const { loadTables } = baseStore
 const { tables, base } = storeToRefs(baseStore)
 
 const { allRecentViews } = storeToRefs(useViewsStore())
@@ -49,14 +49,7 @@ const validators = computed(() => {
       {
         validator: (rule: any, value: any) => {
           return new Promise<void>((resolve, reject) => {
-            let tableNameLengthLimit = 255
-            if (isMysql(sourceId)) {
-              tableNameLengthLimit = 64
-            } else if (isPg(sourceId)) {
-              tableNameLengthLimit = 63
-            } else if (isMssql(sourceId)) {
-              tableNameLengthLimit = 128
-            }
+            let tableNameLengthLimit = 63
             const basePrefix = base?.value?.prefix || ''
             if ((basePrefix + value).length > tableNameLengthLimit) {
               return reject(new Error(`Table name exceeds ${tableNameLengthLimit} characters`))

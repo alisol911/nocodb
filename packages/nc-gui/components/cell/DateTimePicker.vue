@@ -11,7 +11,7 @@ interface Props {
 const { modelValue, isPk, isUpdatedFromCopyNPaste } = defineProps<Props>()
 const emit = defineEmits(['update:modelValue'])
 
-const { isMssql, isXcdbBase } = useBase()
+const { isXcdbBase } = useBase()
 
 const { showNull, isMobileMode } = useGlobal()
 
@@ -74,11 +74,6 @@ const localState = computed({
     // ext db
     if (!isXcDB) {
       return /^\d+$/.test(modelValue) ? dayjs(+modelValue) : dayjs(modelValue)
-    }
-
-    if (isMssql(column.value.source_id)) {
-      // e.g. 2023-04-29T11:41:53.000Z
-      return dayjs(modelValue)
     }
 
     // if cdf is defined, that means the value is auto-generated

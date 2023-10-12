@@ -41,7 +41,7 @@ const validators = {
   ],
 }
 
-const { setAdditionalValidations, validateInfos, isPg } = useColumnCreateStoreOrThrow()
+const { setAdditionalValidations, validateInfos } = useColumnCreateStoreOrThrow()
 
 setAdditionalValidations({
   ...validators,
@@ -54,7 +54,7 @@ const currencyLocaleList = ref<{ text: string; value: string }[]>([])
 const isMoney = computed(() => vModel.value.dt === 'money')
 
 const message = computed(() => {
-  if (isMoney.value && isPg.value) return t('msg.postgresHasItsOwnCurrencySettings')
+  if (isMoney.value) return "PostgreSQL 'money' type has own currency settings"
   return ''
 })
 
@@ -83,7 +83,7 @@ currencyLocales().then((locales) => {
           class="w-52"
           show-search
           :filter-option="filterOption"
-          :disabled="isMoney && isPg"
+          :disabled="isMoney"
           dropdown-class-name="nc-dropdown-currency-cell-locale"
         >
           <a-select-option v-for="(currencyLocale, i) of currencyLocaleList" :key="i" :value="currencyLocale.value">
@@ -112,7 +112,7 @@ currencyLocales().then((locales) => {
           class="w-52"
           show-search
           :filter-option="filterOption"
-          :disabled="isMoney && isPg"
+          :disabled="isMoney"
           dropdown-class-name="nc-dropdown-currency-cell-code"
         >
           <a-select-option v-for="(currencyCode, i) of currencyList" :key="i" :value="currencyCode">
@@ -130,7 +130,7 @@ currencyLocales().then((locales) => {
       </a-form-item>
     </a-col>
 
-    <a-col v-if="isMoney && isPg">
+    <a-col v-if="isMoney">
       <span class="text-[#FB8C00]">{{ message }}</span>
     </a-col>
   </a-row>

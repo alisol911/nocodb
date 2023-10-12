@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ModelTypes, MssqlUi, RelationTypes, SqliteUi, UITypes } from 'nocodb-sdk'
+import { ModelTypes, RelationTypes, UITypes } from 'nocodb-sdk'
 import MdiPlusIcon from '~icons/mdi/plus-circle-outline'
 import MdiMinusIcon from '~icons/mdi/minus-circle-outline'
 
@@ -24,7 +24,7 @@ setAdditionalValidations({
   childId: [{ required: true, message: t('general.required') }],
 })
 
-const onUpdateDeleteOptions = sqlUi === MssqlUi ? ['NO ACTION'] : ['NO ACTION', 'CASCADE', 'RESTRICT', 'SET NULL', 'SET DEFAULT']
+const onUpdateDeleteOptions = ['NO ACTION', 'CASCADE', 'RESTRICT', 'SET NULL', 'SET DEFAULT']
 
 if (!vModel.value.parentId) vModel.value.parentId = meta.value?.id
 if (!vModel.value.childId) vModel.value.childId = null
@@ -36,7 +36,6 @@ if (!vModel.value.parentColumn) vModel.value.parentColumn = vModel.value.rcn || 
 if (!vModel.value.type) vModel.value.type = 'mm'
 if (!vModel.value.onUpdate) vModel.value.onUpdate = onUpdateDeleteOptions[0]
 if (!vModel.value.onDelete) vModel.value.onDelete = onUpdateDeleteOptions[0]
-if (!vModel.value.virtual) vModel.value.virtual = sqlUi === SqliteUi // appInfo.isCloud || sqlUi === SqliteUi
 if (!vModel.value.alias) vModel.value.alias = vModel.value.column_name
 
 const advancedOptions = ref(false)

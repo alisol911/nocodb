@@ -204,45 +204,6 @@ function openTableCreateMagicDialog(sourceId?: string) {
 
           <a-menu-divider class="my-0" />
 
-          <!-- <a-menu-item-group title="Connect to new datasource" class="!px-0 !mx-0">
-            <a-menu-item key="connect-new-source" @click="toggleDialog(true, 'dataSources', ClientType.MYSQL, base.id)">
-              <div class="color-transition nc-base-menu-item group">
-                <LogosMysqlIcon class="group-hover:text-accent" />
-                MySQL
-              </div>
-            </a-menu-item>
-            <a-menu-item key="connect-new-source" @click="toggleDialog(true, 'dataSources', ClientType.PG, base.id)">
-              <div class="color-transition nc-base-menu-item group">
-                <LogosPostgresql class="group-hover:text-accent" />
-                Postgres
-              </div>
-            </a-menu-item>
-            <a-menu-item key="connect-new-source" @click="toggleDialog(true, 'dataSources', ClientType.SQLITE, base.id)">
-              <div class="color-transition nc-base-menu-item group">
-                <VscodeIconsFileTypeSqlite class="group-hover:text-accent" />
-                SQLite
-              </div>
-            </a-menu-item>
-            <a-menu-item key="connect-new-source" @click="toggleDialog(true, 'dataSources', ClientType.MSSQL, base.id)">
-              <div class="color-transition nc-base-menu-item group">
-                <SimpleIconsMicrosoftsqlserver class="group-hover:text-accent" />
-                MSSQL
-              </div>
-            </a-menu-item>
-            <a-menu-item
-              v-if="appInfo.ee"
-              key="connect-new-source"
-              @click="toggleDialog(true, 'dataSources', ClientType.SNOWFLAKE, base.id)"
-            >
-              <div class="color-transition nc-base-menu-item group">
-                <LogosSnowflakeIcon class="group-hover:text-accent" />
-                Snowflake
-              </div>
-            </a-menu-item>
-          </a-menu-item-group>
-
-          <a-menu-divider class="my-0" /> -->
-
           <a-menu-item v-if="isUIAllowed('importRequest', { roles: baseRole })" key="add-new-table" class="py-1 rounded-b">
             <a
               v-e="['e:datasource:import-request']"

@@ -49,7 +49,7 @@ const isKanban = inject(IsKanbanInj, ref(false))
 
 const readOnly = computed(() => props.readonly)
 
-const { isMysql, isMssql, isDatabricks, isXcdbBase } = useBase()
+const { isXcdbBase } = useBase()
 
 const reloadDataTrigger = inject(ReloadViewDataHookInj)
 
@@ -365,20 +365,11 @@ if (props.fromTableExplorer) {
           <LazySmartsheetColumnDefaultValue
             v-else-if="
           !isVirtualCol(formState) &&
-          !isAttachment(formState) &&
-          !isMssql(meta!.source_id) &&
-          !(isMysql(meta!.source_id) && (isJSON(formState) || isTextArea(formState))) &&
-          !(isDatabricks(meta!.source_id) && formState.unique)
+          !isAttachment(formState)
           "
             v-model:value="formState"
           />
 
-          <div
-            v-if="isDatabricks(meta!.source_id) && !formState.cdf && ![UITypes.MultiSelect, UITypes.Checkbox, UITypes.Rating, UITypes.Attachment, UITypes.Lookup, UITypes.Rollup, UITypes.Formula, UITypes.Barcode, UITypes.QrCode, UITypes.CreatedTime, UITypes.LastModifiedTime, UITypes.CreatedBy, UITypes.LastModifiedBy].includes(formState.uidt)"
-            class="mt-3"
-          >
-            <a-checkbox v-model:checked="formState.unique"> Set as Unique </a-checkbox>
-          </div>
         </div>
 
         <div

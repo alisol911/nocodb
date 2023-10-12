@@ -694,7 +694,7 @@
                               "is_meta": true,
                               "order": 1,
                               "base_id": "string",
-                              "type": "mysql2",
+                              "type": "pg",
                               "updated_at": "2023-03-01 14:27:36"
                             }
                           ],
@@ -791,7 +791,7 @@
                         "is_meta": true,
                         "order": 1,
                         "base_id": "string",
-                        "type": "mysql2",
+                        "type": "pg",
                         "updated_at": "2023-03-01 14:27:36"
                       }
                     ],
@@ -1066,7 +1066,7 @@
                           "is_meta": true,
                           "order": 1,
                           "base_id": "string",
-                          "type": "mysql2",
+                          "type": "pg",
                           "updated_at": "2023-03-01 14:27:36"
                         }
                       ],
@@ -1269,7 +1269,7 @@
                       "meta": null,
                       "order": 1,
                       "base_id": "p_01clqvzik3izk6",
-                      "type": "mysql2"
+                      "type": "pg"
                     }
                   }
                 }
@@ -1334,7 +1334,7 @@
                       "alias": "sakila",
                       "meta": null,
                       "is_meta": null,
-                      "type": "mysql2",
+                      "type": "pg",
                       "inflection_column": "camelize",
                       "inflection_table": "camelize",
                       "created_at": "2023-03-11T10:31:15.341Z",
@@ -1364,9 +1364,9 @@
                 "Example 1": {
                   "value": {
                     "alias": "sakila",
-                    "type": "mysql2",
+                    "type": "pg",
                     "config": {
-                      "client": "mysql2",
+                      "client": "pg",
                       "connection": {
                         "host": "localhost",
                         "port": "3306",
@@ -1497,7 +1497,7 @@
                           "meta": null,
                           "order": 1,
                           "base_id": "p_01clqvzik3izk6",
-                          "type": "mysql2"
+                          "type": "pg"
                         }
                       ],
                       "pageInfo": {
@@ -1568,7 +1568,7 @@
                     "meta": null,
                     "order": 1,
                     "base_id": "p_01clqvzik3izk6",
-                    "type": "mysql2",
+                    "type": "pg",
                     "external": false
                   }
                 }
@@ -9717,7 +9717,7 @@
                 "type": "object",
                 "x-examples": {
                   "Example 1": {
-                    "client": "mysql2",
+                    "client": "pg",
                     "connection": {
                       "host": "localhost",
                       "port": "3306",
@@ -9731,16 +9731,9 @@
                   "client": {
                     "description": "DB Type",
                     "enum": [
-                      "mssql",
-                      "mysql",
-                      "mysql2",
-                      "oracledb",
-                      "pg",
-                      "snowflake",
-                      "sqlite3",
-                      "databricks"
+                      "pg"
                     ],
-                    "example": "mysql2",
+                    "example": "pg",
                     "type": "string"
                   },
                   "connection": {
@@ -9768,7 +9761,7 @@
               "examples": {
                 "Example 1": {
                   "value": {
-                    "client": "mysql2",
+                    "client": "pg",
                     "connection": {
                       "host": "localhost",
                       "port": "3306",
@@ -11933,7 +11926,7 @@
             "meta": null,
             "order": 1,
             "base_id": "p_01clqvzik3izk6",
-            "type": "mysql2"
+            "type": "pg"
           }
         ],
         "title": "Source Model",
@@ -11984,16 +11977,9 @@
           "type": {
             "description": "DB Type",
             "enum": [
-              "mssql",
-              "mysql",
-              "mysql2",
-              "oracledb",
-              "pg",
-              "snowflake",
-              "sqlite3",
-              "databricks"
+              "pg"
             ],
-            "example": "mysql2",
+            "example": "pg",
             "type": "string"
           }
         },
@@ -12017,7 +12003,7 @@
                 "meta": null,
                 "order": 1,
                 "base_id": "p_01clqvzik3izk6",
-                "type": "mysql2"
+                "type": "pg"
               }
             ],
             "pageInfo": {
@@ -12047,7 +12033,7 @@
                   "meta": null,
                   "order": 2,
                   "base_id": "p_01clqvzik3izk6",
-                  "type": "mysql2",
+                  "type": "pg",
                   "updated_at": "2023-03-02 11:28:17"
                 },
                 {
@@ -12062,7 +12048,7 @@
                   "meta": null,
                   "order": 1,
                   "base_id": "p_01clqvzik3izk6",
-                  "type": "mysql2",
+                  "type": "pg",
                   "updated_at": "2023-03-02 11:28:17"
                 }
               ],
@@ -12115,7 +12101,7 @@
             "inflection_column": "camelize",
             "inflection_table": "camelize",
             "is_meta": true,
-            "type": "mysql"
+            "type": "pg"
           }
         ],
         "properties": {
@@ -12149,14 +12135,7 @@
           "type": {
             "description": "DB Type",
             "enum": [
-              "mssql",
-              "mysql",
-              "mysql2",
-              "oracledb",
-              "pg",
-              "snowflake",
-              "sqlite3",
-              "databricks"
+              "pg"
             ],
             "type": "string"
           }
@@ -16104,7 +16083,7 @@
                 "is_meta": true,
                 "order": 1,
                 "base_id": "string",
-                "type": "mysql2",
+                "type": "pg",
                 "updated_at": "2023-03-01 14:27:36"
               }
             ],
@@ -16212,7 +16191,7 @@
                     "is_meta": true,
                     "order": 1,
                     "base_id": "string",
-                    "type": "mysql2",
+                    "type": "pg",
                     "updated_at": "2023-03-01 14:27:36"
                   }
                 ],
@@ -16304,7 +16283,7 @@
                 "inflection_column": "camelize",
                 "inflection_table": "camelize",
                 "is_meta": true,
-                "type": "mysql"
+                "type": "pg"
               }
             ],
             "color": "#24716E",
@@ -19063,7 +19042,7 @@
                           "is_meta": true,
                           "order": 1,
                           "base_id": "string",
-                          "type": "mysql2",
+                          "type": "pg",
                           "updated_at": "2023-03-01 14:27:36"
                         }
                       ],
@@ -19112,7 +19091,7 @@
                       "config": "<ENCRYPTED>",
                       "meta": null,
                       "is_meta": 1,
-                      "type": "mysql2",
+                      "type": "pg",
                       "inflection_column": "camelize",
                       "inflection_table": "camelize",
                       "created_at": "2023-03-01 16:31:49",
@@ -19127,7 +19106,7 @@
                       "config": "<ENCRYPTED>",
                       "meta": null,
                       "is_meta": null,
-                      "type": "mysql2",
+                      "type": "pg",
                       "inflection_column": "camelize",
                       "inflection_table": "camelize",
                       "created_at": "2023-03-02 11:28:17",

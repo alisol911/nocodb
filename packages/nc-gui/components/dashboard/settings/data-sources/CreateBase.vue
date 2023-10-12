@@ -6,7 +6,6 @@ import {
   ClientType,
   type DefaultConnection,
   type ProjectCreateForm,
-  type SQLiteConnection,
   SSLUsage,
   clientTypes as _clientTypes,
 } from '#imports'
@@ -17,7 +16,7 @@ const emit = defineEmits(['update:open', 'sourceCreated'])
 
 const vOpen = useVModel(props, 'open', emit)
 
-const connectionType = computed(() => props.connectionType ?? ClientType.MYSQL)
+const connectionType = computed(() => props.connectionType ?? ClientType.PG)
 
 const baseStore = useBase()
 const { loadProject } = useBases()
@@ -48,7 +47,7 @@ const creatingSource = ref(false)
 
 const formState = ref<ProjectCreateForm>({
   title: '',
-  dataSource: { ...getDefaultConnectionConfig(ClientType.MYSQL) },
+  dataSource: { ...getDefaultConnectionConfig(ClientType.PG) },
   inflection: {
     inflectionColumn: 'none',
     inflectionTable: 'none',
@@ -59,7 +58,7 @@ const formState = ref<ProjectCreateForm>({
 
 const customFormState = ref<ProjectCreateForm>({
   title: '',
-  dataSource: { ...getDefaultConnectionConfig(ClientType.MYSQL) },
+  dataSource: { ...getDefaultConnectionConfig(ClientType.PG) },
   inflection: {
     inflectionColumn: 'none',
     inflectionTable: 'none',
@@ -69,9 +68,7 @@ const customFormState = ref<ProjectCreateForm>({
 })
 
 const clientTypes = computed(() => {
-  return _clientTypes.filter((type) => {
-    return ![ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(type.value)
-  })
+  return _clientTypes;
 })
 
 const validators = computed(() => {
@@ -83,27 +80,7 @@ const validators = computed(() => {
     'dataSource.connection.database': [fieldRequiredValidator()],
   }
 
-  switch (formState.value.dataSource.client) {
-    case ClientType.SQLITE:
-      clientValidations = {
-        'dataSource.connection.connection.filename': [fieldRequiredValidator()],
-      }
-      break
-    case ClientType.SNOWFLAKE:
-      clientValidations = {
-        'dataSource.connection.account': [fieldRequiredValidator()],
-        'dataSource.connection.username': [fieldRequiredValidator()],
-        'dataSource.connection.password': [fieldRequiredValidator()],
-        'dataSource.connection.warehouse': [fieldRequiredValidator()],
-        'dataSource.connection.database': [fieldRequiredValidator()],
-        'dataSource.connection.schema': [fieldRequiredValidator()],
-      }
-      break
-    case ClientType.PG:
-    case ClientType.MSSQL:
-      clientValidations['dataSource.searchPath.0'] = [fieldRequiredValidator()]
-      break
-  }
+  clientValidations['dataSource.searchPath.0'] = [fieldRequiredValidator()]
 
   return {
     'title': [
@@ -131,38 +108,34 @@ const onClientChange = () => {
 }
 
 const onSSLModeChange = ((mode: SSLUsage) => {
-  if (formState.value.dataSource.client !== ClientType.SQLITE) {
-    const connection = formState.value.dataSource.connection as DefaultConnection
-    switch (mode) {
-      case SSLUsage.No:
-        delete connection.ssl
-        break
-      case SSLUsage.Allowed:
-        connection.ssl = 'true'
-        break
-      default:
-        connection.ssl = {
-          ca: '',
-          cert: '',
-          key: '',
-        }
-        break
-    }
+  const connection = formState.value.dataSource.connection as DefaultConnection
+  switch (mode) {
+    case SSLUsage.No:
+      delete connection.ssl
+      break
+    case SSLUsage.Allowed:
+      connection.ssl = 'true'
+      break
+    default:
+      connection.ssl = {
+        ca: '',
+        cert: '',
+        key: '',
+      }
+      break
   }
 }) as SelectHandler
 
 const updateSSLUse = () => {
-  if (formState.value.dataSource.client !== ClientType.SQLITE) {
-    const connection = formState.value.dataSource.connection as DefaultConnection
-    if (connection.ssl) {
-      if (typeof connection.ssl === 'string') {
-        formState.value.sslUse = SSLUsage.Allowed
-      } else {
-        formState.value.sslUse = SSLUsage.Preferred
-      }
+  const connection = formState.value.dataSource.connection as DefaultConnection
+  if (connection.ssl) {
+    if (typeof connection.ssl === 'string') {
+      formState.value.sslUse = SSLUsage.Allowed
     } else {
-      formState.value.sslUse = SSLUsage.No
+      formState.value.sslUse = SSLUsage.Preferred
     }
+  } else {
+    formState.value.sslUse = SSLUsage.No
   }
 }
 
@@ -299,27 +272,23 @@ const testConnection = async () => {
   try {
     testingConnection.value = true
 
-    if (formState.value.dataSource.client === ClientType.SQLITE) {
+    const connection = getConnectionConfig()
+
+    connection.database = getTestDatabaseName(formState.value.dataSource)!
+
+    const testConnectionConfig = {
+      ...formState.value.dataSource,
+      connection,
+    }
+
+    const result = await api.utils.testConnection(testConnectionConfig)
+
+    if (result.code === 0) {
       testSuccess.value = true
     } else {
-      const connection = getConnectionConfig()
+      testSuccess.value = false
 
-      connection.database = getTestDatabaseName(formState.value.dataSource)!
-
-      const testConnectionConfig = {
-        ...formState.value.dataSource,
-        connection,
-      }
-
-      const result = await api.utils.testConnection(testConnectionConfig)
-
-      if (result.code === 0) {
-        testSuccess.value = true
-      } else {
-        testSuccess.value = false
-
-        message.error(`${t('msg.error.dbConnectionFailed')} ${result.message}`)
-      }
+      message.error(`${t('msg.error.dbConnectionFailed')} ${result.message}`)
     }
   } catch (e: any) {
     testSuccess.value = false
@@ -451,16 +420,7 @@ const toggleModal = (val: boolean) => {
               </a-select>
             </a-form-item>
 
-            <!-- SQLite File -->
-            <a-form-item
-              v-if="formState.dataSource.client === ClientType.SQLITE"
-              :label="$t('labels.sqliteFile')"
-              v-bind="validateInfos['dataSource.connection.connection.filename']"
-            >
-              <a-input v-model:value="(formState.dataSource.connection as SQLiteConnection).connection.filename" />
-            </a-form-item>
-
-            <template v-else>
+            <template v-if="true">
               <!-- Host Address -->
               <a-form-item :label="$t('labels.hostAddress')" v-bind="validateInfos['dataSource.connection.host']">
                 <a-input
@@ -502,7 +462,7 @@ const toggleModal = (val: boolean) => {
 
               <!-- Schema name -->
               <a-form-item
-                v-if="[ClientType.MSSQL, ClientType.PG].includes(formState.dataSource.client) && formState.dataSource.searchPath"
+                v-if="[ClientType.PG].includes(formState.dataSource.client) && formState.dataSource.searchPath"
                 :label="$t('labels.schemaName')"
                 v-bind="validateInfos['dataSource.searchPath.0']"
               >
