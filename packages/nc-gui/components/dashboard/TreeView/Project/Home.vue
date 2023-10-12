@@ -66,7 +66,7 @@ const baseViewOpen = computed(() => {
 })
 
 const showBaseOption = (source: SourceType) => {
-  return ['airtableImport', 'csvImport', 'jsonImport', 'excelImport'].some((permission) => isUIAllowed(permission, { source }))
+  return ['csvImport', 'jsonImport', 'excelImport'].some((permission) => isUIAllowed(permission, { source }))
 }
 
 const enableEditModeForSource = (sourceId: string) => {

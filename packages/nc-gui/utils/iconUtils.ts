@@ -20,7 +20,6 @@ import MdiTableLarge from '~icons/mdi/table-large'
 import MdiEyeCircleOutline from '~icons/mdi/eye-circle-outline'
 import MsGroup from '~icons/material-symbols/groups-outline-rounded'
 import MsAddBoxOutline from '~icons/nc-icons/add-box'
-import LogosAirtable from '~icons/logos/airtable'
 import MsSort from '~icons/material-symbols/sort'
 import MaterialSymbolsEdit from '~icons/material-symbols/edit-outline-rounded'
 import MaterialSymbolsWarningOutlineRounded from '~icons/material-symbols/warning-outline-rounded'
@@ -617,7 +616,6 @@ import NcFileTypeJson from '~icons/nc-icons-v2/file-type-json'
 
 /* imports */
 
-import NcImportAirtable from '~icons/nc-icons-v2/import-airtable'
 import NcImportCsv from '~icons/nc-icons-v2/import-csv'
 import NcImportJson from '~icons/nc-icons-v2/import-json'
 import NcImportExcel from '~icons/nc-icons-v2/import-excel'
@@ -881,7 +879,6 @@ import NcChatwoot from '~icons/nc-icons-v2/chatwoot'
   share: PhShareThin,
   reload: PhReloadThin,
   xml: PhCodeThin,
-  airtable: PhGridNineThin,
   grid: PhGridThin,
   gallery: PhImageThin,
   form: PhComputerTowerThin,
@@ -1136,7 +1133,6 @@ export const iconMap = {
   'mobileShare': MobileShare,
   'reload': MdiRefresh,
   'xml': h('span', { class: 'material-symbols' }, 'code'),
-  'airtable': LogosAirtable,
   'excelColored': VscodeIconsExcelColored,
   // grid: h('span', { class: 'material-symbols' }, 'grid_view'),
   // gallery: h('span', { class: 'material-symbols' }, 'image'),
@@ -1590,7 +1586,6 @@ export const iconMap = {
   'ncErd': h(NcErd, { stroke: 'transparent' }),
   'ncPenLine': h(NcPenLine, { stroke: 'transparent' }),
   'ncNode': h(NcNode, { stroke: 'transparent' }),
-  'importAirtable': h(NcImportAirtable, { stroke: 'transparent' }),
   'importCsv': h(NcImportCsv, { stroke: 'transparent' }),
   'importJson': h(NcImportJson, { stroke: 'transparent' }),
   'importExcel': h(NcImportExcel, { stroke: 'transparent' }),

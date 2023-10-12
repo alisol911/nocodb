@@ -114,8 +114,6 @@ enum AuditV1OperationTypes {
   TABLE_RENAME = 'TABLE_RENAME',
   VIEW_COLUMN_UPDATE = 'VIEW_FIELD_UPDATE',
   UI_ACL = 'UI_ACL',
-  AIRTABLE_IMPORT = 'AIRTABLE_IMPORT',
-  AIRTABLE_IMPORT_ERROR = 'AIRTABLE_IMPORT_ERROR',
 
   INTEGRATION_CREATE = 'INTEGRATION_CREATE',
   INTEGRATION_UPDATE = 'INTEGRATION_UPDATE',
@@ -184,7 +182,7 @@ export const auditV1OperationsCategory: Record<
     label: 'general.data',
     value: 'DATA',
     types: Object.values(AuditV1OperationTypes).filter(
-      (key) => key.startsWith('DATA_') || key.startsWith('AIRTABLE_')
+      (key) => key.startsWith('DATA_')
     ),
   },
   FIELD: {
@@ -854,15 +852,6 @@ export interface SourceDeletePayload {
   source_integration_title: string;
   is_data_readonly: boolean;
   is_schema_readonly: boolean;
-}
-
-export interface AirtableImportPayload {
-  airtable_sync_id: string;
-}
-
-export interface AirtableImportFailPayload {
-  airtable_sync_id: string;
-  error: string;
 }
 
 // Integration
