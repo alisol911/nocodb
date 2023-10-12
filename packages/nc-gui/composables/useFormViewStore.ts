@@ -18,8 +18,6 @@ const [useProvideFormViewStore, useFormViewStore] = useInjectionState(
 
     const { t } = useI18n()
 
-    const { isMysql } = useBase()
-
     const { getMeta } = useMetas()
 
     const formResetHook = createEventHook<void>()
@@ -46,7 +44,6 @@ const [useProvideFormViewStore, useFormViewStore] = useInjectionState(
         formViewColumns: localColumns.value,
         formViewColumnsMapByFkColumnId: localColumnsMapByFkColumnId.value,
         formState: formState.value,
-        isMysql,
         getMeta,
       })
     })

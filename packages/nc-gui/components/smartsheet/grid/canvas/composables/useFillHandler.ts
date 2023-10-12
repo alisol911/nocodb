@@ -48,7 +48,6 @@ export function useFillHandler({
   }
   getRows: (start: number, end: number, path?: Array<number>) => Promise<Row[]>
 }) {
-  const { isMysql, isPg } = useBase()
 
   const { $api } = useNuxtApp()
 
@@ -218,7 +217,6 @@ export function useFillHandler({
                 isColInfoShown[cpCol.title!] = true
               },
             },
-            isMysql(meta.value?.source_id),
             true,
           )
           rowObj.row[cpCol.title] = pasteValue
@@ -299,8 +297,6 @@ export function useFillHandler({
             cprows,
             cpcols,
             {
-              isPg,
-              isMysql,
               meta: unref(meta),
             },
             {
@@ -428,7 +424,6 @@ export function useFillHandler({
                         isColInfoShown[colObj.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
                     true,
                   )
                 } catch (ex) {

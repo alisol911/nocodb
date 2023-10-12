@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import type { ColumnType, OracleUi, TableType } from 'nocodb-sdk'
+import type { ColumnType, TableType } from 'nocodb-sdk'
 import {
   PermissionEntity,
   PermissionKey,
@@ -94,8 +94,6 @@ const { bases } = storeToRefs(basesStore)
 
 const baseStore = useBase()
 
-const { isMysql, isPg } = baseStore
-
 const { base: activeBase } = storeToRefs(baseStore)
 
 const base = computed(() => bases.value.get(baseId) || activeBase.value)
@@ -110,8 +108,7 @@ const sqlUis = computed(() => {
   for (const source of base.value.sources ?? []) {
     if (source.id) {
       temp[source.id] = SqlUiFactory.create({ client: source.type }) as Exclude<
-        ReturnType<(typeof SqlUiFactory)['create']>,
-        typeof OracleUi
+        ReturnType<(typeof SqlUiFactory)['create']>
       >
     }
   }
@@ -177,11 +174,7 @@ const validators = computed(() =>
         validator: (rule: any, value: any) => {
           return new Promise<void>((resolve, reject) => {
             let tableNameLengthLimit = 255
-            if (isMysql(sourceId)) {
-              tableNameLengthLimit = 64
-            } else if (isPg(sourceId)) {
-              tableNameLengthLimit = 63
-            }
+            tableNameLengthLimit = 63
 
             const basePrefix = base?.value?.prefix || ''
             if ((basePrefix + value).length > tableNameLengthLimit) {

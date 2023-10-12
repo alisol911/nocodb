@@ -42,8 +42,6 @@ const customSourceId = computed(() => {
 
 const workspaceStore = useWorkspace()
 
-const { isMysql, isPg, isSnowflake } = useBase()
-
 const { loadProjectTables, addTable } = useTablesStore()
 
 const { refreshCommandPalette } = useCommandPalette()
@@ -308,12 +306,7 @@ const validators = computed(() => {
       {
         validator: (rule: any, value: any) => {
           return new Promise<void>((resolve, reject) => {
-            let tableNameLengthLimit = 255
-            if (isMysql(customSourceId.value)) {
-              tableNameLengthLimit = 64
-            } else if (isPg(customSourceId.value)) {
-              tableNameLengthLimit = 63
-            }
+            let tableNameLengthLimit = 63
             const basePrefix = base?.value?.prefix || ''
             if ((basePrefix + value).length > tableNameLengthLimit) {
               return reject(new Error(`Table name exceeds ${tableNameLengthLimit} characters`))
@@ -705,7 +698,7 @@ const handleRefreshOnError = () => {
           <a-form-item
             v-if="enableDescription && !aiMode"
             v-bind="validateInfos.description"
-            :class="{ '!mb-1': isSnowflake(customSourceId), '!mb-0': !isSnowflake(customSourceId) }"
+            :class="{ '!mb-0': true }"
           >
             <div class="flex gap-3 text-gray-800 h-7 mb-1 items-center justify-between">
               <span>
@@ -725,10 +718,6 @@ const handleRefreshOnError = () => {
               :placeholder="$t('msg.info.enterTableDescription')"
             />
           </a-form-item>
-
-          <template v-if="isSnowflake(customSourceId)">
-            <a-checkbox v-model:checked="table.is_hybrid" class="!flex flex-row items-center"> Hybrid Table </a-checkbox>
-          </template>
         </div>
         <div v-if="isAdvanceOptVisible && !aiMode" class="nc-table-advanced-options" :class="{ active: isAdvanceOptVisible }">
           <div>

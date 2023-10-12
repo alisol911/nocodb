@@ -150,21 +150,18 @@ export const parseTimeValue = (
   // e.g. "2023-05-12T08:03:53.000Z" -> 2023-05-12T08:03:53.000Z
   value = value.replace(/["']/g, '');
 
-  const isMySQL = params.isMysql?.(params.col.source_id);
-  const isPostgres = params.isPg?.(params.col.source_id);
-
   let d = dayjs(value);
 
   if (!d.isValid()) {
     // insert a datetime value, copy the value without refreshing
     // e.g. value = 2023-05-12T03:49:25.000Z
     // feed custom parse format
-    d = dayjs(value, isMySQL ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ');
+    d = dayjs(value, 'YYYY-MM-DD HH:mm:ssZ');
   }
 
   if (!d.isValid()) {
-    // MySQL and Postgres store time in HH:mm:ss format so we need to feed custom parse format
-    d = isMySQL || isPostgres ? dayjs(value, 'HH:mm:ss') : dayjs(value);
+    // Postgres store time in HH:mm:ss format so we need to feed custom parse format
+    d = dayjs(value, 'HH:mm:ss');
   }
 
   if (!d.isValid()) {

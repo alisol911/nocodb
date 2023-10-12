@@ -68,8 +68,7 @@ export function validateRowFilters(params: {
           filter.comparison_op!
         )
       ) {
-        const dateFormat =
-          client === 'mysql2' ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ';
+        const dateFormat = 'YYYY-MM-DD HH:mm:ssZ';
 
         let now = dayjs(new Date());
         const dateFormatFromMeta = parseProp(column.meta)?.date_format;

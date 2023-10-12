@@ -15,14 +15,7 @@ import { dateFormats } from './dateTimeHelper';
 
 type SqlUI = ReturnType<(typeof SqlUiFactory)['create']>;
 type ClientTypeOrSqlUI =
-  | 'mysql'
   | 'pg'
-  | 'sqlite3'
-  | 'mysql2'
-  | 'oracledb'
-  | 'mariadb'
-  | 'sqlite'
-  | 'snowflake'
   | SqlUI;
 
 export const StringOperators = ['||', '&'] as const;
@@ -1656,7 +1649,7 @@ async function extractColumnIdentifierType({
   } = {};
   const sqlUI =
     typeof clientOrSqlUi === 'string'
-      ? SqlUiFactory.create({ client: clientOrSqlUi })
+      ? SqlUiFactory.create()
       : clientOrSqlUi;
 
   switch (col?.uidt) {
@@ -1811,7 +1804,7 @@ export async function validateFormulaAndExtractTreeWithType({
 }): Promise<ParsedFormulaNode> {
   const sqlUI =
     typeof clientOrSqlUi === 'string'
-      ? SqlUiFactory.create({ client: clientOrSqlUi })
+      ? SqlUiFactory.create()
       : clientOrSqlUi;
 
   const colAliasToColMap = {};

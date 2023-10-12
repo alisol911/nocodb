@@ -238,8 +238,6 @@ export function useCanvasTable({
 
   const baseStore = useBase()
 
-  const { isMysql, isPg } = baseStore
-
   const { sqlUis } = storeToRefs(baseStore)
 
   const { basesUser } = storeToRefs(useBases())
@@ -381,9 +379,7 @@ export function useCanvasTable({
         const aggregation = getFormattedAggrationValue(gridViewCol.aggregation, aggregations.value[f.title!], f, [], {
           col: f,
           meta: meta.value as TableType,
-          metas: metas.value,
-          isMysql,
-          isPg,
+          metas: metas.value
         })
 
         return {

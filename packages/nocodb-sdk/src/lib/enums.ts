@@ -381,12 +381,7 @@ export enum SourceRestriction {
 }
 
 export enum ClientType {
-  MYSQL = 'mysql2',
   PG = 'pg',
-  SQLITE = 'sqlite3',
-  VITESS = 'vitess',
-  SNOWFLAKE = 'snowflake',
-  DATABRICKS = 'databricks',
 }
 
 export enum SSLUsage {
@@ -403,7 +398,6 @@ export enum SyncDataType {
   NOCODB = 'nocodb',
   MICROSOFT_ACCESS = 'microsoft-access',
   TABLEAU = 'tableau',
-  ORACLE = 'oracle',
   // AI
   OPENAI = 'openai',
   CLAUDE = 'claude',

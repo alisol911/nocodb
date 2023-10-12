@@ -48,7 +48,6 @@ export const FormulaCellRenderer: CellRenderer = {
       x,
       y,
       padding,
-      isPg,
       value,
       width,
       pv,
@@ -85,7 +84,7 @@ export const FormulaCellRenderer: CellRenderer = {
       return
     }
 
-    const result = isPg(column.source_id) ? renderValue(handleTZ(value)) : renderValue(value)
+    const result = renderValue(handleTZ(value))
 
     // If the resultant type is Numeric, render as a Numeric Field
     if (column?.colOptions?.parsed_tree?.dataType === FormulaDataTypes.NUMERIC) {
@@ -165,7 +164,6 @@ export const FormulaCellRenderer: CellRenderer = {
     const { x, y, width, height } = getCellPosition(column, props.row.rowMeta.rowIndex!)
 
     const baseStore = useBase()
-    const { isPg } = baseStore
 
     // isUnderLookup is not present in props and also from lookup cell we are not triggering click event so no need to check isUnderLookup
     if (colMeta?.display_type || !error) {
@@ -186,7 +184,7 @@ export const FormulaCellRenderer: CellRenderer = {
       }
     }
 
-    const result = isPg(column.columnObj.source_id) ? renderValue(handleTZ(props.value)) : renderValue(props.value)
+    const result = renderValue(handleTZ(props.value))
 
     if (column.columnObj?.colOptions?.parsed_tree?.dataType === FormulaDataTypes.STRING) {
       const urls = replaceUrlsWithLink(result)

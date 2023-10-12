@@ -180,9 +180,7 @@ useResizeObserver(inputWrapperRef, () => {
   )
 })
 
-const { isPg } = useBase()
-
-const result = isPg(column.value?.source_id) ? renderValue(handleTZ(modelValue.value)) : renderValue(modelValue.value)
+const result = renderValue(handleTZ(modelValue.value))
 const urls = replaceUrlsWithLink(result)
 </script>
 

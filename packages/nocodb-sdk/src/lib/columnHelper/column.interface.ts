@@ -76,9 +76,7 @@ export interface SerializerOrParserFnProps {
     meta?: TableType;
     metas?: { [idOrTitle: string]: TableType };
     baseUsers?: Map<string, UserType[]>;
-    isMysql?: (sourceId: string) => boolean;
     isXcdbBase?: (sourceId: string) => boolean;
-    isPg?: (sourceId: string) => boolean;
     isUnderLookup?: boolean;
     rowId?: string | null;
     isMultipleCellPaste?: boolean;

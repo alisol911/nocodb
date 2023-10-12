@@ -54,7 +54,7 @@ export interface Base {
     id: string;
     /** Title of the data source. */
     title: string;
-    /** Type of the data source (e.g., pg, mysql). */
+    /** Type of the data source (e.g., pg). */
     type: string;
     /** Indicates if the schema in this data source is read-only. */
     is_schema_readonly: boolean;

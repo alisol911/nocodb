@@ -28,10 +28,6 @@ const activeIntegrationType = computed(() => {
   switch (activeIntegrationSubType.value) {
     case integrationType.PostgreSQL:
       return IntegrationCategoryType.DATABASE
-    case integrationType.MySQL:
-      return IntegrationCategoryType.DATABASE
-    case integrationType.SQLITE:
-      return IntegrationCategoryType.DATABASE
     default: {
       return activeIntegrationItem.value?.type
     }

@@ -15,8 +15,6 @@ export interface ValidSearchQueryForColumnReturnType {
 export function useFieldQuery() {
   const baseStore = useBase()
 
-  const { isMysql, isPg } = baseStore
-
   const { sqlUis } = storeToRefs(baseStore)
 
   const { metas } = useMetas()
@@ -71,8 +69,6 @@ export function useFieldQuery() {
        */
       searchQuery = ColumnHelper.serializeValue(searchQuery, {
         col,
-        isMysql,
-        isPg,
         meta: tableMeta,
         metas: metas.value,
         serializeSearchQuery: true,

@@ -3,9 +3,6 @@ import type { VNodeRef } from '@vue/runtime-core'
 import { roundUpToPrecision } from 'nocodb-sdk'
 
 interface Props {
-  // when we set a number, then it is number type
-  // for sqlite, when we clear a cell or empty the cell, it returns ""
-  // otherwise, it is null type
   modelValue?: number | null | string
   placeholder?: string
 }
@@ -53,8 +50,6 @@ const vModel = computed({
   get: () => _vModel.value,
   set: (value) => {
     if (value === '') {
-      // if we clear / empty a cell in sqlite,
-      // the value is considered as ''
       _vModel.value = null
     } else {
       _vModel.value = value

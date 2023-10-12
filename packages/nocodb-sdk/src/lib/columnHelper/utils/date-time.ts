@@ -55,15 +55,13 @@ export const parseDateTimeValue = (
     return;
   }
 
-  const isMySQL = params.isMysql?.(params.col.source_id);
-
   let d = dayjs(value);
 
   if (!d.isValid()) {
     // insert a datetime value, copy the value without refreshing
     // e.g. value = 2023-05-12T03:49:25.000Z
     // feed custom parse format
-    d = dayjs(value, isMySQL ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ');
+    d = dayjs(value, 'YYYY-MM-DD HH:mm:ssZ');
   }
 
   // users can change the datetime format in UI

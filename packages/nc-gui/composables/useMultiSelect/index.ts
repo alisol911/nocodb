@@ -1,3 +1,4 @@
+
 import type { MaybeRef } from '@vueuse/core'
 import type { AttachmentType, ColumnType, LinkToAnotherRecordType, PaginatedType, TableType, ViewType } from 'nocodb-sdk'
 import { ColumnHelper, UITypes, isSystemColumn, isVirtualCol, populateUniqueFileName } from 'nocodb-sdk'
@@ -83,8 +84,6 @@ export function useMultiSelect(
   const { getMeta, metas } = useMetas()
 
   const { appInfo } = useGlobal()
-
-  const { isMysql, isPg } = useBase()
 
   const { base } = storeToRefs(useBase())
 
@@ -173,8 +172,6 @@ export function useMultiSelect(
     }
     return ColumnHelper.parseValue(textToCopy, {
       col: columnObj,
-      isMysql,
-      isPg,
       meta: meta.value,
       metas: metas.value,
       rowId: isMm(columnObj) ? extractPkFromRow(rowObj.row, meta.value?.columns as ColumnType[]) : null,
@@ -501,7 +498,6 @@ export function useMultiSelect(
                 isColInfoShown[cpCol.title!] = true
               },
             },
-            isMysql(meta.value?.source_id),
             true,
           )
           rowObj.row[cpCol.title] = pasteValue
@@ -646,7 +642,6 @@ export function useMultiSelect(
                         isColInfoShown[colObj.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
                     true,
                   )
                 } catch (ex) {
@@ -1264,7 +1259,6 @@ export function useMultiSelect(
                       isColInfoShown[column.title!] = true
                     },
                   },
-                  isMysql(meta.value?.source_id),
                   true,
                 )
                 validateColumnValue(column, pasteValue)
@@ -1324,7 +1318,6 @@ export function useMultiSelect(
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -1360,7 +1353,7 @@ export function useMultiSelect(
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
+              false,
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -1641,7 +1634,6 @@ export function useMultiSelect(
                 maxAttachmentsAllowedInCell: maxAttachmentsAllowedInCell.value,
                 showUpgradeToAddMoreAttachmentsInCell,
               },
-              isMysql(meta.value?.source_id),
             )
             validateColumnValue(columnObj, pasteValue)
           } catch (ex) {
@@ -1735,7 +1727,6 @@ export function useMultiSelect(
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
                     true,
                   )
 
@@ -1761,7 +1752,6 @@ export function useMultiSelect(
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
                     true,
                   )
                   validateColumnValue(col, pasteValue)

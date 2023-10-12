@@ -410,9 +410,7 @@ interface CellRendererOptions {
   actionManager: ActionManager
   tableMetaLoader: TableMetaLoader
   baseRoleLoader: BaseRoleLoader
-  isMysql: (sourceId?: string) => boolean
   isXcdbBase: (sourceId?: string) => boolean
-  isPg: (sourceId?: string) => boolean
   t: Composer['t']
   padding: number
   renderCell: (ctx: CanvasRenderingContext2D, column: any, options: CellRendererOptions) => void
@@ -652,7 +650,6 @@ interface ParsePlainCellValueProps {
     meta: TableType
     metas: { [idOrTitle: string]: TableType | any }
     baseUsers?: Map<string, User[]>
-    isMysql: (sourceId?: string) => boolean
     isXcdbBase: (sourceId?: string) => boolean
     t: Composer['t']
     isUnderLookup?: boolean

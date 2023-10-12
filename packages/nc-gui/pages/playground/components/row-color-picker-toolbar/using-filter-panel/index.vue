@@ -41,8 +41,6 @@ onMounted(async () => {
                 dbClientType:
                 <NcSelect v-model:value="options1.dbClientType">
                   <a-select-option value="PG">PG</a-select-option>
-                  <a-select-option value="MYSQL">mysql</a-select-option>
-                  <a-select-option value="SQLITE">sqlite</a-select-option>
                 </NcSelect>
               </div>
               <div>

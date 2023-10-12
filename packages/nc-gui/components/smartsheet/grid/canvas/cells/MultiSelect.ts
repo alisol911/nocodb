@@ -93,25 +93,11 @@ export const MultiSelectCellRenderer: CellRenderer = {
     }
   },
   getSelectedOptions: (props: Partial<CellRendererOptions>): string[] => {
-    const { column, value, isMysql } = props
+    const { column, value } = props
     if (!column || !value) return []
 
     if (ncIsArray(value)) {
       return value
-    } else if (isMysql?.(column?.source_id)) {
-      const optionsMap = (column.extra as ReturnType<typeof getSingleMultiselectColOptions>)?.optionsMap
-
-      return value
-        .toString()
-        .split(',')
-        .sort((a, b) => {
-          const opa = optionsMap[a?.trim()]
-          const opb = optionsMap[b?.trim()]
-          if (opa && opb) {
-            return opa.order! - opb.order!
-          }
-          return 0
-        })
     } else {
       return value.toString().split(',')
     }

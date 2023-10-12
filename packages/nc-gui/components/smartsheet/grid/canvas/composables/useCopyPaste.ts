@@ -112,7 +112,6 @@ export function useCopyPaste({
   const { $api } = useNuxtApp()
   const { isDataReadOnly } = useRoles()
   const { getMeta, metas } = useMetas()
-  const { isMysql, isPg } = useBase()
   const { appInfo } = useGlobal()
   const { addUndo, clone, defineViewScope } = useUndoRedo()
   const { t } = useI18n()
@@ -389,7 +388,6 @@ export function useCopyPaste({
                       isColInfoShown[column.title!] = true
                     },
                   },
-                  isMysql(meta.value?.source_id),
                   true,
                 )
                 validateColumnValue(column, pasteValue)
@@ -454,7 +452,6 @@ export function useCopyPaste({
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -493,7 +490,6 @@ export function useCopyPaste({
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -649,7 +645,6 @@ export function useCopyPaste({
                 maxAttachmentsAllowedInCell: maxAttachmentsAllowedInCell.value,
                 showUpgradeToAddMoreAttachmentsInCell,
               },
-              isMysql(meta.value?.source_id),
             )
             validateColumnValue(columnObj, pasteValue)
           } catch (ex) {
@@ -733,7 +728,6 @@ export function useCopyPaste({
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
                     true,
                   )
 
@@ -759,7 +753,6 @@ export function useCopyPaste({
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
                     true,
                   )
                   validateColumnValue(col, pasteValue)
@@ -824,8 +817,6 @@ export function useCopyPaste({
   const copyTable = async (rows: Row[], cols: ColumnType[]) => {
     const { html: copyHTML, text: copyPlainText } = serializeRange(rows, cols, {
       meta: meta.value,
-      isPg,
-      isMysql,
     })
 
     const blobHTML = new Blob([copyHTML], { type: 'text/html' })
@@ -1027,8 +1018,6 @@ export function useCopyPaste({
           const textToCopy = valueToCopy(rowObj, columnObj, {
             meta: meta.value,
             metas: metas.value,
-            isPg,
-            isMysql,
           })
 
           await copy(isValidValue(textToCopy) ? textToCopy : '')

@@ -309,8 +309,6 @@ export const useInfiniteGroups = (
                   col,
                   meta: meta.value as TableType,
                   metas: metas.value,
-                  isMysql: baseStore.isMysql,
-                  isPg: baseStore.isPg,
                 }) ?? ''
             })
 
@@ -560,8 +558,6 @@ export const useInfiniteGroups = (
                 col,
                 meta: meta.value as TableType,
                 metas: metas.value,
-                isMysql: baseStore.isMysql,
-                isPg: baseStore.isPg,
               }) ?? ''
           })
 

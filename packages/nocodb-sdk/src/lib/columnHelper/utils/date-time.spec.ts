@@ -41,7 +41,7 @@ describe('parse date', () => {
 describe('parse date-time', () => {
   it('should parse a valid ISO datetime string with quotes', () => {
     const col = { uidt: UITypes.DateTime, meta: {} };
-    const params = { col, isMysql: () => false };
+    const params = { col };
     const value = '"2023-10-27T10:30:00.000Z"';
     const expected = dayjs(value.replace(/["']/g, '')).format(
       'YYYY-MM-DD HH:mm'
@@ -51,25 +51,15 @@ describe('parse date-time', () => {
 
   it('should parse a valid ISO datetime string without quotes', () => {
     const col = { uidt: UITypes.DateTime, meta: {} };
-    const params = { col, isMysql: () => false };
+    const params = { col };
     const value = '2023-10-27T10:30:00.000Z';
     const expected = dayjs(value).format('YYYY-MM-DD HH:mm');
     expect(parseDateTimeValue(value, params as any)).toBe(expected);
   });
 
-  it('should parse a valid datetime string in YYYY-MM-DD HH:mm:ss format with isMysql true', () => {
-    const col = { uidt: UITypes.DateTime, meta: {} };
-    const params = { col, isMysql: () => true };
-    const value = '2023-10-27 10:30:00';
-    const expected = dayjs(value, 'YYYY-MM-DD HH:mm:ss').format(
-      'YYYY-MM-DD HH:mm'
-    );
-    expect(parseDateTimeValue(value, params as any)).toBe(expected);
-  });
-
   it('should parse a valid datetime string in YYYY-MM-DD HH:mm:ssZ format', () => {
     const col = { uidt: UITypes.DateTime, meta: {} };
-    const params = { col, isMysql: () => false };
+    const params = { col };
     const value = '2023-10-27 10:30:00Z';
     const expected = dayjs(value, 'YYYY-MM-DD HH:mm:ssZ').format(
       'YYYY-MM-DD HH:mm'
@@ -79,14 +69,14 @@ describe('parse date-time', () => {
 
   it('should return null for invalid datetime string', () => {
     const col = { uidt: UITypes.DateTime, meta: {} };
-    const params = { col, isMysql: () => false };
+    const params = { col };
     const value = 'invalid-date-string';
     expect(parseDateTimeValue(value, params as any)).toBeNull();
   });
 
   it('should return null for null input', () => {
     const col = { uidt: UITypes.DateTime, meta: {} };
-    const params = { col, isMysql: () => false };
+    const params = { col };
     const value = null;
     expect(parseDateTimeValue(value, params as any)).toBeFalsy();
   });

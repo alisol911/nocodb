@@ -78,8 +78,6 @@ const isFieldInaccessible1 = ref(true)
               dbClientType:
               <NcSelect v-model:value="options1.dbClientType">
                 <a-select-option :value="ClientType.PG"> PG </a-select-option>
-                <a-select-option :value="ClientType.SQLITE"> sqlite </a-select-option>
-                <a-select-option :value="ClientType.MYSQL"> mysql </a-select-option>
               </NcSelect>
             </div>
             <div>Index: <input v-model="options1.index" type="number" class="text-xs p-1 border-gray-200" /><br /></div>

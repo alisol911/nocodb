@@ -145,8 +145,6 @@ const [useProvideCalendarViewStore, useCalendarViewStore] = useInjectionState(
 
     const { api } = useApi()
 
-    const { isMysql } = useBase()
-
     const { base } = storeToRefs(useBase())
 
     const { $api, $e } = useNuxtApp()
@@ -172,9 +170,8 @@ const [useProvideCalendarViewStore, useCalendarViewStore] = useInjectionState(
       where: where?.value ?? '',
     }))
 
-    // In timezone is removed from the date string for mysql for reverse compatibility upto mysql5
     const updateFormat = computed(() => {
-      return isMysql(meta.value?.source_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
+      return 'YYYY-MM-DD HH:mm:ssZ'
     })
 
     // The current view meta properties

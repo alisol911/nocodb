@@ -19,7 +19,6 @@ export default function convertCellData(
     isInfoShown?: boolean
     markInfoShown?: () => void
   },
-  isMysql = false,
   isMultiple = false,
 ) {
   const {
@@ -71,7 +70,6 @@ export default function convertCellData(
      */
     serializedValue = ColumnHelper.serializeValue(value, {
       col: column,
-      isMysql: (_sourceId) => isMysql,
       isMultipleCellPaste: isMultiple,
     })
 

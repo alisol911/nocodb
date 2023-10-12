@@ -6,7 +6,6 @@ import {
   PlanTitles,
   ProjectRoles,
   RelationTypes,
-  SqliteUi,
   UITypes,
   ViewTypes,
   WorkspaceUserRoles,
@@ -64,7 +63,6 @@ if (!isEdit.value) {
   if (!vModel.value.type) vModel.value.type = 'mm'
   if (!vModel.value.onUpdate) vModel.value.onUpdate = onUpdateDeleteOptions[0]
   if (!vModel.value.onDelete) vModel.value.onDelete = onUpdateDeleteOptions[0]
-  if (!vModel.value.virtual) vModel.value.virtual = sqlUi instanceof SqliteUi // appInfo.isCloud || sqlUi === SqliteUi
   if (!vModel.value.alias) vModel.value.alias = vModel.value.column_name
 } else {
   const colOptions = vModel.value?.colOptions as LinkToAnotherRecordType

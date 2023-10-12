@@ -5,8 +5,6 @@ export const valueToCopy = (
   rowObj: Row,
   columnObj: ColumnType,
   cb: {
-    isPg: (sourceId: string) => boolean
-    isMysql: (sourceId: string) => boolean
     meta: TableType
     metas: { [idOrTitle: string]: TableType | any }
   },
@@ -14,7 +12,7 @@ export const valueToCopy = (
     skipUidt?: UITypes[]
   },
 ) => {
-  const { isPg, isMysql, meta, metas } = cb
+  const { meta, metas } = cb
   const textToCopy = (columnObj.title && rowObj.row[columnObj.title]) ?? ''
 
   if (option?.skipUidt?.includes(columnObj.uidt as UITypes)) {
@@ -23,8 +21,6 @@ export const valueToCopy = (
 
   return ColumnHelper.parseValue(textToCopy, {
     col: columnObj,
-    isMysql,
-    isPg,
     meta,
     metas,
     rowId: isMm(columnObj) ? extractPkFromRow(rowObj.row, meta?.columns as ColumnType[]) : null,
@@ -35,8 +31,6 @@ export const serializeRange = (
   rows: Row[],
   cols: ColumnType[],
   cb: {
-    isPg: (sourceId: string) => boolean
-    isMysql: (sourceId: string) => boolean
     meta: TableType
     metas?: { [idOrTitle: string]: TableType | any }
   },

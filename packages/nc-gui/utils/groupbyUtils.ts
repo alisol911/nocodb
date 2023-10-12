@@ -84,7 +84,7 @@ export const parseKey = (group: Group | CanvasGroup) => {
     try {
       key = JSON.parse(key)
     } catch {
-      // if parsing try to split it by `___` (for sqlite)
+      // if parsing try to split it by `___`
       return key.split('___')
     }
   }

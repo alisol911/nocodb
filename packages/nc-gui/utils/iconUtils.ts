@@ -245,7 +245,6 @@ import NcMicrosoftExcel from '~icons/nc-icons/microsoft_excel'
 import NcMicrosoftOutlook from '~icons/nc-icons/microsoft_outlook'
 import NcMiro from '~icons/nc-icons/miro'
 import NcSalesforce from '~icons/nc-icons/salesforce'
-import NcSnowflake from '~icons/nc-icons/snowflake'
 import NcStripe from '~icons/nc-icons/stripe'
 import NcSurveyMonkey from '~icons/nc-icons/survey_monkey'
 import NcTableau from '~icons/nc-icons/tableau'
@@ -275,12 +274,7 @@ import NcMultiFile from '~icons/nc-icons/multi-file'
 import NcHeart from '~icons/nc-icons/heart'
 import NcSave from '~icons/nc-icons/save'
 
-import NcMySql from '~icons/logos/mysql-icon'
 import NcPostgreSql from '~icons/nc-icons/postgresql'
-import NcSqlServer from '~icons/nc-icons/sql-server'
-import NcDataBricks from '~icons/nc-icons/data-bricks'
-import NcMssqlServer from '~icons/nc-icons/mssql-server'
-import NcOracle from '~icons/nc-icons/oracle'
 import NcGmail from '~icons/nc-icons/gmail'
 import NcTelegram from '~icons/nc-icons/telegram'
 import NcMicrosoftDynamics365 from '~icons/nc-icons/microsoft-dynamics-365'
@@ -1252,7 +1246,6 @@ export const iconMap = {
   'microsoftOutlook': NcMicrosoftOutlook,
   'miro': NcMiro,
   'salesforce': NcSalesforce,
-  'snowflake': NcSnowflake,
   'stripe': NcStripe,
   'surveyMonkey': NcSurveyMonkey,
   'tableau': NcTableau,
@@ -1276,12 +1269,7 @@ export const iconMap = {
   'multiFile': NcMultiFile,
   'heart': NcHeart,
   'ncSave': NcSave,
-  'mysql': NcMySql,
   'postgreSql': NcPostgreSql,
-  'sqlServer': NcSqlServer,
-  'dataBricks': NcDataBricks,
-  'mssqlServer': NcMssqlServer,
-  'oracle': NcOracle,
   'gmail': NcGmail,
   'telegram': NcTelegram,
   'microsoftDynamics365': NcMicrosoftDynamics365,
@@ -1976,7 +1964,6 @@ export const emojiIcons = [
   'umbrella-with-rain-drops',
   'umbrella-on-ground',
   'high-voltage',
-  'snowflake',
   'snowman',
   'snowman-without-snow',
   'comet',
@@ -3466,7 +3453,7 @@ export const searchableMap = {
   },
   ncCloudSnow: {
     icon: NcCloudSnowIcon,
-    keywords: ['weather', 'snowflake', 'winter', 'frost', 'precipitation'],
+    keywords: ['weather', 'winter', 'frost', 'precipitation'],
   },
   ncThumbsDown: {
     icon: NcThumbsDownIcon,

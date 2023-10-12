@@ -201,19 +201,12 @@ export const getCheckBoxValue = (modelValue: boolean | string | number | '0' | '
 }
 
 export const getMultiSelectValue = (modelValue: any, params: ParsePlainCellValueProps['params']): string => {
-  const { col, isMysql } = params
 
   if (!modelValue) {
     return ''
   }
 
-  return modelValue
-    ? Array.isArray(modelValue)
-      ? modelValue.join(', ')
-      : modelValue.toString()
-    : isMysql(col.source_id)
-    ? modelValue.toString().split(',').join(', ')
-    : modelValue.split(', ')
+  return modelValue ? (Array.isArray(modelValue) ? modelValue.join(', ') : modelValue.toString()) : modelValue.split(', ')
 }
 
 export const getDateValue = (modelValue: string | null | number, col: ColumnType) => {
