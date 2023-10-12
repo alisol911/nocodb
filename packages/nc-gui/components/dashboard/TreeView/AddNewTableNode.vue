@@ -72,27 +72,6 @@ function openQuickImportDialog(type: string, sourceId?: string) {
   }
 }
 
-function openAirtableImportDialog(baseId?: string, sourceId?: string) {
-  if (!baseId || !sourceId) return
-
-  $e('a:actions:import-airtable')
-
-  const isOpen = ref(true)
-
-  const { close } = useDialog(resolveComponent('DlgAirtableImport'), {
-    'modelValue': isOpen,
-    'baseId': baseId,
-    'sourceId': sourceId,
-    'onUpdate:modelValue': closeDialog,
-  })
-
-  function closeDialog() {
-    isOpen.value = false
-
-    close(1000)
-  }
-}
-
 function openTableCreateMagicDialog(sourceId?: string) {
   if (!sourceId) return
 
@@ -157,16 +136,6 @@ function openTableCreateMagicDialog(sourceId?: string) {
 
           <!-- Quick Import From -->
           <a-menu-item-group :title="$t('title.quickImportFrom')" class="!px-0 !mx-0">
-            <a-menu-item
-              v-if="isUIAllowed('airtableImport', { roles: baseRole })"
-              key="quick-import-airtable"
-              @click="openAirtableImportDialog(base.id, base.sources[sourceIndex].id)"
-            >
-              <div class="color-transition nc-base-menu-item group">
-                <GeneralIcon icon="airtable" class="group-hover:text-accent" />
-                Airtable
-              </div>
-            </a-menu-item>
 
             <a-menu-item
               v-if="isUIAllowed('csvImport', { roles: baseRole })"

@@ -76,42 +76,6 @@ onMounted(() => {
             </div>
           </NcMenuItem>
           <NcDivider />
-          <a
-            v-e="['c:nocodb:discord']"
-            href="https://discord.gg/5RgZmkW"
-            target="_blank"
-            class="!underline-transparent"
-            rel="noopener noreferrer"
-          >
-            <NcMenuItem class="social-icon-wrapper">
-              <GeneralIcon class="social-icon" icon="ncDiscord" />
-              <span class="menu-btn"> {{ $t('labels.community.joinDiscord') }} </span>
-            </NcMenuItem>
-          </a>
-          <a
-            v-e="['c:nocodb:reddit']"
-            href="https://www.reddit.com/r/NocoDB"
-            target="_blank"
-            class="!underline-transparent"
-            rel="noopener noreferrer"
-          >
-            <NcMenuItem class="social-icon-wrapper">
-              <GeneralIcon class="social-icon" icon="ncReddit" />
-              <span class="menu-btn"> {{ $t('labels.community.joinReddit') }} </span>
-            </NcMenuItem>
-          </a>
-          <a
-            v-e="['c:nocodb:twitter']"
-            href="https://twitter.com/nocodb"
-            target="_blank"
-            class="!underline-transparent"
-            rel="noopener noreferrer"
-          >
-            <NcMenuItem class="social-icon-wrapper group">
-              <GeneralIcon class="social-icon text-gray-500 group-hover:text-gray-800" icon="ncTwitter" />
-              <span class="menu-btn"> {{ $t('labels.twitter') }} </span>
-            </NcMenuItem>
-          </a>
           <template v-if="!appInfo.ee">
             <NcDivider />
             <a-popover key="language" class="lang-menu !py-1.5" placement="rightBottom">
@@ -178,9 +142,6 @@ onMounted(() => {
     </NcDropdown>
 
     <template v-if="isMobileMode || appInfo.ee"></template>
-    <div v-else class="flex flex-row w-full justify-between pt-0.5 truncate">
-      <GeneralJoinCloud />
-    </div>
   </div>
 </template>
 

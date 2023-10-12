@@ -14,27 +14,6 @@ const baseRole = inject(ProjectRoleInj)
 
 const { $e } = useNuxtApp()
 
-function openAirtableImportDialog(baseId?: string, sourceId?: string) {
-  if (!baseId || !sourceId) return
-
-  $e('a:actions:import-airtable')
-
-  const isOpen = ref(true)
-
-  const { close } = useDialog(resolveComponent('DlgAirtableImport'), {
-    'modelValue': isOpen,
-    'baseId': baseId,
-    'sourceId': sourceId,
-    'onUpdate:modelValue': closeDialog,
-  })
-
-  function closeDialog() {
-    isOpen.value = false
-
-    close(1000)
-  }
-}
-
 function openQuickImportDialog(type: string) {
   if (!source.value?.id) return
 
@@ -67,16 +46,6 @@ function openQuickImportDialog(type: string) {
 
     <template #expandIcon></template>
 
-    <NcMenuItem
-      v-if="isUIAllowed('airtableImport', { roles: baseRole })"
-      key="quick-import-airtable"
-      @click="openAirtableImportDialog(source.base_id, source.id)"
-    >
-      <div v-e="['c:import:airtable']" class="flex gap-2 items-center">
-        <GeneralIcon icon="airtable" class="max-w-3.75 group-hover:text-black" />
-        <div class="ml-0.5">{{ $t('labels.airtable') }}</div>
-      </div>
-    </NcMenuItem>
 
     <NcMenuItem v-if="isUIAllowed('csvImport', { roles: baseRole })" key="quick-import-csv" @click="openQuickImportDialog('csv')">
       <div v-e="['c:import:csv']" class="flex gap-2 items-center">
