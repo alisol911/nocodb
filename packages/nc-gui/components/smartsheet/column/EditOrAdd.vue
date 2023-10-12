@@ -119,7 +119,7 @@ const isKanban = inject(IsKanbanInj, ref(false))
 
 const readOnly = computed(() => props.readonly)
 
-const { isMysql, isMssql, isDatabricks, isXcdbBase } = useBase()
+const { isXcdbBase } = useBase()
 
 const reloadDataTrigger = inject(ReloadViewDataHookInj)
 
@@ -1260,9 +1260,6 @@ watch(activeAiTab, (newValue) => {
 
         <template v-if="!readOnly && isFullUpdateAllowed">
           <div class="nc-column-options-wrapper flex flex-col gap-4">
-            <!--
-            Default Value for JSON & LongText is not supported in MySQL
-            Default Value is Disabled for MSSQL -->
             <LazySmartsheetColumnRichLongTextDefaultValue
               v-if="isTextArea(formState) && formState.meta?.richMode"
               v-model:value="formState"
@@ -1271,24 +1268,12 @@ watch(activeAiTab, (newValue) => {
             <LazySmartsheetColumnDefaultValue
               v-else-if="
           !isVirtualCol(formState) &&
-          !isAttachment(formState) &&
-          !isMssql(meta!.source_id) &&
-          !(isMysql(meta!.source_id) && (isJSON(formState) || isTextArea(formState))) &&
-          !(isDatabricks(meta!.source_id) && formState.unique) &&
+          !isAttachment(formState)
           !isAI(formState)
           "
               v-model:value="formState"
               v-model:is-visible-default-value-input="isVisibleDefaultValueInput"
             />
-
-            <div
-              v-if="isDatabricks(meta!.source_id) && !formState.cdf && ![UITypes.MultiSelect, UITypes.Checkbox, UITypes.Rating, UITypes.Attachment, UITypes.Lookup, UITypes.Rollup, UITypes.Formula, UITypes.Barcode, UITypes.QrCode, UITypes.CreatedTime, UITypes.LastModifiedTime, UITypes.CreatedBy, UITypes.LastModifiedBy].includes(formState.uidt)"
-              class="flex gap-1"
-            >
-              <NcSwitch v-model:checked="formState.unique" size="small" class="nc-switch">
-                <div class="text-sm text-gray-800">Set as Unique</div>
-              </NcSwitch>
-            </div>
           </div>
 
           <div

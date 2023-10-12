@@ -102,9 +102,6 @@ const [useProvideSharedFormStore, useSharedFormStore] = useInjectionState((share
       formViewColumnsMapByFkColumnId: localColumnsMapByFkColumnId.value,
       formState: { ...(formState.value || {}), ...(additionalState.value || {}) },
       isSharedForm: true,
-      isMysql: (_sourceId?: string) => {
-        return ['mysql', ClientType.MYSQL].includes(sharedView.value?.client || ClientType.MYSQL)
-      },
       getMeta,
     })
   })
@@ -631,7 +628,7 @@ const [useProvideSharedFormStore, useSharedFormStore] = useInjectionState((share
           parsedTime = dayjs(`1999-01-01 ${value}`)
         }
         if (parsedTime.isValid()) {
-          preFillValue = parsedTime.format(baseStore.isMysql(c.source_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ')
+          preFillValue = parsedTime.format('YYYY-MM-DD HH:mm:ssZ')
         }
         break
       }

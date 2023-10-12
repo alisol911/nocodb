@@ -1,4 +1,4 @@
-import type { BaseType, OracleUi, SourceType, TableType } from 'nocodb-sdk'
+import type { BaseType, SourceType, TableType } from 'nocodb-sdk'
 import { SqlUiFactory } from 'nocodb-sdk'
 import { isString } from '@vue/shared'
 import { acceptHMRUpdate, defineStore } from 'pinia'
@@ -69,41 +69,14 @@ export const useBase = defineStore('baseStore', () => {
     const temp: Record<string, any> = {}
     for (const source of sources.value) {
       if (source.id) {
-        temp[source.id] = SqlUiFactory.create({ client: source.type }) as Exclude<
-          ReturnType<(typeof SqlUiFactory)['create']>,
-          typeof OracleUi
-        >
+        temp[source.id] = SqlUiFactory.create()
       }
     }
     return temp
   })
 
   function getBaseType(sourceId?: string) {
-    return sources.value.find((source) => source.id === sourceId)?.type || ClientType.MYSQL
-  }
-
-  function isMysql(sourceId?: string) {
-    return ['mysql', ClientType.MYSQL].includes(getBaseType(sourceId))
-  }
-
-  function isSqlite(sourceId?: string) {
-    return getBaseType(sourceId) === ClientType.SQLITE
-  }
-
-  function isMssql(sourceId?: string) {
-    return getBaseType(sourceId) === 'mssql'
-  }
-
-  function isPg(sourceId?: string) {
-    return getBaseType(sourceId) === 'pg'
-  }
-
-  function isSnowflake(sourceId?: string) {
-    return getBaseType(sourceId) === 'snowflake'
-  }
-
-  function isDatabricks(sourceId?: string) {
-    return getBaseType(sourceId) === 'databricks'
+    return ClientType.PG
   }
 
   function isXcdbBase(sourceId?: string) {
@@ -119,6 +92,10 @@ export const useBase = defineStore('baseStore', () => {
     if (!baseMetaInfo.value || force) {
       baseMetaInfo.value = await api.base.metaGet(base.value.id!, {})
     }
+  }
+
+  function isPg(sourceId?: string) {
+    return true
   }
 
   // todo: add force parameter
@@ -282,12 +259,6 @@ export const useBase = defineStore('baseStore', () => {
     loadProject,
     updateProject,
     loadTables,
-    isMysql,
-    isMssql,
-    isPg,
-    isSqlite,
-    isSnowflake,
-    isDatabricks,
     sqlUis,
     isSharedBase,
     isSharedErd,

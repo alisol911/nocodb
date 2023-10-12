@@ -3271,7 +3271,7 @@
                 },
                 "type": {
                   "type": "string",
-                  "description": "Type of the data source (e.g., pg, mysql)."
+                  "description": "Type of the data source (e.g., pg)."
                 },
                 "is_schema_readonly": {
                   "type": "boolean",

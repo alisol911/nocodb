@@ -54,24 +54,11 @@ export const getOptions = (column: ColumnType, isEditColumn: boolean, isForm: bo
 export const getSelectedTitles = (
   column: ColumnType,
   optionsMap: Record<string, LocalSelectOptionType>,
-  isMysql: (sourceId?: string) => boolean,
   modelValue?: string | string[],
 ) => {
   return modelValue
     ? Array.isArray(modelValue)
       ? modelValue
-      : isMysql(column.source_id)
-      ? modelValue
-          .toString()
-          .split(',')
-          .sort((a, b) => {
-            const opa = optionsMap[a?.trim()]
-            const opb = optionsMap[b?.trim()]
-            if (opa && opb) {
-              return opa.order! - opb.order!
-            }
-            return 0
-          })
       : modelValue.toString().split(',')
     : []
 }

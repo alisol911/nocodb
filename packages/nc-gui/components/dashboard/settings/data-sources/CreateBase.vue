@@ -3,11 +3,9 @@ import { Form, message } from 'ant-design-vue'
 import { type IntegrationType, validateAndExtractSSLProp } from 'nocodb-sdk'
 import {
   ClientType,
-  type DatabricksConnection,
   JobStatus,
   type ProjectCreateForm,
   SSLUsage,
-  type SnowflakeConnection,
   clientTypes as _clientTypes,
 } from '#imports'
 
@@ -54,7 +52,7 @@ const advancedOptionsExpansionPanel = ref<string[]>([])
 
 const isLoading = ref<boolean>(false)
 
-const defaultFormState = (client = ClientType.MYSQL) => {
+const defaultFormState = (client = ClientType.PG) => {
   return {
     title: '',
     dataSource: { ...getDefaultConnectionConfig(client) },
@@ -108,21 +106,8 @@ const validators = computed(() => {
       selectedIntegration.value && getDataSourceValue('database') ? [] : [fieldRequiredValidator()],
   }
 
-  switch (formState.value.dataSource.client) {
-    case ClientType.SQLITE:
       clientValidations = {}
-      break
-    case ClientType.SNOWFLAKE:
-      clientValidations = {
-        'dataSource.connection.database': [fieldRequiredValidator()],
-        'dataSource.connection.schema': [fieldRequiredValidator()],
-      }
-      break
-    case ClientType.PG:
-    case ClientType.MSSQL:
       clientValidations['dataSource.searchPath.0'] = selectedIntegration.value ? [] : [fieldRequiredValidator()]
-      break
-  }
 
   return {
     title: [
@@ -265,12 +250,9 @@ const testConnection = async () => {
   try {
     testingConnection.value = true
 
-    if (formState.value.dataSource.client === ClientType.SQLITE) {
-      testSuccess.value = true
-    } else {
-      const connection = getConnectionConfig()
+    const connection = getConnectionConfig()
 
-      connection.database = getTestDatabaseName(formState.value.dataSource)!
+    connection.database = getTestDatabaseName(formState.value.dataSource)!
 
       let searchPath = formState.value.dataSource.searchPath
 
@@ -281,22 +263,21 @@ const testConnection = async () => {
         }
       }
 
-      const testConnectionConfig = {
-        ...formState.value.dataSource,
-        connection,
+    const testConnectionConfig = {
+      ...formState.value.dataSource,
+      connection,
         searchPath,
         fk_integration_id: formState.value.fk_integration_id,
-      }
+    }
 
-      const result = await api.utils.testConnection(testConnectionConfig)
+    const result = await api.utils.testConnection(testConnectionConfig)
 
-      if (result.code === 0) {
-        testSuccess.value = true
-      } else {
-        testSuccess.value = false
+    if (result.code === 0) {
+      testSuccess.value = true
+    } else {
+      testSuccess.value = false
 
-        message.error(`${t('msg.error.dbConnectionFailed')} ${result.message}`)
-      }
+      message.error(`${t('msg.error.dbConnectionFailed')} ${result.message}`)
     }
   } catch (e: any) {
     testSuccess.value = false
@@ -424,18 +405,9 @@ const filterIntegrationCategory = (c: IntegrationCategoryItemType) => [Integrati
 const filterIntegration = (i: IntegrationItemType) => i.sub_type !== SyncDataType.NOCODB && i.isAvailable
 
 const isIntgrationDisabled = (integration: IntegrationType = {}) => {
-  switch (integration.sub_type) {
-    case ClientType.SQLITE:
-      return {
-        isDisabled: integration?.source_count && integration.source_count > 0,
-        msg: 'Sqlite support only 1 database per connection',
-      }
-
-    default:
-      return {
-        isDisabled: false,
-        msg: '',
-      }
+  return {
+    isDisabled: false,
+    msg: '',
   }
 }
 </script>
@@ -593,56 +565,11 @@ const isIntgrationDisabled = (integration: IntegrationType = {}) => {
                   </a-row>
                 </div>
               </div>
-
               <template v-if="selectedIntegration">
                 <div class="nc-form-section">
                   <div class="nc-form-section-body">
-                    <!-- SQLite File -->
-                    <template v-if="formState.dataSource.client === ClientType.SQLITE"> </template>
-                    <template v-else-if="formState.dataSource.client === ClientType.SNOWFLAKE">
-                      <a-row :gutter="24">
-                        <a-col :span="12">
-                          <!-- Database -->
-                          <a-form-item :label="$t('labels.database')" v-bind="validateInfos['dataSource.connection.database']">
-                            <a-input
-                              v-model:value="(formState.dataSource.connection as SnowflakeConnection).database"
-                              class="nc-extdb-host-database"
-                            />
-                          </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                          <!-- Schema -->
-                          <a-form-item label="Schema" v-bind="validateInfos['dataSource.connection.schema']">
-                            <a-input
-                              v-model:value="(formState.dataSource.connection as SnowflakeConnection).schema"
-                              class="nc-extdb-host-database"
-                            />
-                          </a-form-item>
-                        </a-col>
-                      </a-row>
-                    </template>
 
-                    <template v-else-if="formState.dataSource.client === ClientType.DATABRICKS">
-                      <a-row :gutter="24">
-                        <a-col :span="12">
-                          <a-form-item label="Database" v-bind="validateInfos['dataSource.connection.database']">
-                            <a-input
-                              v-model:value="(formState.dataSource.connection as DatabricksConnection).database"
-                              class="nc-extdb-host-database"
-                            />
-                          </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
-                          <a-form-item label="Schema" v-bind="validateInfos['dataSource.connection.schema']">
-                            <a-input
-                              v-model:value="(formState.dataSource.connection as DatabricksConnection).schema"
-                              class="nc-extdb-host-schema"
-                            />
-                          </a-form-item>
-                        </a-col>
-                      </a-row>
-                    </template>
-                    <template v-else>
+                    <template>
                       <a-row :gutter="24">
                         <a-col :span="12">
                           <!-- Database -->
@@ -659,8 +586,8 @@ const isIntgrationDisabled = (integration: IntegrationType = {}) => {
                           <!-- Schema name -->
                           <a-form-item
                             v-if="
-                              ([ClientType.MSSQL, ClientType.PG].includes(formState.dataSource.client) ||
-                                [ClientType.MSSQL, ClientType.PG].includes(selectedIntegration?.sub_type)) &&
+                              ([ClientType.PG].includes(formState.dataSource.client) ||
+                                [ClientType.PG].includes(selectedIntegration?.sub_type)) &&
                               formState.dataSource.searchPath
                             "
                             :label="$t('labels.schemaName')"
@@ -686,63 +613,6 @@ const isIntgrationDisabled = (integration: IntegrationType = {}) => {
                     />
                   </div>
                 </div>
-
-                <template
-                  v-if="![ClientType.SQLITE, ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(formState.dataSource.client)"
-                >
-                  <a-collapse v-model:active-key="advancedOptionsExpansionPanel" ghost class="nc-source-advanced-options !mt-4">
-                    <template #expandIcon="{ isActive }">
-                      <NcButton
-                        type="text"
-                        size="small"
-                        class="!-ml-1.5"
-                        @click="handleUpdateAdvancedOptionsExpansionPanel(!advancedOptionsExpansionPanel.length)"
-                      >
-                        <div class="nc-form-section-title">Advanced options</div>
-
-                        <GeneralIcon
-                          icon="chevronDown"
-                          class="ml-2 flex-none cursor-pointer transform transition-transform duration-500"
-                          :class="{ '!rotate-180': isActive }"
-                        />
-                      </NcButton>
-                    </template>
-                    <a-collapse-panel key="1" collapsible="disabled">
-                      <template #header>
-                        <span></span>
-                      </template>
-
-                      <div class="flex flex-col gap-4">
-                        <div class="flex flex-col gap-4">
-                          <a-row :gutter="24">
-                            <a-col :span="12">
-                              <a-form-item :label="$t('labels.inflection.tableName')">
-                                <NcSelect
-                                  v-model:value="formState.inflection.inflectionTable"
-                                  class="nc-select-shadow"
-                                  dropdown-class-name="nc-dropdown-inflection-table-name"
-                                >
-                                  <a-select-option v-for="tp in inflectionTypes" :key="tp" :value="tp">{{ tp }}</a-select-option>
-                                </NcSelect>
-                              </a-form-item>
-                            </a-col>
-                            <a-col :span="12">
-                              <a-form-item :label="$t('labels.inflection.columnName')">
-                                <NcSelect
-                                  v-model:value="formState.inflection.inflectionColumn"
-                                  class="nc-select-shadow"
-                                  dropdown-class-name="nc-dropdown-inflection-column-name"
-                                >
-                                  <a-select-option v-for="tp in inflectionTypes" :key="tp" :value="tp">{{ tp }}</a-select-option>
-                                </NcSelect>
-                              </a-form-item>
-                            </a-col>
-                          </a-row>
-                        </div>
-                      </div>
-                    </a-collapse-panel>
-                  </a-collapse>
-                </template>
               </template>
               <div>
                 <!-- For spacing -->

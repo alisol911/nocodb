@@ -38,7 +38,7 @@ const basesStore = useBases()
 
 const { basesUser } = storeToRefs(basesStore)
 
-const { isXcdbBase, isMssql, isMysql } = useBase()
+const { isXcdbBase } = useBase()
 
 const sqlUi = ref(
   column.value?.source_id && sqlUis.value[column.value?.source_id]
@@ -60,8 +60,6 @@ const getMultiSelectValue = (modelValue: any, col: ColumnType): string => {
     ? Array.isArray(modelValue)
       ? modelValue.join(', ')
       : modelValue.toString()
-    : isMysql(col.source_id)
-    ? modelValue.toString().split(',').join(', ')
     : modelValue.split(', ')
 }
 
@@ -99,12 +97,7 @@ const getDateTimeValue = (modelValue: string | null, col: ColumnType) => {
     return dayjs(/^\d+$/.test(modelValue) ? +modelValue : modelValue).format(dateTimeFormat)
   }
 
-  if (isMssql(col.source_id)) {
-    // e.g. 2023-04-29T11:41:53.000Z
-    return dayjs(modelValue, dateTimeFormat).format(dateTimeFormat)
-  } else {
-    return dayjs(modelValue).utc().local().format(dateTimeFormat)
-  }
+  return dayjs(modelValue).utc().local().format(dateTimeFormat)
 }
 
 const getTimeValue = (modelValue: string | null) => {

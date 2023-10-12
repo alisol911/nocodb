@@ -131,7 +131,7 @@ export function validateDateFormat(v: string) {
 export const timeAgo = (date: any) => {
   if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(date)) {
     // if there is no timezone info, consider as UTC
-    // e.g. 2023-01-01 08:00:00 (MySQL)
+    // e.g. 2023-01-01 08:00:00
     date += '+00:00';
   }
   // show in local time

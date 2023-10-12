@@ -35,7 +35,7 @@ const sources = ref<SourceType[]>([])
 
 const activeBaseId = ref('')
 
-const clientType = ref<ClientType>(ClientType.MYSQL)
+const clientType = ref<ClientType>(ClientType.PG)
 
 const isReloading = ref(false)
 
@@ -223,24 +223,8 @@ watch(
       await loadBases()
     }
     switch (newState) {
-      case ClientType.MYSQL:
-        clientType.value = ClientType.MYSQL
-        vState.value = DataSourcesSubTab.New
-        break
       case ClientType.PG:
         clientType.value = ClientType.PG
-        vState.value = DataSourcesSubTab.New
-        break
-      case ClientType.SQLITE:
-        clientType.value = ClientType.SQLITE
-        vState.value = DataSourcesSubTab.New
-        break
-      case ClientType.MSSQL:
-        clientType.value = ClientType.MSSQL
-        vState.value = DataSourcesSubTab.New
-        break
-      case ClientType.SNOWFLAKE:
-        clientType.value = ClientType.SNOWFLAKE
         vState.value = DataSourcesSubTab.New
         break
       case DataSourcesSubTab.New:

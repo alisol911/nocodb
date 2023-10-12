@@ -55,7 +55,7 @@ const { $api } = useNuxtApp()
 
 const { isUIAllowed, isMetaReadOnly } = useRoles()
 
-const { isPg, isMysql } = useBase()
+const { isPg } = useBase()
 
 // a variable to keep newly created options value
 // temporary until it's add the option to column meta
@@ -90,7 +90,7 @@ const vModel = computed({
   get: () => {
     let selected: SelectInputOptionType[] = []
 
-    selected = getSelectedTitles(column.value, optionsMap.value, isMysql, modelValue).reduce((acc, el) => {
+    selected = getSelectedTitles(column.value, optionsMap.value, modelValue).reduce((acc, el) => {
       const item = optionsMap.value[el?.trim()]
 
       if (item?.id || item?.title) {
@@ -214,11 +214,6 @@ async function addIfMissingAndSave() {
             updatedColMeta.cdf.indexOf(`'`) + 1,
             updatedColMeta.cdf.lastIndexOf(`'`),
           )
-        }
-
-        // Mysql escapes single quotes with backslash so we keep quotes but others have to unescaped
-        if (!isMysql(column.value.source_id) && !isPg(column.value.source_id)) {
-          updatedColMeta.cdf = updatedColMeta.cdf.replace(/''/g, "'")
         }
       }
 

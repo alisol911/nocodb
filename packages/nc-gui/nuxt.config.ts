@@ -84,7 +84,7 @@ export default defineNuxtConfig({
           hid: 'og:description',
           property: 'og:description',
           content:
-            'NocoDB provides an intuitive spreadsheet interface for creating online databases, either from scratch or by connecting to any Postgres/MySQL. Access your data through interactive UIs or via API and SQL. Get started for free.',
+            'NocoDB provides an intuitive spreadsheet interface for creating online databases, either from scratch or by connecting to Postgres. Access your data through interactive UIs or via API and SQL. Get started for free.',
         },
         { hid: 'og:url', property: 'og:url', content: 'https://nocodb.com' },
         // Twitter
@@ -94,7 +94,7 @@ export default defineNuxtConfig({
           hid: 'twitter:description',
           name: 'twitter:description',
           content:
-            'NocoDB provides an intuitive spreadsheet interface for creating online databases, either from scratch or by connecting to any Postgres/MySQL. Access your data through interactive UIs or via API and SQL. Get started for free.',
+            'NocoDB provides an intuitive spreadsheet interface for creating online databases, either from scratch or by connecting to Postgres. Access your data through interactive UIs or via API and SQL. Get started for free.',
         },
         {
           hid: 'twitter:image',

@@ -6,12 +6,9 @@ import { IntegrationsType, validateAndExtractSSLProp } from 'nocodb-sdk'
 import {
   type CertTypes,
   ClientType,
-  type DatabricksConnection,
   type DefaultConnection,
   type ProjectCreateForm,
-  type SQLiteConnection,
   SSLUsage,
-  type SnowflakeConnection,
   clientTypes as _clientTypes,
 } from '#imports'
 
@@ -26,7 +23,7 @@ const emit = defineEmits(['update:open'])
 
 const vOpen = useVModel(props, 'open', emit)
 
-const connectionType = computed(() => props.connectionType ?? ClientType.MYSQL)
+const connectionType = computed(() => props.connectionType ?? ClientType.PG)
 
 const {
   isFromIntegrationPage,
@@ -56,19 +53,16 @@ const { t } = useI18n()
 
 const creatingSource = ref(false)
 
-const _getDefaultConnectionConfig = (client = ClientType.MYSQL) => {
+const _getDefaultConnectionConfig = (client = ClientType.PG) => {
   const config = getDefaultConnectionConfig(client)
   if ('database' in config.connection) {
     config.connection.database = ''
   }
 
-  if (client === ClientType.SQLITE && config.connection?.connection?.filename) {
-    config.connection.connection.filename = ''
-  }
   return config
 }
 
-const defaultFormState = (client = ClientType.MYSQL) => {
+const defaultFormState = (client = ClientType.PG) => {
   return {
     title: '',
     dataSource: { ..._getDefaultConnectionConfig(client) },
@@ -116,10 +110,7 @@ const onEasterEgg = () => {
 
 const clientTypes = computed(() => {
   return _clientTypes.filter((type) => {
-    return (
-      ([ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(type.value) && easterEgg.value) ||
-      ![ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(type.value)
-    )
+    return true
   })
 })
 
@@ -131,34 +122,7 @@ const validators = computed(() => {
     'dataSource.connection.password': [fieldRequiredValidator()],
   }
 
-  switch (formState.value.dataSource.client) {
-    case ClientType.SQLITE:
-      clientValidations = {
-        'dataSource.connection.connection.filename': [fieldRequiredValidator()],
-      }
-      break
-    case ClientType.SNOWFLAKE:
-      clientValidations = {
-        'dataSource.connection.account': [fieldRequiredValidator()],
-        'dataSource.connection.username': [fieldRequiredValidator()],
-        'dataSource.connection.password': [fieldRequiredValidator()],
-        'dataSource.connection.warehouse': [fieldRequiredValidator()],
-        'dataSource.connection.database': [fieldRequiredValidator()],
-        'dataSource.connection.schema': [fieldRequiredValidator()],
-      }
-      break
-    case ClientType.DATABRICKS:
-      clientValidations = {
-        'dataSource.connection.token': [fieldRequiredValidator()],
-        'dataSource.connection.host': [fieldRequiredValidator()],
-        'dataSource.connection.path': [fieldRequiredValidator()],
-      }
-      break
-    case ClientType.PG:
-    case ClientType.MSSQL:
-      clientValidations['dataSource.searchPath.0'] = [fieldRequiredValidator()]
-      break
-  }
+  clientValidations['dataSource.searchPath.0'] = [fieldRequiredValidator()]
 
   return {
     'title': [
@@ -181,43 +145,39 @@ const onClientChange = () => {
 }
 
 const onSSLModeChange = ((mode: SSLUsage) => {
-  if (formState.value.dataSource.client !== ClientType.SQLITE) {
-    const connection = formState.value.dataSource.connection as DefaultConnection
-    switch (mode) {
-      case SSLUsage.No:
-        connection.ssl = undefined
-        break
-      case SSLUsage.Allowed:
-        connection.ssl = 'true'
-        break
-      default:
-        connection.ssl = {
-          ca: '',
-          cert: '',
-          key: '',
-        }
-        break
-    }
+  const connection = formState.value.dataSource.connection as DefaultConnection
+  switch (mode) {
+    case SSLUsage.No:
+      connection.ssl = undefined
+      break
+    case SSLUsage.Allowed:
+      connection.ssl = 'true'
+      break
+    default:
+      connection.ssl = {
+        ca: '',
+        cert: '',
+        key: '',
+      }
+      break
   }
 }) as SelectHandler
 
 const updateSSLUse = (updateActiveIntegrationFormState = false) => {
-  if (formState.value.dataSource.client !== ClientType.SQLITE) {
-    const connection = formState.value.dataSource.connection as DefaultConnection
-    if (connection.ssl) {
-      if (typeof connection.ssl === 'string') {
-        formState.value.sslUse = SSLUsage.Allowed
-      } else {
-        formState.value.sslUse = SSLUsage.Preferred
-      }
+  const connection = formState.value.dataSource.connection as DefaultConnection
+  if (connection.ssl) {
+    if (typeof connection.ssl === 'string') {
+      formState.value.sslUse = SSLUsage.Allowed
     } else {
-      formState.value.sslUse = SSLUsage.No
+      formState.value.sslUse = SSLUsage.Preferred
     }
+  } else {
+    formState.value.sslUse = SSLUsage.No
+  }
 
-    if (updateActiveIntegrationFormState) {
-      activeIntegrationformState.value.sslUse = toRaw(formState.value.sslUse)
-      useSslExpansionPanel.value = formState.value.sslUse !== SSLUsage.No ? ['1'] : []
-    }
+  if (updateActiveIntegrationFormState) {
+    activeIntegrationformState.value.sslUse = toRaw(formState.value.sslUse)
+    useSslExpansionPanel.value = formState.value.sslUse !== SSLUsage.No ? ['1'] : []
   }
 }
 
@@ -347,29 +307,24 @@ const testConnection = async (retry = 0, initialConfig = null) => {
   try {
     testingConnection.value = true
 
-    if (formState.value.dataSource.client === ClientType.SQLITE) {
+    const connection = getConnectionConfig()
+
+    connection.database = getTestDatabaseName(formState.value.dataSource)!
+
+    const testConnectionConfig = {
+      ...formState.value.dataSource,
+      connection,
+    }
+
+    const result = await api.utils.testConnection(testConnectionConfig)
+
+    if (result.code === 0) {
       testSuccess.value = true
       isEnabledSaveChangesBtn.value = true
     } else {
-      const connection = getConnectionConfig()
+      testSuccess.value = false
 
-      connection.database = getTestDatabaseName(formState.value.dataSource)!
-
-      const testConnectionConfig = {
-        ...formState.value.dataSource,
-        connection,
-      }
-
-      const result = await api.utils.testConnection(testConnectionConfig)
-
-      if (result.code === 0) {
-        testSuccess.value = true
-        isEnabledSaveChangesBtn.value = true
-      } else {
-        testSuccess.value = false
-
-        message.error(`${t('msg.error.dbConnectionFailed')} ${result.message}`)
-      }
+      message.error(`${t('msg.error.dbConnectionFailed')} ${result.message}`)
     }
   } catch (e: any) {
     // take a copy of the current config
@@ -415,12 +370,6 @@ const handleImportURL = async () => {
       ...connectionConfig.connection,
     }
 
-    // set filename only for sqlite connection
-    if (connectionConfig.client === ClientType.SQLITE) {
-      formState.value.dataSource.connection.connection = {
-        filename: connectionConfig?.connection?.filename || '',
-      }
-    }
   } else {
     message.error(t('msg.error.invalidURL'))
   }
@@ -671,7 +620,6 @@ watch(
 
                   <!-- Use Connection URL -->
                   <NcDropdown
-                    v-if="![ClientType.SQLITE, ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(formState.dataSource.client)"
                     v-model:visible="importURLDlg"
                     placement="bottomRight"
                   >
@@ -738,146 +686,7 @@ watch(
                       </a-form-item>
                     </a-col>
                   </a-row>
-                  <!-- SQLite File -->
-                  <template v-if="formState.dataSource.client === ClientType.SQLITE">
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <a-form-item
-                          :label="$t('labels.sqliteFile')"
-                          v-bind="validateInfos['dataSource.connection.connection.filename']"
-                        >
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as SQLiteConnection).connection.filename"
-                            placeholder="Enter absolute file path"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                  </template>
-                  <template v-else-if="formState.dataSource.client === ClientType.SNOWFLAKE">
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <!-- Account -->
-                        <a-form-item :label="$t('labels.account')" v-bind="validateInfos['dataSource.connection.account']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as SnowflakeConnection).account"
-                            class="nc-extdb-host-address"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <!-- Username -->
-                        <a-form-item :label="$t('labels.username')" v-bind="validateInfos['dataSource.connection.username']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as SnowflakeConnection).username"
-                            class="nc-extdb-host-user"
-                          />
-                        </a-form-item>
-                      </a-col>
-                      <a-col :span="12">
-                        <!-- Password -->
-                        <a-form-item
-                          :label="$t('labels.password')"
-                          class="nc-form-item-connection-password"
-                          v-bind="validateInfos['dataSource.connection.password']"
-                        >
-                          <template #help>
-                            <div class="text-xs text-warning mt-1">{{ maskedPasswordHelp }}</div>
-                          </template>
-                          <a-input-password
-                            v-model:value="(formState.dataSource.connection as SnowflakeConnection).password"
-                            class="nc-extdb-host-password"
-                            @focus="onFocusPassword"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <!-- Warehouse -->
-                        <a-form-item label="Warehouse" v-bind="validateInfos['dataSource.connection.warehouse']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as SnowflakeConnection).warehouse"
-                            class="nc-extdb-host-database"
-                          />
-                        </a-form-item>
-                      </a-col>
-                      <a-col :span="12">
-                        <!-- Database -->
-                        <a-form-item :label="$t('labels.database')" v-bind="validateInfos['dataSource.connection.database']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as SnowflakeConnection).database"
-                            class="nc-extdb-host-database"
-                            :placeholder="`${$t('labels.database')} ${$t('general.name').toLowerCase()}`"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <!-- Schema -->
-                        <a-form-item label="Schema" v-bind="validateInfos['dataSource.connection.schema']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as SnowflakeConnection).schema"
-                            class="nc-extdb-host-database"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                  </template>
-
-                  <template v-else-if="formState.dataSource.client === ClientType.DATABRICKS">
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <a-form-item label="Token" v-bind="validateInfos['dataSource.connection.token']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as DatabricksConnection).token"
-                            class="nc-extdb-host-token"
-                          />
-                        </a-form-item>
-                      </a-col>
-                      <a-col :span="12">
-                        <a-form-item label="Host" v-bind="validateInfos['dataSource.connection.host']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as DatabricksConnection).host"
-                            class="nc-extdb-host-address"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <a-form-item label="Path" v-bind="validateInfos['dataSource.connection.path']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as DatabricksConnection).path"
-                            class="nc-extdb-host-path"
-                          />
-                        </a-form-item>
-                      </a-col>
-                      <a-col :span="12">
-                        <a-form-item label="Database" v-bind="validateInfos['dataSource.connection.database']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as DatabricksConnection).database"
-                            :placeholder="`${$t('labels.database')} ${$t('general.name').toLowerCase()}`"
-                            class="nc-extdb-host-database"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                    <a-row :gutter="24">
-                      <a-col :span="12">
-                        <a-form-item label="Schema" v-bind="validateInfos['dataSource.connection.schema']">
-                          <a-input
-                            v-model:value="(formState.dataSource.connection as DatabricksConnection).schema"
-                            class="nc-extdb-host-schema"
-                          />
-                        </a-form-item>
-                      </a-col>
-                    </a-row>
-                  </template>
-                  <template v-else>
+                  <template>
                     <a-row :gutter="24">
                       <a-col :span="12">
                         <!-- Host Address -->
@@ -942,7 +751,7 @@ watch(
                         <!-- Schema name -->
                         <a-form-item
                           v-if="
-                            [ClientType.MSSQL, ClientType.PG].includes(formState.dataSource.client) &&
+                            [ClientType.PG].includes(formState.dataSource.client) &&
                             formState.dataSource.searchPath
                           "
                           :label="$t('labels.schemaName')"
@@ -954,9 +763,6 @@ watch(
                     </a-row>
 
                     <a-row
-                      v-if="
-                        ![ClientType.SQLITE, ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(formState.dataSource.client)
-                      "
                       :gutter="24"
                     >
                       <a-col :span="24">
@@ -998,9 +804,7 @@ watch(
                 </div>
               </div>
 
-              <template
-                v-if="![ClientType.SQLITE, ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(formState.dataSource.client)"
-              >
+              <template>
                 <NcDivider />
 
                 <a-collapse v-model:active-key="useSslExpansionPanel" ghost class="!mt-4">
@@ -1169,9 +973,7 @@ watch(
                 </a-form-item>
               </div> -->
 
-              <template
-                v-if="![ClientType.SQLITE, ClientType.SNOWFLAKE, ClientType.DATABRICKS].includes(formState.dataSource.client)"
-              >
+              <template>
                 <a-collapse v-model:active-key="advancedOptionsExpansionPanel" ghost class="nc-connection-advanced-options !mt-4">
                   <template #expandIcon="{ isActive }">
                     <NcButton

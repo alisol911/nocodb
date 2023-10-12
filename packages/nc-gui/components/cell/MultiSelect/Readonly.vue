@@ -20,8 +20,6 @@ const isKanban = inject(IsKanbanInj, ref(false))
 
 const isEditColumn = inject(EditModeInj, ref(false))
 
-const { isMysql } = useBase()
-
 const options = computed(() => {
   return selectOptions ?? getOptions(column.value, isEditColumn.value, isForm.value)
 })
@@ -36,7 +34,7 @@ const optionsMap = computed(() => {
 })
 
 const selectedOpts = computed(() => {
-  return getSelectedTitles(column.value, optionsMap.value, isMysql, modelValue).reduce((acc, el) => {
+  return getSelectedTitles(column.value, optionsMap.value, modelValue).reduce((acc, el) => {
     const item = optionsMap.value[el?.trim()]
 
     if (item?.id || item?.title) {

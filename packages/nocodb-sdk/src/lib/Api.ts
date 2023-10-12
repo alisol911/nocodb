@@ -1445,17 +1445,9 @@ export interface SourceType {
   base_id?: string;
   /**
    * DB Type
-   * @example mysql2
+   * @example pg
    */
-  type?:
-    | 'mssql'
-    | 'mysql'
-    | 'mysql2'
-    | 'oracledb'
-    | 'pg'
-    | 'snowflake'
-    | 'sqlite3'
-    | 'databricks';
+  type?: 'pg';
 }
 
 /**
@@ -1537,15 +1529,7 @@ export interface BaseReqType {
   /** Is the data source data readonly */
   is_data_readonly?: BoolType;
   /** DB Type */
-  type?:
-    | 'mssql'
-    | 'mysql'
-    | 'mysql2'
-    | 'oracledb'
-    | 'pg'
-    | 'snowflake'
-    | 'sqlite3'
-    | 'databricks';
+  type?: 'pg';
   fk_integration_id?: string;
 }
 
@@ -11970,17 +11954,9 @@ export class Api<
       data: {
         /**
          * DB Type
-         * @example mysql2
+         * @example pg
          */
-        client?:
-          | 'mssql'
-          | 'mysql'
-          | 'mysql2'
-          | 'oracledb'
-          | 'pg'
-          | 'snowflake'
-          | 'sqlite3'
-          | 'databricks';
+        client?: 'pg';
         connection?: {
           host?: string;
           port?: string;
@@ -12021,9 +11997,9 @@ export class Api<
  * @response `200` `{
   \**
    * DB Type
-   * @example mysql2
+   * @example pg
    *\
-  client?: "mssql" | "mysql" | "mysql2" | "oracledb" | "pg" | "snowflake" | "sqlite3" | "databricks",
+  client?: "pg",
   \** Connection Config *\
   connection?: {
   \** DB User *\
@@ -12050,7 +12026,7 @@ export class Api<
       data: {
         /**
          * JDBC URL
-         * @example jdbc:mysql://username:password@localhost:3306/sakila
+         * @example jdbc:postgresql://username:password@localhost:5432/db
          */
         url?: string;
       },
@@ -12060,17 +12036,9 @@ export class Api<
         {
           /**
            * DB Type
-           * @example mysql2
+           * @example pg
            */
-          client?:
-            | 'mssql'
-            | 'mysql'
-            | 'mysql2'
-            | 'oracledb'
-            | 'pg'
-            | 'snowflake'
-            | 'sqlite3'
-            | 'databricks';
+          client?: 'pg';
           /** Connection Config */
           connection?: {
             /** DB User */

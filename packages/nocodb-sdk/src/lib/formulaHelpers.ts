@@ -3,7 +3,7 @@ import jsep from 'jsep';
 import { ColumnType, LinkToAnotherRecordType, RollupType } from './Api';
 import UITypes from './UITypes';
 import dayjs from 'dayjs';
-import { MssqlUi, MysqlUi, PgUi, SnowflakeUi, SqlUiFactory } from './sqlUi';
+import { PgUi, SqlUiFactory } from './sqlUi';
 import { dateFormats } from './dateTimeHelper';
 
 export const ArithmeticOperators = ['+', '-', '*', '/'] as const;
@@ -1529,18 +1529,7 @@ async function extractColumnIdentifierType({
   columns: ColumnType[];
   getMeta: (tableId: string) => Promise<any>;
   clientOrSqlUi:
-    | 'mysql'
     | 'pg'
-    | 'sqlite3'
-    | 'mssql'
-    | 'mysql2'
-    | 'oracledb'
-    | 'mariadb'
-    | 'sqlite'
-    | 'snowflake'
-    | typeof MysqlUi
-    | typeof MssqlUi
-    | typeof SnowflakeUi
     | typeof PgUi;
 }) {
   const res: {
@@ -1550,7 +1539,7 @@ async function extractColumnIdentifierType({
   } = {};
   const sqlUI =
     typeof clientOrSqlUi === 'string'
-      ? SqlUiFactory.create({ client: clientOrSqlUi })
+      ? SqlUiFactory.create()
       : clientOrSqlUi;
 
   switch (col?.uidt) {
@@ -1697,25 +1686,14 @@ export async function validateFormulaAndExtractTreeWithType({
   formula: string;
   columns: ColumnType[];
   clientOrSqlUi:
-    | 'mysql'
     | 'pg'
-    | 'sqlite3'
-    | 'mssql'
-    | 'mysql2'
-    | 'oracledb'
-    | 'mariadb'
-    | 'sqlite'
-    | 'snowflake'
-    | typeof MysqlUi
-    | typeof MssqlUi
-    | typeof SnowflakeUi
     | typeof PgUi;
   column?: ColumnType;
   getMeta: (tableId: string) => Promise<any>;
 }) {
   const sqlUI =
     typeof clientOrSqlUi === 'string'
-      ? SqlUiFactory.create({ client: clientOrSqlUi })
+      ? SqlUiFactory.create()
       : clientOrSqlUi;
 
   const colAliasToColMap = {};

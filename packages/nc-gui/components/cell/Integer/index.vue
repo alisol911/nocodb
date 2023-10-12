@@ -2,9 +2,6 @@
 import type { VNodeRef } from '@vue/runtime-core'
 
 interface Props {
-  // when we set a number, then it is number type
-  // for sqlite, when we clear a cell or empty the cell, it returns ""
-  // otherwise, it is null type
   modelValue?: number | null | string
 }
 
@@ -46,8 +43,6 @@ const vModel = computed({
   get: () => _vModel.value,
   set: (value) => {
     if (value === '') {
-      // if we clear / empty a cell in sqlite,
-      // the value is considered as ''
       _vModel.value = null
     } else if (isForm.value && !isEditColumn.value) {
       _vModel.value = isNaN(Number(value)) ? value : Number(value)

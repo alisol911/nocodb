@@ -1,8 +1,5 @@
 <script setup lang="ts">
 interface Props {
-  // when we set a number, then it is number type
-  // for sqlite, when we clear a cell or empty the cell, it returns ""
-  // otherwise, it is null type
   modelValue?: number | null | string
 }
 

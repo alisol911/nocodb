@@ -116,56 +116,12 @@ export const allIntegrations: IntegrationItemType[] = [
     },
   },
   {
-    title: 'objects.syncData.mysql',
-    sub_type: ClientType.MYSQL,
-    icon: iconMap.mysql,
-    type: IntegrationCategoryType.DATABASE,
-    isAvailable: true,
-    iconStyle: {
-      width: '32px',
-      height: '32px',
-    },
-  },
-  {
     title: 'objects.syncData.postgreSQL',
     sub_type: ClientType.PG,
     icon: iconMap.postgreSql,
     type: IntegrationCategoryType.DATABASE,
     isAvailable: true,
   },
-  {
-    title: 'objects.syncData.sqlite',
-    sub_type: ClientType.SQLITE,
-    icon: iconMap.sqlServer,
-    type: IntegrationCategoryType.DATABASE,
-    isAvailable: true,
-    isOssOnly: true,
-  },
-  {
-    title: 'objects.syncData.snowflake',
-    sub_type: ClientType.SNOWFLAKE,
-    icon: iconMap.snowflake,
-    type: IntegrationCategoryType.DATABASE,
-  },
-  {
-    title: 'objects.syncData.dataBricks',
-    sub_type: ClientType.DATABRICKS,
-    icon: iconMap.dataBricks,
-    type: IntegrationCategoryType.DATABASE,
-  },
-  {
-    title: 'objects.syncData.mssqlServer',
-    sub_type: ClientType.MSSQL,
-    icon: iconMap.mssqlServer,
-    type: IntegrationCategoryType.DATABASE,
-  },
-  {
-    title: 'objects.syncData.oracle',
-    sub_type: SyncDataType.ORACLE,
-    icon: iconMap.oracle,
-    type: IntegrationCategoryType.DATABASE,
-  },
-
   // Communication
   {
     title: 'general.slack',

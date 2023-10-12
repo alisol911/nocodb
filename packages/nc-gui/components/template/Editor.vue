@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import type { ColumnType, OracleUi, TableType } from 'nocodb-sdk'
+import type { ColumnType, TableType } from 'nocodb-sdk'
 import { SqlUiFactory, UITypes, getDateFormat, getDateTimeFormat, isSystemColumn, parseStringDate } from 'nocodb-sdk'
 import type { CheckboxChangeEvent } from 'ant-design-vue/es/checkbox/interface'
 import { srcDestMappingColumns, tableColumns } from './utils'
@@ -63,8 +63,7 @@ const sqlUis = computed(() => {
   for (const source of base.value.sources ?? []) {
     if (source.id) {
       temp[source.id] = SqlUiFactory.create({ client: source.type }) as Exclude<
-        ReturnType<(typeof SqlUiFactory)['create']>,
-        typeof OracleUi
+        ReturnType<(typeof SqlUiFactory)['create']>
       >
     }
   }

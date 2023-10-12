@@ -29,7 +29,7 @@ const { updateTab } = tabStore
 
 const { $e, $api } = useNuxtApp()
 
-const { isMysql, isMssql, isPg } = useBase()
+const { isPg } = useBase()
 
 useTableNew({
   baseId: base.value.id!,
@@ -89,14 +89,7 @@ const validators = computed(() => {
       {
         validator: (rule: any, value: any) => {
           return new Promise<void>((resolve, reject) => {
-            let tableNameLengthLimit = 255
-            if (isMysql(source.value?.id)) {
-              tableNameLengthLimit = 64
-            } else if (isPg(source.value?.id)) {
-              tableNameLengthLimit = 63
-            } else if (isMssql(source.value?.id)) {
-              tableNameLengthLimit = 128
-            }
+            const tableNameLengthLimit = 63
             const basePrefix = base?.value?.prefix || ''
             if ((basePrefix + value).length > tableNameLengthLimit) {
               return reject(new Error(`Table name exceeds ${tableNameLengthLimit} characters`))

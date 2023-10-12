@@ -234,7 +234,6 @@ const parseKey = (group: Group) => {
     try {
       key = JSON.parse(key)
     } catch {
-      // if parsing try to split it by `___` (for sqlite)
       return key.split('___')
     }
   }

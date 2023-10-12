@@ -13,7 +13,6 @@ export class FormFilters {
   formState: Record<string, any>
   value: any
   isSharedForm: boolean
-  isMysql?: (sourceId?: string) => boolean
   getMeta?: (tableIdOrTitle: string) => Promise<TableType | null>
 
   constructor({
@@ -22,7 +21,6 @@ export class FormFilters {
     formViewColumns = [],
     formViewColumnsMapByFkColumnId = {},
     formState = {},
-    isMysql = undefined,
     isSharedForm = false,
     getMeta = undefined,
   }: {
@@ -31,7 +29,6 @@ export class FormFilters {
     formViewColumns?: FormViewColumn[]
     formViewColumnsMapByFkColumnId?: Record<string, FormViewColumn>
     formState?: Record<string, any>
-    isMysql?: (sourceId?: string) => boolean
     isSharedForm?: boolean
     getMeta?: (tableIdOrTitle: string) => Promise<TableType | null>
   } = {}) {
@@ -42,7 +39,6 @@ export class FormFilters {
     this.formViewColumnsMapByFkColumnId = formViewColumnsMapByFkColumnId
     this.formState = formState
     this.isSharedForm = isSharedForm
-    this.isMysql = isMysql
     this.getMeta = getMeta
   }
 
@@ -181,7 +177,7 @@ export class FormFilters {
             [UITypes.Date, UITypes.DateTime, UITypes.CreatedTime, UITypes.LastModifiedTime].includes(column.uidt) &&
             !['empty', 'blank', 'notempty', 'notblank'].includes(filter.comparison_op)
           ) {
-            const dateFormat = this.isMysql?.(column.source_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
+            const dateFormat = 'YYYY-MM-DD HH:mm:ssZ'
 
             let now = dayjs(new Date())
             const dateFormatFromMeta = column?.meta?.date_format

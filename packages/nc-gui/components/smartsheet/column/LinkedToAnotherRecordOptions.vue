@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type LinkToAnotherRecordType, ModelTypes, MssqlUi, RelationTypes, SqliteUi, UITypes, ViewTypes } from 'nocodb-sdk'
+import { type LinkToAnotherRecordType, ModelTypes, RelationTypes, UITypes, ViewTypes } from 'nocodb-sdk'
 
 const props = defineProps<{
   value: any
@@ -16,7 +16,7 @@ const meta = inject(MetaInj, ref())
 
 const filterRef = ref()
 
-const { setAdditionalValidations, setPostSaveOrUpdateCbk, validateInfos, onDataTypeChange, sqlUi, isXcdbBase, updateFieldName } =
+const { setAdditionalValidations, setPostSaveOrUpdateCbk, validateInfos, onDataTypeChange, isXcdbBase, updateFieldName } =
   useColumnCreateStoreOrThrow()
 
 const baseStore = useBase()
@@ -33,7 +33,7 @@ if (!isEdit.value) {
   })
 }
 
-const onUpdateDeleteOptions = sqlUi === MssqlUi ? ['NO ACTION'] : ['NO ACTION', 'CASCADE', 'RESTRICT', 'SET NULL', 'SET DEFAULT']
+const onUpdateDeleteOptions = ['NO ACTION', 'CASCADE', 'RESTRICT', 'SET NULL', 'SET DEFAULT']
 
 if (!isEdit.value) {
   if (!vModel.value.parentId) vModel.value.parentId = meta.value?.id
@@ -45,7 +45,6 @@ if (!isEdit.value) {
   if (!vModel.value.type) vModel.value.type = 'mm'
   if (!vModel.value.onUpdate) vModel.value.onUpdate = onUpdateDeleteOptions[0]
   if (!vModel.value.onDelete) vModel.value.onDelete = onUpdateDeleteOptions[0]
-  if (!vModel.value.virtual) vModel.value.virtual = sqlUi === SqliteUi // appInfo.isCloud || sqlUi === SqliteUi
   if (!vModel.value.alias) vModel.value.alias = vModel.value.column_name
 } else {
   const colOptions = vModel.value?.colOptions as LinkToAnotherRecordType

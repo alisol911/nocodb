@@ -76,8 +76,6 @@ export const renderValue = (result?: any) => {
     return result
   }
 
-  // convert ISO string (e.g. in MSSQL) to YYYY-MM-DD hh:mm:ssZ
-  // e.g. 2023-05-18T05:30:00.000Z -> 2023-05-18 11:00:00+05:30
   result = result.replace(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/g, (d: string) => {
     return dayjs(d).isValid() ? dayjs(d).format('YYYY-MM-DD HH:mm:ssZ') : d
   })

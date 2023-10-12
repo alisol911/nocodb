@@ -547,7 +547,7 @@ onKeyStroke('ArrowDown', onDown)
                             <GeneralIcon class="text-current opacity-80" icon="edit" />
                             <span>{{ $t('general.edit') }}</span>
                           </NcMenuItem>
-                          <NcTooltip :disabled="integration?.sub_type !== ClientType.SQLITE">
+                          <NcTooltip :disabled="true">
                             <template #title>
                               Not allowed for type
                               {{
@@ -559,7 +559,7 @@ onKeyStroke('ArrowDown', onDown)
 
                             <NcMenuItem
                               :disabled="
-                                integration?.sub_type === ClientType.SQLITE || integration?.sub_type === SyncDataType.NOCODB
+                                false
                               "
                               @click="duplicateIntegration(integration)"
                             >

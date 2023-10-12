@@ -96,8 +96,6 @@ export function useMultiSelect(
 
   const { appInfo } = useGlobal()
 
-  const { isMysql, isPg } = useBase()
-
   const { base } = storeToRefs(useBase())
 
   const { api } = useApi()
@@ -229,15 +227,13 @@ export function useMultiSelect(
       // e.g. "2023-05-12T08:03:53.000Z" -> 2023-05-12T08:03:53.000Z
       textToCopy = textToCopy.replace(/["']/g, '')
 
-      const isMySQL = isMysql(columnObj.source_id)
-
       let d = dayjs(textToCopy)
 
       if (!d.isValid()) {
         // insert a datetime value, copy the value without refreshing
         // e.g. textToCopy = 2023-05-12T03:49:25.000Z
         // feed custom parse format
-        d = dayjs(textToCopy, isMySQL ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ')
+        d = dayjs(textToCopy, 'YYYY-MM-DD HH:mm:ssZ')
       }
 
       // users can change the datetime format in UI
@@ -271,21 +267,17 @@ export function useMultiSelect(
       // e.g. "2023-05-12T08:03:53.000Z" -> 2023-05-12T08:03:53.000Z
       textToCopy = textToCopy.replace(/["']/g, '')
 
-      const isMySQL = isMysql(columnObj.source_id)
-      const isPostgres = isPg(columnObj.source_id)
-
       let d = dayjs(textToCopy)
 
       if (!d.isValid()) {
         // insert a datetime value, copy the value without refreshing
         // e.g. textToCopy = 2023-05-12T03:49:25.000Z
         // feed custom parse format
-        d = dayjs(textToCopy, isMySQL ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ')
+        d = dayjs('YYYY-MM-DD HH:mm:ssZ')
       }
 
       if (!d.isValid()) {
-        // MySQL and Postgres store time in HH:mm:ss format so we need to feed custom parse format
-        d = isMySQL || isPostgres ? dayjs(textToCopy, 'HH:mm:ss') : dayjs(textToCopy)
+        d = dayjs(textToCopy, 'HH:mm:ss')
       }
 
       if (!d.isValid()) {
@@ -630,7 +622,6 @@ export function useMultiSelect(
                   column: colObj,
                   appInfo: unref(appInfo),
                 },
-                isMysql(meta.value?.source_id),
                 true,
               )
 
@@ -1200,7 +1191,6 @@ export function useMultiSelect(
                   appInfo: unref(appInfo),
                   oldValue: column.uidt === UITypes.Attachment ? targetRow.row[column.title!] : undefined,
                 },
-                isMysql(meta.value?.source_id),
                 true,
               )
 
@@ -1243,7 +1233,6 @@ export function useMultiSelect(
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
             )
 
             if (pasteVal === undefined) return
@@ -1279,7 +1268,7 @@ export function useMultiSelect(
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
+              false,
             )
 
             if (pasteVal === undefined) return
@@ -1555,7 +1544,6 @@ export function useMultiSelect(
               files: columnObj.uidt === UITypes.Attachment && e.clipboardData?.files?.length ? e.clipboardData?.files : undefined,
               oldValue: rowObj.row[columnObj.title!],
             },
-            isMysql(meta.value?.source_id),
           )
 
           if (columnObj.uidt === UITypes.Attachment && e.clipboardData?.files?.length && pasteValue?.length) {
@@ -1621,7 +1609,6 @@ export function useMultiSelect(
                       files,
                       oldValue: row.row[col.title],
                     },
-                    isMysql(meta.value?.source_id),
                     true,
                   )
 
@@ -1640,7 +1627,6 @@ export function useMultiSelect(
                     appInfo: unref(appInfo),
                     oldValue: row.row[col.title],
                   },
-                  isMysql(meta.value?.source_id),
                   true,
                 )
               }

@@ -49,8 +49,6 @@ const searchVal = ref()
 
 const { isUIAllowed, isMetaReadOnly } = useRoles()
 
-const { isPg, isMysql } = useBase()
-
 // a variable to keep newly created option value
 // temporary until it's add the option to column meta
 const tempSelectedOptState = ref<string>()
@@ -157,18 +155,10 @@ async function addIfMissingAndSave() {
 
       // todo: refactor and avoid repetition
       if (updatedColMeta.cdf) {
-        // Postgres returns default value wrapped with single quotes & casted with type so we have to get value between single quotes to keep it unified for all databases
-        if (isPg(column.value.source_id)) {
-          updatedColMeta.cdf = updatedColMeta.cdf.substring(
-            updatedColMeta.cdf.indexOf(`'`) + 1,
-            updatedColMeta.cdf.lastIndexOf(`'`),
-          )
-        }
-
-        // Mysql escapes single quotes with backslash so we keep quotes but others have to unescaped
-        if (!isMysql(column.value.source_id) && !isPg(column.value.source_id)) {
-          updatedColMeta.cdf = updatedColMeta.cdf.replace(/''/g, "'")
-        }
+        updatedColMeta.cdf = updatedColMeta.cdf.substring(
+          updatedColMeta.cdf.indexOf(`'`) + 1,
+          updatedColMeta.cdf.lastIndexOf(`'`),
+        )
       }
 
       const data = await $api.dbTableColumn.update(

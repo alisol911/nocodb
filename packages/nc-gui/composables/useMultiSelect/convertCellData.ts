@@ -6,12 +6,11 @@ import { extractEmail } from '~/helpers/parsers/parserHelpers'
 
 export default function convertCellData(
   args: { to: UITypes; value: string; column: ColumnType; appInfo: AppInfo; files?: FileList | File[]; oldValue?: unknown },
-  isMysql = false,
   isMultiple = false,
 ) {
   const { to, value, column, files = [], oldValue } = args
 
-  const dateFormat = isMysql ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
+  const dateFormat = 'YYYY-MM-DD HH:mm:ssZ'
 
   // return null if value is empty
   if (value === '' && to !== UITypes.Attachment) return null

@@ -26,8 +26,7 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
   ) => {
     const baseStore = useBase()
 
-    const { isMysql: isMysqlFunc, isPg: isPgFunc, isMssql: isMssqlFunc, isXcdbBase: isXcdbBaseFunc } = baseStore
-
+    const { isXcdbBase: isXcdbBaseFunc, getBaseType } = baseStore
     const { sqlUis } = storeToRefs(baseStore)
 
     const { $api } = useNuxtApp()
@@ -62,11 +61,6 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
 
     const isEdit = computed(() => !!column?.value?.id)
 
-    const isMysql = computed(() => isMysqlFunc(meta.value?.source_id ? meta.value?.source_id : Object.keys(sqlUis.value)[0]))
-
-    const isPg = computed(() => isPgFunc(meta.value?.source_id ? meta.value?.source_id : Object.keys(sqlUis.value)[0]))
-
-    const isMssql = computed(() => isMssqlFunc(meta.value?.source_id ? meta.value?.source_id : Object.keys(sqlUis.value)[0]))
 
     const isSystem = computed(() => isSystemColumn(column.value))
 
@@ -484,11 +478,8 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
       isEdit,
       column,
       sqlUi,
-      isMssql,
-      isPg,
       isWebhookCreateModalOpen,
       isAiButtonConfigModalOpen,
-      isMysql,
       isSystem,
       isXcdbBase,
       disableSubmitBtn,
