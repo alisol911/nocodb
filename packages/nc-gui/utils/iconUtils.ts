@@ -20,7 +20,6 @@ import MdiTableLarge from '~icons/mdi/table-large'
 import MdiEyeCircleOutline from '~icons/mdi/eye-circle-outline'
 import MsGroup from '~icons/material-symbols/groups-outline-rounded'
 import MsAddBoxOutline from '~icons/nc-icons/add-box'
-import LogosAirtable from '~icons/logos/airtable'
 import MsSort from '~icons/material-symbols/sort'
 import MaterialSymbolsEdit from '~icons/material-symbols/edit-outline-rounded'
 import MaterialSymbolsWarningOutlineRounded from '~icons/material-symbols/warning-outline-rounded'
@@ -826,7 +825,6 @@ import NcSendAlt from '~icons/nc-icons-v2/send-alt.svg'
   share: PhShareThin,
   reload: PhReloadThin,
   xml: PhCodeThin,
-  airtable: PhGridNineThin,
   grid: PhGridThin,
   gallery: PhImageThin,
   form: PhComputerTowerThin,
@@ -1079,7 +1077,6 @@ export const iconMap = {
   mobileShare: MobileShare,
   reload: MdiRefresh,
   xml: h('span', { class: 'material-symbols' }, 'code'),
-  airtable: LogosAirtable,
   excelColored: VscodeIconsExcelColored,
   // grid: h('span', { class: 'material-symbols' }, 'grid_view'),
   // gallery: h('span', { class: 'material-symbols' }, 'image'),
