@@ -42,7 +42,7 @@ if (!isEdit.value) {
   if (!vModel.value.parentTable) vModel.value.parentTable = vModel.value.rtn || ''
   if (!vModel.value.parentColumn) vModel.value.parentColumn = vModel.value.rcn || ''
 
-  if (!vModel.value.type) vModel.value.type = 'mm'
+  if (!vModel.value.type) vModel.value.type = vModel.value.uidt === UITypes.Links ? 'hm' : 'bt'
   if (!vModel.value.onUpdate) vModel.value.onUpdate = onUpdateDeleteOptions[0]
   if (!vModel.value.onDelete) vModel.value.onDelete = onUpdateDeleteOptions[0]
   if (!vModel.value.alias) vModel.value.alias = vModel.value.column_name
