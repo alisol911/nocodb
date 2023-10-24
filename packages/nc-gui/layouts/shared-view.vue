@@ -18,7 +18,7 @@ onMounted(() => {
   // if we are, communicate to the parent page whenever we navigate to a new url,
   // so that the parent page can respond to it properly.
   // E.g. by making the browser navigate to that url, and not just the iframe.
-  // This is useful for integrating NocoDB into other products,
+  // This is useful for integrating Tenet into other products,
   // such as Outline (https://github.com/outline/outline/pull/4184).
   if (window.parent !== window) {
     const notifyLocationChange = (value: string) =>
@@ -41,7 +41,7 @@ onMounted(() => {
   if (sharedView.value?.title) {
     document.title = `${sharedView.value.title}`
   } else {
-    document.title = 'NocoDB'
+    document.title = 'Tenet'
   }
 })
 </script>
@@ -68,7 +68,8 @@ export default {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img width="96" alt="NocoDB" src="~/assets/img/brand/nocodb.png" class="flex-none min-w-[96px]" />
+
+              <img width="35" alt="Tenet" src="~/assets/img/icons/256x256-trans.png" />
             </a>
 
             <div class="flex items-center gap-2 text-gray-900 text-sm truncate">
