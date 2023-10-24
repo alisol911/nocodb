@@ -21,7 +21,7 @@ export const useNotification = defineStore('notificationStore', () => {
   const init = (token) => {
     const url = new URL(appInfo.value.ncSiteUrl, window.location.href.split(/[?#]/)[0]).href
 
-    socket = io(`${url}${url.endsWith('/') ? '' : '/'}notifications`, {
+    socket = io(`http://localhost:8800/notifications`, {
       extraHeaders: { 'xc-auth': token },
     })
 
