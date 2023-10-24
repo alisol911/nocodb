@@ -33,7 +33,7 @@ if (!vModel.value.childTable) vModel.value.childTable = meta.value?.table_name
 if (!vModel.value.parentTable) vModel.value.parentTable = vModel.value.rtn || ''
 if (!vModel.value.parentColumn) vModel.value.parentColumn = vModel.value.rcn || ''
 
-if (!vModel.value.type) vModel.value.type = 'mm'
+if (!vModel.value.type) vModel.value.type = vModel.value.uidt === UITypes.Links ? 'hm' : 'bt'
 if (!vModel.value.onUpdate) vModel.value.onUpdate = onUpdateDeleteOptions[0]
 if (!vModel.value.onDelete) vModel.value.onDelete = onUpdateDeleteOptions[0]
 if (!vModel.value.alias) vModel.value.alias = vModel.value.column_name
@@ -58,9 +58,14 @@ const isLinks = computed(() => vModel.value.uidt === UITypes.Links && vModel.val
     <div class="border-2 p-6">
       <a-form-item v-bind="validateInfos.type" class="nc-ltar-relation-type">
         <a-radio-group v-model:value="vModel.type" name="type" v-bind="validateInfos.type" class="!flex flex-col gap-2">
-          <a-radio value="oo">{{ $t('title.oneToOne') }}</a-radio>
-          <a-radio value="hm">{{ $t('title.hasMany') }}</a-radio>
-          <a-radio value="mm">{{ $t('title.manyToMany') }}</a-radio>
+          <template v-if="isLinks">
+            <a-radio value="oo">{{ $t('title.oneToOne') }}</a-radio>
+            <a-radio value="hm">{{ $t('title.hasMany') }}</a-radio>
+            <a-radio value="mm">{{ $t('title.manyToMany') }}</a-radio>
+          </template>
+          <template v-else>
+            <a-radio value="bt">Has One</a-radio>
+          </template>
         </a-radio-group>
       </a-form-item>
 

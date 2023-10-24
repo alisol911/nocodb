@@ -11,7 +11,6 @@ const uiTypes = [
     name: UITypes.LinkToAnotherRecord,
     icon: iconMap.cellLinks,
     virtual: 1,
-    deprecated: 1,
   },
   {
     name: UITypes.Lookup,
