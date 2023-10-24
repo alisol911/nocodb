@@ -99,7 +99,7 @@ export function addAxiosInterceptors(api: Api<any>) {
 
       // Try request again with new token
       return axiosInstance
-        .post('/auth/token/refresh', null, {
+        .post('/api/v1/auth/token/refresh', null, {
           withCredentials: true,
         })
         .then((token) => {

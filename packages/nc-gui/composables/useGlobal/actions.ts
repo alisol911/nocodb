@@ -54,7 +54,7 @@ export function useGlobalActions(state: State): Actions {
 
     return new Promise((resolve) => {
       nuxtApp.$api.instance
-        .post('/auth/token/refresh', null, {
+        .post('/api/v1/auth/token/refresh', null, {
           withCredentials: true,
         })
         .then((response) => {
