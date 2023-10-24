@@ -20,7 +20,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         let socketPath = url.pathname
         socketPath += socketPath.endsWith('/') ? 'socket.io' : '/socket.io'
 
-        socket = io(url.href, {
+        socket = io('http://localhost:8800', {
           extraHeaders: { 'xc-auth': token },
           path: socketPath,
         })
