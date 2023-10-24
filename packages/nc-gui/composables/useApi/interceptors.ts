@@ -55,7 +55,7 @@ export function addAxiosInterceptors(api: Api<any>) {
         return Promise.reject(error)
       }
 
-      if (error.config.url === '/auth/token/refresh') {
+      if (error.config.url === '/api/v1/auth/token/refresh') {
         await state.signOut({
           redirectToSignin: !route.value.meta.public,
           skipApiCall: true,

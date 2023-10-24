@@ -78,7 +78,7 @@ export function useGlobalActions(state: State, _getters: Getters): Actions {
     }
 
     try {
-      const response = await axiosInstance.post('/auth/token/refresh', null, {
+      const response = await axiosInstance.post('/api/v1/auth/token/refresh', null, {
         withCredentials: true,
       })
       if (response.data?.token) {
