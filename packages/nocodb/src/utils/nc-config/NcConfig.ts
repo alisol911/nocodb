@@ -12,9 +12,14 @@ export class NcConfig {
     db: DbConfig;
   } = {
     db: {
-      client: DriverClient.SQLITE,
+      client: DriverClient.PG,
       connection: {
-        filename: 'noco.db',
+        driver: DriverClient.PG,
+        host: 'localhost',
+        port: 54399,
+        database: 'tenet',
+        user: 'tenet',
+        password: 'tenet',
       },
     },
   };
@@ -71,7 +76,7 @@ export class NcConfig {
       },
     };
 
-    ncConfig.port = +(port ?? 8080);
+    ncConfig.port = +(port ?? 8800);
     ncConfig.toolDir = getToolDir();
     ncConfig.worker = worker ?? false;
 
