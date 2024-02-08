@@ -475,15 +475,6 @@ async function importTemplate() {
 
       // create tables
       for (const table of data.tables) {
-        // enrich system fields if not provided
-        // e.g. id, created_at, updated_at
-        const systemColumns = sqlUi?.value.getNewTableColumns().filter((c: ColumnType) => c.column_name !== 'title')
-        for (const systemColumn of systemColumns) {
-          if (!table.columns?.some((c) => c.column_name?.toLowerCase() === systemColumn.column_name.toLowerCase())) {
-            table.columns?.push(systemColumn)
-          }
-        }
-
         if (table.columns) {
           for (const column of table.columns) {
             // set pk & rqd if ID is provided
