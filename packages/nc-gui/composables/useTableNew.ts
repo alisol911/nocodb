@@ -1,14 +1,14 @@
-import type { ColumnType, LinkToAnotherRecordType, TableType } from 'nocodb-sdk'
+import type { LinkToAnotherRecordType, TableType } from 'nocodb-sdk'
 import { UITypes, isSystemColumn } from 'nocodb-sdk'
 import type { SidebarTableNode } from '~/lib/types'
 import { generateUniqueTitle as generateTitle } from '#imports'
 
 export function useTableNew(param: { onTableCreate?: (tableMeta: TableType) => void; baseId: string; sourceId?: string }) {
-  const table = reactive<{ title: string; table_name: string; description?: string; columns: string[]; is_hybrid: boolean }>({
+  const table = reactive<{ title: string; table_name: string; description?: string; columns: string[]; is_hybrid: boolean,  }>({
     title: '',
     table_name: '',
     description: '',
-    columns: SYSTEM_COLUMNS,
+    base: '',
     is_hybrid: true,
   })
 

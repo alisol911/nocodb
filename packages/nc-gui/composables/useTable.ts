@@ -1,12 +1,12 @@
-import type { ColumnType, LinkToAnotherRecordType, TableType } from 'nocodb-sdk'
-import { UITypes, isLinksOrLTAR, isSystemColumn } from 'nocodb-sdk'
+import type { LinkToAnotherRecordType, TableType } from 'nocodb-sdk'
+import { isLinksOrLTAR, isSystemColumn } from 'nocodb-sdk'
 import { generateUniqueTitle as generateTitle } from '#imports'
 
 export function useTable(onTableCreate?: (tableMeta: TableType) => void, sourceId?: string) {
-  const table = reactive<{ title: string; table_name: string; columns: string[] }>({
+  const table = reactive<{ title: string; table_name: string; base: string }>({
     title: '',
     table_name: '',
-    columns: SYSTEM_COLUMNS,
+    base: '',
   })
 
   const { t } = useI18n()

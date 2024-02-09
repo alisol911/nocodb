@@ -2,8 +2,6 @@ import { NO_SCOPE as SDK_NO_SCOPE } from 'nocodb-sdk'
 
 export const NOCO = 'noco'
 
-export const SYSTEM_COLUMNS = ['id', 'title', 'created_at', 'updated_at']
-
 export const EMPTY_TITLE_PLACEHOLDER_DOCS = 'Untitled'
 
 export const MAX_WIDTH_FOR_MOBILE_MODE = 480
