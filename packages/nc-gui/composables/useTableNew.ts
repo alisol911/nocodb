@@ -1,4 +1,4 @@
-import type { ColumnType, LinkToAnotherRecordType, TableType } from 'nocodb-sdk'
+import type { LinkToAnotherRecordType, TableType } from 'nocodb-sdk'
 import { UITypes, isSystemColumn } from 'nocodb-sdk'
 import type { SidebarTableNode } from '~/lib/types'
 import { generateUniqueTitle as generateTitle } from '#imports'
@@ -12,7 +12,7 @@ export function useTableNew(param: {
     title: '',
     table_name: '',
     description: '',
-    columns: SYSTEM_COLUMNS,
+    columns: ',
     is_hybrid: true,
   })
 
