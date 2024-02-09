@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { SelectProps } from 'ant-design-vue'
+
 const props = defineProps<{
   modelValue: boolean
   sourceId: string
@@ -8,8 +10,6 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue', 'create'])
 
 const dialogShow = useVModel(props, 'modelValue', emit)
-
-const isAdvanceOptVisible = ref(false)
 
 const inputEl = ref<HTMLInputElement>()
 
@@ -61,7 +61,7 @@ const validators = computed(() => {
       {
         validator: (rule: any, value: any) => {
           return new Promise<void>((resolve, reject) => {
-            let tableNameLengthLimit = 63
+            const tableNameLengthLimit = 63
             const basePrefix = base?.value?.prefix || ''
             if ((basePrefix + value).length > tableNameLengthLimit) {
               return reject(new Error(`Table name exceeds ${tableNameLengthLimit} characters`))
@@ -76,12 +76,13 @@ const validators = computed(() => {
 })
 const { validate, validateInfos } = useForm(table, validators)
 
-const systemColumnsCheckboxInfo = SYSTEM_COLUMNS.map((c, index) => ({
-  value: c,
-  disabled: index === 0,
-}))
-
 const creating = ref(false)
+
+const tableSelectFieldOptions = ref<SelectProps['options']>([
+  { value: 'Event', label: 'Event' },
+  { value: 'Base', label: 'Base' },
+  { value: 'BaseInfo', label: 'BaseInfo' },
+])
 
 const _createTable = async () => {
   if (creating.value) return
@@ -131,32 +132,10 @@ onMounted(() => {
             :placeholder="$t('msg.info.enterTableName')"
           />
         </a-form-item>
-        <div class="nc-table-advanced-options" :class="{ active: isAdvanceOptVisible }">
+        <div class="nc-table-advanced-options">
           <div>
-            <div class="mb-1">
-              <!-- Add Default Columns -->
-              {{ $t('msg.info.defaultColumns') }}
-            </div>
-
-            <a-row>
-              <a-checkbox-group
-                v-model:value="table.columns"
-                :options="systemColumnsCheckboxInfo"
-                class="!flex flex-row justify-between w-full"
-              >
-                <template #label="{ value }">
-                  <a-tooltip v-if="value === 'id'" placement="top" class="!flex">
-                    <template #title>
-                      <span>{{ $t('msg.idColumnRequired') }}</span>
-                    </template>
-                    {{ $t('datatype.ID') }}
-                  </a-tooltip>
-                  <div v-else class="flex">
-                    {{ value }}
-                  </div>
-                </template>
-              </a-checkbox-group>
-            </a-row>
+            <div class="mb-1">Base</div>
+            <NcSelect v-model:value="table.base" class="w-full" :options="tableSelectFieldOptions" />
           </div>
         </div>
         <div class="flex flex-row justify-end gap-x-2 mt-2">
@@ -182,10 +161,6 @@ onMounted(() => {
 .nc-table-advanced-options {
   max-height: 0;
   transition: 0.3s max-height;
-  overflow: hidden;
-
-  &.active {
-    max-height: 100px;
-  }
+  max-height: 100px;
 }
 </style>
