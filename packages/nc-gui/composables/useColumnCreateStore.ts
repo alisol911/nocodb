@@ -24,8 +24,8 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
   ) => {
     const baseStore = useBase()
 
-    const { isXcdbBase: isXcdbBaseFunc, getBaseType } = baseStore
-    const { sqlUis } = storeToRefs(baseStore)
+    const { isXcdbBase: isXcdbBaseFunc } = baseStore
+    const { sqlUi } = storeToRefs(baseStore)
 
     const { $api } = useNuxtApp()
 
@@ -36,8 +36,6 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
     const { t } = useI18n()
 
     const { $e } = useNuxtApp()
-
-    const sqlUi = ref(meta.value?.source_id ? sqlUis.value[meta.value?.source_id] : Object.values(sqlUis.value)[0])
 
     const viewsStore = useViewsStore()
 

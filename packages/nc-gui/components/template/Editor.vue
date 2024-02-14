@@ -91,7 +91,6 @@ const { $api, $state } = useNuxtApp()
 const basesStore = useBases()
 
 const { bases } = storeToRefs(basesStore)
-
 const baseStore = useBase()
 
 const { base: activeBase } = storeToRefs(baseStore)
@@ -101,22 +100,6 @@ const base = computed(() => bases.value.get(baseId) || activeBase.value)
 const tablesStore = useTablesStore()
 const { openTable, loadProjectTables } = tablesStore
 const { baseTables } = storeToRefs(tablesStore)
-
-const sqlUis = computed(() => {
-  const temp: Record<string, any> = {}
-
-  for (const source of base.value.sources ?? []) {
-    if (source.id) {
-      temp[source.id] = SqlUiFactory.create({ client: source.type }) as Exclude<
-        ReturnType<(typeof SqlUiFactory)['create']>
-      >
-    }
-  }
-
-  return temp
-})
-
-const sqlUi = computed(() => sqlUis.value[sourceId] || Object.values(sqlUis.value)[0])
 
 const hasSelectColumn = ref<boolean[]>([])
 

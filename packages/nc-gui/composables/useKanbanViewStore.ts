@@ -43,7 +43,6 @@ const [useProvideKanbanViewStore, useKanbanViewStore] = useInjectionState(
 
     // save history of stack changes for undo/redo
     const moveHistory = ref<{ op: 'added' | 'removed'; pk: string; stack: string; index: number }[]>([])
-
     const xWhere = computed(() => {
       let where
       const col =

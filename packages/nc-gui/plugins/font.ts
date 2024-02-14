@@ -2,11 +2,19 @@ export default defineNuxtPlugin(() => {
   // Listen when 'Material Symbols' font is loaded
   // and remove 'nc-fonts-not-loaded' class from <html> element
 
+  function getFont() {
+    let result: any
+    document.fonts.forEach((fontFace) => {
+      if (fontFace.family === 'Material Symbols') {
+        result = fontFace
+      }
+    })
+    return result
+  }
   try {
     document.documentElement?.classList.add('nc-fonts-not-loaded')
 
-    const fontFaces = [...document.fonts.values()]
-    const materialFont = fontFaces.find((fontFace) => fontFace.family === 'Material Symbols')
+    const materialFont = getFont()
 
     if (!materialFont || !materialFont.loaded) {
       document.documentElement?.classList.remove('nc-fonts-not-loaded')
@@ -27,8 +35,7 @@ export default defineNuxtPlugin(() => {
     let intervalId: any
 
     function poll() {
-      const fontFaces = [...document.fonts.values()]
-      const materialFont = fontFaces.find((fontFace) => fontFace.family === 'Material Symbols')
+      const materialFont = getFont()
 
       if (materialFont?.status === 'unloaded') {
         document.documentElement?.classList.remove('nc-fonts-not-loaded')

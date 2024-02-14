@@ -34,7 +34,7 @@ const { setAdditionalValidations, setPostSaveOrUpdateCbk, validateInfos, onDataT
   useColumnCreateStoreOrThrow()
 
 const baseStore = useBase()
-const { tables } = storeToRefs(baseStore)
+const { allTables } = storeToRefs(baseStore)
 
 const viewsStore = useViewsStore()
 const { viewsByTable } = storeToRefs(viewsStore)
@@ -118,7 +118,7 @@ const refTables = computed(() => {
       return []
     }
 
-    return tables.value.filter((t) => t.type === ModelTypes.TABLE && t.source_id === meta.value?.source_id)
+    return allTables.value.filter((t) => t.type === ModelTypes.TABLE && t.source_id === meta.value?.source_id)
   }
 
   if (!baseTables.value.get(vModel.value.ref_base_id)) {
