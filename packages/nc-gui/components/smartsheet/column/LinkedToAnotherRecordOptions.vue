@@ -20,7 +20,7 @@ const { setAdditionalValidations, setPostSaveOrUpdateCbk, validateInfos, onDataT
   useColumnCreateStoreOrThrow()
 
 const baseStore = useBase()
-const { tables } = storeToRefs(baseStore)
+const { allTables } = storeToRefs(baseStore)
 
 const viewsStore = useViewsStore()
 const { viewsByTable } = storeToRefs(viewsStore)
@@ -83,11 +83,11 @@ if (!vModel.value.type) vModel.value.type = vModel.value?.colOptions?.type || 'm
 const advancedOptions = ref(false)
 
 const refTables = computed(() => {
-  if (!tables.value || !tables.value.length) {
+  if (!allTables.value || !allTables.value.length) {
     return []
   }
 
-  return tables.value.filter((t) => t.type === ModelTypes.TABLE && t.source_id === meta.value?.source_id)
+  return allTables.value.filter((t) => t.type === ModelTypes.TABLE)
 })
 
 const refViews = computed(() => {

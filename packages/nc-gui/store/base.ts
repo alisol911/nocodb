@@ -1,5 +1,5 @@
 import type { BaseType, SourceType, TableType } from 'nocodb-sdk'
-import { SqlUiFactory } from 'nocodb-sdk'
+import { PgUi, SqlUiFactory } from 'nocodb-sdk'
 import { isString } from '@vue/shared'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
@@ -42,6 +42,10 @@ export const useBase = defineStore('baseStore', () => {
   // todo: new-layout
   const base = computed<NcProject>(() => basesStore.bases.get(baseId.value) || sharedProject.value || {})
   const tables = computed<TableType[]>(() => tablesStore.baseTables.get(baseId.value) || [])
+  const allTables = computedAsync<TableType[]>(async () => {
+    await tablesStore.loadAllTables()
+    return tablesStore.allTables
+  })
 
   const baseLoadedHook = createEventHook<BaseType>()
 
@@ -73,6 +77,14 @@ export const useBase = defineStore('baseStore', () => {
       }
     }
     return temp
+  })
+
+  const sqlUi = computed(() => {
+    let result: any
+    if (!result) {
+      result = PgUi
+    }
+    return result
   })
 
   function getBaseType(sourceId?: string) {
@@ -255,11 +267,13 @@ export const useBase = defineStore('baseStore', () => {
     base,
     sources,
     tables,
+    allTables,
     loadRoles,
     loadProject,
     updateProject,
     loadTables,
     sqlUis,
+    sqlUi,
     isSharedBase,
     isSharedErd,
     loadProjectMetaInfo,

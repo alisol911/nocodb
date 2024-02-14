@@ -3933,6 +3933,13 @@
             },
             "in": "query",
             "name": "includeM2M"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "modelId"
           }
         ],
         "tags": [
@@ -3961,9 +3968,9 @@
         "responses": {
           "200": {
             "description": "OK",
-            "content": {
+          "content": {
               "application/json": {
-                "schema": {
+                "s  chema": {
                   "$ref": "#/components/schemas/Table"
                 },
                 "examples": {

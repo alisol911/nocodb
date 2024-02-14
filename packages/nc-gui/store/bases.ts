@@ -16,9 +16,7 @@ export const useBases = defineStore('basesStore', () => {
   const bases = ref<Map<string, NcProject>>(new Map())
 
   const basesList = computed<NcProject[]>(() =>
-    Array.from(bases.value.values()).sort(
-      (a, b) => (a.order != null ? a.order : Infinity) - (b.order != null ? b.order : Infinity),
-    ),
+    Array.from(bases.value.values())
   )
   const basesUser = ref<Map<string, User[]>>(new Map())
 
@@ -183,7 +181,6 @@ export const useBases = defineStore('basesStore', () => {
 
     return tableStore.baseTables.get(baseId)!.length === 0
 
-    return false
   }
 
   function isProjectPopulated(baseId: string) {

@@ -53,8 +53,7 @@ const isExpandedFormOpen = inject(IsExpandedFormOpenInj, ref(false))
 
 const { currentRow } = useSmartsheetRowStoreOrThrow()
 
-const { sqlUis } = storeToRefs(useBase())
-
+const { sqlUi } = storeToRefs(useBase())
 const { generatingRows, generatingColumns } = useNocoAi()
 
 const { showNull } = useGlobal()
@@ -71,7 +70,7 @@ const isGenerating = computed(
 
 const sourceId = meta.value?.source_id || column.value?.source_id
 
-const sqlUi = ref(sourceId && sqlUis.value[sourceId] ? sqlUis.value[sourceId] : Object.values(sqlUis.value)[0])
+const { sqlUi } = storeToRefs(useBase())
 
 const abstractType = computed(() => column.value && sqlUi.value.getAbstractType(column.value))
 

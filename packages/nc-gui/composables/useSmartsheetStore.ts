@@ -20,11 +20,7 @@ const [useProvideSmartsheetStore, useSmartsheetStore] = useInjectionState(
 
     const baseStore = useBase()
 
-    const { sqlUis } = storeToRefs(baseStore)
-
-    const sqlUi = computed(() =>
-      (meta.value as TableType)?.source_id ? sqlUis.value[(meta.value as TableType).source_id!] : Object.values(sqlUis.value)[0],
-    )
+    const { sqlUi } = storeToRefs(baseStore)
 
     const { search } = useFieldQuery()
 

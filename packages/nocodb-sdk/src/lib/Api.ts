@@ -7409,6 +7409,7 @@ export class Api<
         pageSize?: number;
         sort?: string;
         includeM2M?: boolean;
+        modelId?: string;
       },
       params: RequestParams = {}
     ) =>
@@ -7432,7 +7433,7 @@ export class Api<
  * @name Read
  * @summary Read Table
  * @request GET:/api/v1/db/meta/tables/{tableId}
- * @response `200` `TableType` OK
+ * @response `200` `void` OK
  * @response `400` `{
   \** @example BadRequest [Error]: <ERROR MESSAGE> *\
   msg: string,
@@ -7441,7 +7442,7 @@ export class Api<
  */
     read: (tableId: IdType, params: RequestParams = {}) =>
       this.request<
-        TableType,
+        void,
         {
           /** @example BadRequest [Error]: <ERROR MESSAGE> */
           msg: string;

@@ -13,6 +13,7 @@ export const useTablesStore = defineStore('tablesStore', () => {
   const route = router.currentRoute
 
   const baseTables = ref<Map<string, SidebarTableNode[]>>(new Map())
+  const allTables = ref<Array<TableType>>(new Array(0))
   const basesStore = useBases()
   // const baseStore = useBase()
 
@@ -34,6 +35,13 @@ export const useTablesStore = defineStore('tablesStore', () => {
 
     return tables.filter((t) => !t.source_id || openedProjectBasesMap.get(t.source_id)?.enabled)
   })
+
+  const loadAllTables = async () => {
+    const result = await api.dbTable.list('0', {
+      includeM2M: false,
+    })
+    allTables.value = result.list
+  }
 
   const activeTable = computed(() => {
     if (!basesStore) return
@@ -78,6 +86,7 @@ export const useTablesStore = defineStore('tablesStore', () => {
     })
 
     baseTables.value.set(baseId, tables.list || [])
+    await loadAllTables()
   }
 
   const addTable = (baseId: string, table: TableType) => {
@@ -251,9 +260,11 @@ export const useTablesStore = defineStore('tablesStore', () => {
   return {
     baseTables,
     loadProjectTables,
+    loadAllTables,
     addTable,
     activeTable,
     activeTables,
+    allTables,
     openTable,
     updateTable,
     activeTableId,

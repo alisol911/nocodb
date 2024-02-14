@@ -26,8 +26,8 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
   ) => {
     const baseStore = useBase()
 
-    const { isXcdbBase: isXcdbBaseFunc, getBaseType } = baseStore
-    const { sqlUis } = storeToRefs(baseStore)
+    const { isXcdbBase: isXcdbBaseFunc } = baseStore
+    const { sqlUi } = storeToRefs(baseStore)
 
     const { $api } = useNuxtApp()
 
@@ -38,8 +38,6 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
     const { t } = useI18n()
 
     const { $e } = useNuxtApp()
-
-    const sqlUi = ref(meta.value?.source_id ? sqlUis.value[meta.value?.source_id] : Object.values(sqlUis.value)[0])
 
     const viewsStore = useViewsStore()
 
@@ -61,12 +59,9 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
 
     const isEdit = computed(() => !!column?.value?.id)
 
-
+    const isXcdbBase = computed(() => isXcdbBaseFunc(meta.value?.source_id ? meta.value?.source_id : sqlUi.value[0]))
     const isSystem = computed(() => isSystemColumn(column.value))
 
-    const isXcdbBase = computed(() =>
-      isXcdbBaseFunc(meta.value?.source_id ? meta.value?.source_id : Object.keys(sqlUis.value)[0]),
-    )
 
     let postSaveOrUpdateCbk:
       | ((params: { update?: boolean; colId: string; column?: ColumnType | undefined }) => Promise<void>)
