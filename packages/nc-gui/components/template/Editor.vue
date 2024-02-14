@@ -45,11 +45,9 @@ const { addTab } = useTabs()
 
 const baseStrore = useBase()
 const { loadTables } = baseStrore
-const { sqlUis, base } = storeToRefs(baseStrore)
+const { base } = storeToRefs(baseStrore)
 const { openTable } = useTablesStore()
 const { baseTables } = storeToRefs(useTablesStore())
-
-const sqlUi = ref(sqlUis.value[sourceId] || Object.values(sqlUis.value)[0])
 
 const hasSelectColumn = ref<boolean[]>([])
 

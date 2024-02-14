@@ -118,6 +118,7 @@ export class PgUi {
         un: false,
         ai: false,
         cdf: null,
+        pv: true,
         clen: 45,
         np: null,
         ns: null,

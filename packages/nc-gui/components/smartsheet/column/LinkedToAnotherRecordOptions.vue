@@ -13,10 +13,10 @@ const vModel = useVModel(props, 'value', emit)
 
 const meta = inject(MetaInj, ref())
 
-const { setAdditionalValidations, validateInfos, onDataTypeChange, sqlUi, isXcdbBase } = useColumnCreateStoreOrThrow()
+const { setAdditionalValidations, validateInfos, onDataTypeChange, isXcdbBase } = useColumnCreateStoreOrThrow()
 
 const baseStore = useBase()
-const { tables } = storeToRefs(baseStore)
+const { allTables } = storeToRefs(baseStore)
 
 const { t } = useI18n()
 
@@ -41,11 +41,11 @@ if (!vModel.value.alias) vModel.value.alias = vModel.value.column_name
 const advancedOptions = ref(false)
 
 const refTables = computed(() => {
-  if (!tables.value || !tables.value.length) {
+  if (!allTables.value || !allTables.value.length) {
     return []
   }
 
-  return tables.value.filter((t) => t.type === ModelTypes.TABLE && t.source_id === meta.value?.source_id)
+  return allTables.value.filter((t) => t.type === ModelTypes.TABLE)
 })
 
 const filterOption = (value: string, option: { key: string }) => option.key.toLowerCase().includes(value.toLowerCase())

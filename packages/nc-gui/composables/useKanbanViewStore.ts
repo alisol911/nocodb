@@ -17,7 +17,7 @@ const [useProvideKanbanViewStore, useKanbanViewStore] = useInjectionState(
 
     const { api } = useApi()
 
-    const { base, sqlUis } = storeToRefs(useBase())
+    const { base, sqlUi } = storeToRefs(useBase())
 
     const { $e, $api } = useNuxtApp()
 
@@ -37,10 +37,6 @@ const [useProvideKanbanViewStore, useKanbanViewStore] = useInjectionState(
 
     // save history of stack changes for undo/redo
     const moveHistory = ref<{ op: 'added' | 'removed'; pk: string; stack: string; index: number }[]>([])
-
-    const sqlUi = ref(
-      (meta.value as TableType)?.source_id ? sqlUis.value[(meta.value as TableType).source_id!] : Object.values(sqlUis.value)[0],
-    )
 
     const xWhere = computed(() => {
       let where

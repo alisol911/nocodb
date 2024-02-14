@@ -5,8 +5,7 @@ import type { TableType } from 'nocodb-sdk'
 export const useMetas = createSharedComposable(() => {
   const { $api } = useNuxtApp()
 
-  const { tables: _tables } = storeToRefs(useBase())
-  const { baseTables } = storeToRefs(useTablesStore())
+  const { tables: _tables, allTables } = storeToRefs(useBase())
 
   const metas = useState<{ [idOrTitle: string]: TableType | any }>('metas', () => ({}))
 
@@ -30,11 +29,9 @@ export const useMetas = createSharedComposable(() => {
     tableIdOrTitle: string,
     force = false,
     skipIfCacheMiss = false,
-    baseId?: string,
+    _baseId?: string,
   ): Promise<TableType | null> => {
     if (!tableIdOrTitle) return null
-
-    const tables = (baseId ? baseTables.value.get(baseId) : _tables.value) ?? []
 
     /** wait until loading is finished if requesting same meta
      * use while to recheck loading state since it can be changed by other requests
@@ -80,7 +77,18 @@ export const useMetas = createSharedComposable(() => {
         return metas.value[tableIdOrTitle]
       }
 
-      const modelId = (tables.find((t) => t.id === tableIdOrTitle) || tables.find((t) => t.title === tableIdOrTitle))?.id
+      let modelId = (
+        allTables.value.find((t) => t.id === tableIdOrTitle) || allTables.value.find((t) => t.title === tableIdOrTitle)
+      )?.id
+
+      if (!modelId) {
+        const result = await $api.dbTable.list('0', {
+          modelId: tableIdOrTitle,
+        })
+        if (result.list.length === 1) {
+          modelId = result.list[0].id
+        }
+      }
 
       if (!modelId) {
         console.warn(`Table '${tableIdOrTitle}' is not found in the table list`)

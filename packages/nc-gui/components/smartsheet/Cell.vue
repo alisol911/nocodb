@@ -49,9 +49,7 @@ const isExpandedFormOpen = inject(IsExpandedFormOpenInj, ref(false))
 
 const { currentRow } = useSmartsheetRowStoreOrThrow()
 
-const { sqlUis } = storeToRefs(useBase())
-
-const sqlUi = ref(column.value?.source_id ? sqlUis.value[column.value?.source_id] : Object.values(sqlUis.value)[0])
+const { sqlUi } = storeToRefs(useBase())
 
 const abstractType = computed(() => column.value && sqlUi.value.getAbstractType(column.value))
 

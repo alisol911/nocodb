@@ -19,13 +19,11 @@ export function useTable(onTableCreate?: (tableMeta: TableType) => void, sourceI
 
   const baseStore = useBase()
   const { loadTables, isXcdbBase } = baseStore
-  const { sqlUis, base, tables } = storeToRefs(baseStore)
+  const { sqlUi, base, tables } = storeToRefs(baseStore)
 
   const { refreshCommandPalette } = useCommandPalette()
 
   const { createTableMagic: _createTableMagic, createSchemaMagic: _createSchemaMagic } = useNocoEe()
-
-  const sqlUi = computed(() => (sourceId && sqlUis.value[sourceId] ? sqlUis.value[sourceId] : Object.values(sqlUis.value)[0]))
 
   const createTable = async (baseId?: string) => {
     if (!sourceId) {

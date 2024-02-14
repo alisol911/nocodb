@@ -1,6 +1,11 @@
 {
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "target": "es2017",
+    "lib": [
+      "es2019",
+      "dom"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "incremental": false,
