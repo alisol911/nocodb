@@ -220,13 +220,15 @@ export default class Column<T = any> implements ColumnType {
       );
       insertObj.source_id = model.source_id;
     }
-
+    insertObj.id = column.fk_model_id + '-' + insertObj.title;
+    console.log(insertObj.id);
     if (!column.uidt) throw new Error('UI Datatype not found');
     const row = await ncMeta.metaInsert2(
       context.workspace_id,
       context.base_id,
       MetaTable.COLUMNS,
       insertObj,
+      true,
     );
 
     const col = await this.get(context, { colId: row.id }, ncMeta);

@@ -367,6 +367,7 @@ export class BasesService {
       baseId: base.id,
       sourceId: base.sources[0].id,
       table: {
+        id: base.id + '-Features',
         title: 'Features',
         table_name: 'Features',
         columns,

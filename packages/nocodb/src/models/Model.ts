@@ -199,12 +199,14 @@ export default class Model implements TableType {
     }
 
     insertObj.source_id = sourceId;
+    insertObj.id = baseId + '-' + model.table_name;
 
     const { id } = await ncMeta.metaInsert2(
       context.workspace_id,
       context.base_id,
       MetaTable.MODELS,
       insertObj,
+      true,
     );
 
     const insertedColumns = await Column.bulkInsert(
