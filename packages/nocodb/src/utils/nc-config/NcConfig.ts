@@ -16,10 +16,10 @@ export class NcConfig {
       connection: {
         driver: DriverClient.PG,
         host: 'localhost',
-        port: 5432,
-        database: 'tenetdb',
-        user: 'ali',
-        password: 'as123456',
+        port: 54321,
+        database: 'fms',
+        user: 'fms',
+        password: 'fms',
       },
     },
   };

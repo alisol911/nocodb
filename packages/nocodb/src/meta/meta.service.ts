@@ -102,6 +102,7 @@ export class MetaService {
     target: string,
     data: any,
     ignoreIdGeneration?: boolean,
+    identity?: boolean,
   ): Promise<any> {
     const insertObj = {
       ...data,
@@ -112,11 +113,19 @@ export class MetaService {
     if (source_id !== null) insertObj.source_id = source_id;
     if (base_id !== null) insertObj.base_id = base_id;
 
-    await this.knexConnection(target).insert({
+    const command = identity
+      ? this.knexConnection(target).returning('id')
+      : this.knexConnection(target);
+
+    const obj = await command.insert({
       ...insertObj,
       created_at: this.now(),
       updated_at: this.now(),
     });
+    if (identity) {
+      insertObj.id = (obj[0] as any).id;
+    }
+
     return insertObj;
   }
   public async bulkMetaInsert(

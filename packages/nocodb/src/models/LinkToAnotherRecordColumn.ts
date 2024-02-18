@@ -105,7 +105,14 @@ export default class LinkToAnotherRecordColumn {
       'fk_related_model_id',
       'virtual',
     ]);
-    await ncMeta.metaInsert2(null, null, MetaTable.COL_RELATIONS, insertObj);
+    await ncMeta.metaInsert2(
+      null,
+      null,
+      MetaTable.COL_RELATIONS,
+      insertObj,
+      true,
+      true,
+    );
     return this.read(data.fk_column_id, ncMeta);
   }
 

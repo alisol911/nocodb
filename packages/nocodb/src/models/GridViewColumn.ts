@@ -107,6 +107,8 @@ export default class GridViewColumn implements GridColumnType {
       null,
       MetaTable.GRID_VIEW_COLUMNS,
       insertObj,
+      true,
+      true,
     );
 
     await View.fixPVColumnForView(column.fk_view_id, ncMeta);

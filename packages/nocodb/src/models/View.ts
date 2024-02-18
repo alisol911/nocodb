@@ -265,6 +265,8 @@ export default class View implements ViewType {
       null,
       MetaTable.VIEWS,
       insertObj,
+      true,
+      true,
     );
 
     let columns: any[] = await (
