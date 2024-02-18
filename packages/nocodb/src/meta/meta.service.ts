@@ -105,6 +105,7 @@ export class MetaService {
     target: string,
     data: any,
     ignoreIdGeneration?: boolean,
+    identity?: boolean,
   ): Promise<any> {
     const insertObj = {
       ...data,
@@ -137,11 +138,17 @@ export class MetaService {
       if (base_id !== RootScopes.WORKSPACE) insertObj.base_id = base_id;
     }
 
-    await this.knexConnection(target).insert({
+    const command = identity
+      ? this.knexConnection(target).returning('id')
+      : this.knexConnection(target);
+
+    const obj = await command.insert({
       ...insertObj,
       created_at: this.now(),
       updated_at: this.now(),
     });
+
+    insertObj.id = (obj[0] as any).id;
 
     return insertObj;
   }

@@ -242,6 +242,7 @@ export default class Column<T = any> implements ColumnType {
       context.base_id,
       MetaTable.COLUMNS,
       insertObj,
+      true,
     );
 
     const col = await this.get(context, { colId: row.id }, ncMeta);

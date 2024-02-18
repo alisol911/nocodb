@@ -127,6 +127,8 @@ export default class GridViewColumn implements GridColumnType {
       context.base_id,
       MetaTable.GRID_VIEW_COLUMNS,
       insertObj,
+      true,
+      true,
     );
 
     if (!(ncMeta as Upgrader).upgrader_mode) {
