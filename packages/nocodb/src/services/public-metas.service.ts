@@ -52,7 +52,7 @@ export class PublicMetasService {
     await view.getModelWithInfo(context);
     await view.model.getColumns(context);
 
-    const source = await Source.get(context, view.model.source_id);
+    const source = await Source.get(context, view.model.base_id);
     view.client = source.type;
 
     // todo: return only required props

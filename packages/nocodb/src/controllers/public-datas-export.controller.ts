@@ -192,7 +192,7 @@ export class PublicDatasExportController {
       listArgs.sortArr = JSON.parse(listArgs.sortArrJson);
     } catch (e) {}
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
       viewId: view?.id,

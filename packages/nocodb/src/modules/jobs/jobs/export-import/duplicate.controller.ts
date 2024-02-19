@@ -247,7 +247,7 @@ export class DuplicateController {
     });
     req.ncParentAuditId = parentAuditId;
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     // if data/schema is readonly, then restrict duplication
     if (source.is_schema_readonly) {
@@ -309,7 +309,6 @@ export class DuplicateController {
     }
 
     const column = await Column.get(context, {
-      source_id: base.id,
       colId: columnId,
     });
 
@@ -351,7 +350,6 @@ export class DuplicateController {
       context,
       user: req.user,
       baseId: base.id,
-      sourceId: column.source_id,
       modelId: model.id,
       columnId: column.id,
       options: body.options || {},

@@ -307,7 +307,7 @@ export class ColumnsService {
     );
 
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(context, table.source_id),
+      Source.get(context, table.base_id),
     );
 
     // TODO: Refactor the columnUpdate function to handle metaOnly changes and
@@ -1816,7 +1816,7 @@ export class ColumnsService {
     );
 
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(context, table.source_id),
+      Source.get(context, table.base_id),
     );
 
     // check if source is readonly and column type is not allowed
@@ -1951,7 +1951,6 @@ export class ColumnsService {
             ...colBody,
             fk_model_id: param.tableId,
             base_id: base.id,
-            source_id: source.id,
           },
           req: param.req,
           context,
@@ -2539,7 +2538,7 @@ export class ColumnsService {
       ),
     );
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(context, table.source_id, false, ncMeta),
+      Source.get(context, table.base_id, false, ncMeta),
     );
 
     // check if source is readonly and column type is not allowed
@@ -3989,10 +3988,10 @@ export class ColumnsService {
       );
     }
 
-    const source = await Source.get(context, table.source_id);
+    const source = await Source.get(context, table.base_id);
 
     if (!source) {
-      NcError.sourceNotFound(table.source_id);
+      NcError.sourceNotFound(table.base_id);
     }
 
     const base = await source.getProject(context);

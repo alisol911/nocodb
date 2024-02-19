@@ -82,7 +82,8 @@ export class DuplicateProcessor {
       const user = (req as any).user;
 
       const models = (await dataSource.getModels(context)).filter(
-        (m) => m.source_id === dataSource.id && !m.mm && m.type === 'table',
+        // TODO revert this when issue with cache is fixed
+        (m) => m.base_id === source.id && !m.mm && m.type === 'table',
       );
 
       const exportedModels = await this.exportService.serializeModels(context, {
@@ -348,7 +349,7 @@ export class DuplicateProcessor {
 
     const hrTime = initTime();
 
-    const { context, sourceId, columnId, extra, req, options } = job.data;
+    const { context, baseId, columnId, extra, req, options } = job.data;
 
     const baseId = context.base_id;
 
@@ -357,13 +358,12 @@ export class DuplicateProcessor {
     const base = await Base.get(context, baseId);
 
     const sourceColumn = await Column.get(context, {
-      source_id: sourceId,
       colId: columnId,
     });
 
     const user = (req as any).user;
 
-    const source = await Source.get(context, sourceColumn.source_id);
+    const source = await Source.get(context, sourceColumn.base_id);
 
     const models = (await source.getModels(context)).filter(
       (m) => !m.mm && m.type === 'table',
@@ -480,7 +480,6 @@ export class DuplicateProcessor {
       }
 
       const destColumn = await Column.get(context, {
-        source_id: base.id,
         colId: findWithIdentifier(idMap, sourceColumn.id),
       });
 
@@ -665,7 +664,6 @@ export class DuplicateProcessor {
                   const id = idMap.get(header);
                   if (id) {
                     const col = await Column.get(targetContext, {
-                      source_id: destBase.id,
                       colId: id,
                     });
                     if (col) {
@@ -675,7 +673,6 @@ export class DuplicateProcessor {
                           col.meta?.bt)
                       ) {
                         const childCol = await Column.get(targetContext, {
-                          source_id: destBase.id,
                           colId: col.colOptions.fk_child_column_id,
                         });
                         if (childCol) {

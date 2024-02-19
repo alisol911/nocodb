@@ -109,7 +109,6 @@ export default class View implements ViewType {
   filter: Filter;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
   show_system_fields?: boolean;
   meta?: any;
   fk_custom_url_id?: string;
@@ -297,7 +296,6 @@ export default class View implements ViewType {
         'type',
         'fk_model_id',
         'base_id',
-        'source_id',
         'meta',
       ]);
 
@@ -321,8 +319,8 @@ export default class View implements ViewType {
       );
 
       // get base and base id if missing
-      if (!view.source_id) {
-        insertObj.source_id = model.source_id;
+    if (!view.base_id) {
+      insertObj.base_id = model.base_id;
       }
 
       copyFromView =
@@ -1245,7 +1243,7 @@ export default class View implements ViewType {
         context.base_id,
         table,
         {
-          source_id: view.source_id,
+          base_id: view.base_id,
           fk_view_id: viewId,
           fk_column_id: fkColId,
           order: colData.order,
@@ -1996,7 +1994,6 @@ export default class View implements ViewType {
           ]),
           fk_view_id: view.id,
           base_id: view.base_id,
-          source_id: view.source_id,
         });
       }
     } else {
@@ -2097,7 +2094,6 @@ export default class View implements ViewType {
           show,
           fk_view_id: view.id,
           base_id: view.base_id,
-          source_id: view.source_id,
           ...(view.type === ViewTypes.GRID
             ? {
                 aggregation,
@@ -2239,8 +2235,8 @@ export default class View implements ViewType {
     );
 
     // get base and base id if missing
-    if (!view.source_id) {
-      insertObj.source_id = table.source_id;
+    if (!view.base_id) {
+      insertObj.base_id = table.base_id;
     }
 
     const insertedView = await ncMeta.metaInsert2(

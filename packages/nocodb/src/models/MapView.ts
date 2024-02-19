@@ -14,7 +14,6 @@ export default class MapView implements MapType {
   title: string;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
   fk_geo_data_col_id?: string;
   meta?: MetaType;
 
@@ -63,7 +62,6 @@ export default class MapView implements MapType {
   ) {
     const insertObj = {
       base_id: view.base_id,
-      source_id: view.source_id,
       fk_view_id: view.fk_view_id,
       fk_geo_data_col_id: view.fk_geo_data_col_id,
       meta: view.meta,
@@ -71,8 +69,8 @@ export default class MapView implements MapType {
 
     const viewRef = await View.get(context, insertObj.fk_view_id, ncMeta);
 
-    if (!insertObj.source_id) {
-      insertObj.source_id = viewRef.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = viewRef.base_id;
     }
 
     await ncMeta.metaInsert2(

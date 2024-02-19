@@ -95,7 +95,7 @@ export class DatasService {
   async dataCount(context: NcContext, param: PathParams & { query: any }) {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -125,7 +125,7 @@ export class DatasService {
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -152,7 +152,7 @@ export class DatasService {
     },
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -175,7 +175,7 @@ export class DatasService {
     param: PathParams & { rowId: string; cookie: any },
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
       viewId: view?.id,
@@ -219,7 +219,7 @@ export class DatasService {
       apiVersion,
     } = param;
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel =
       param.baseModel ||
@@ -291,7 +291,7 @@ export class DatasService {
   ) {
     const { model, view, query = {} } = param;
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -324,7 +324,7 @@ export class DatasService {
   ) {
     const { model, view, query = {} } = param;
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -362,7 +362,7 @@ export class DatasService {
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -387,7 +387,7 @@ export class DatasService {
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -425,7 +425,7 @@ export class DatasService {
   ) {
     const { model, view, query = {} } = param;
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -515,7 +515,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -580,7 +580,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -645,7 +645,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -710,7 +710,7 @@ export class DatasService {
 
     if (!model) return NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -775,7 +775,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -831,7 +831,7 @@ export class DatasService {
       });
       if (!model) NcError.tableNotFound(param.viewId);
 
-      const source = await Source.get(context, model.source_id);
+      const source = await Source.get(context, model.base_id);
 
       const baseModel = await Model.getBaseModelSQL(context, {
         id: model.id,
@@ -865,7 +865,7 @@ export class DatasService {
     });
     if (!model) return NcError.tableNotFound(param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -890,7 +890,7 @@ export class DatasService {
     });
     if (!model) NcError.tableNotFound(param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -919,7 +919,7 @@ export class DatasService {
     });
     if (!model) NcError.tableNotFound(param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -948,7 +948,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -985,7 +985,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -1035,7 +1035,7 @@ export class DatasService {
     param: { view: View; query: any; siteUrl: string },
   ) {
     const { view, query, siteUrl } = param;
-    const source = await Source.get(context, view.source_id);
+    const source = await Source.get(context, view.base_id);
 
     await view.getModelWithInfo(context);
     await view.getColumns(context);
@@ -1073,7 +1073,7 @@ export class DatasService {
   }
 
   async extractCsvData(context: NcContext, view: View, req) {
-    const source = await Source.get(context, view.source_id);
+    const source = await Source.get(context, view.base_id);
     const fields = req.query.fields;
 
     await view.getModelWithInfo(context);

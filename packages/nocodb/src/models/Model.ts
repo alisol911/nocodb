@@ -42,7 +42,6 @@ const logger = new Logger('Model');
 
 export default class Model implements TableType {
   copy_enabled: BoolType;
-  source_id: 'db' | string;
   deleted: BoolType;
   enabled: BoolType;
   export_enabled: BoolType;
@@ -189,7 +188,6 @@ export default class Model implements TableType {
         MetaTable.FORM_VIEW_COLUMNS,
         {
           base_id: baseId,
-          source_id: sourceId,
         },
       );
     }
@@ -199,8 +197,6 @@ export default class Model implements TableType {
     }
 
     insertObj.source_id = sourceId;
-    insertObj.id = baseId + '-' + model.table_name;
-
     const { id } = await ncMeta.metaInsert2(
       context.workspace_id,
       context.base_id,
@@ -668,9 +664,9 @@ export default class Model implements TableType {
     // delete alias cache
     await NocoCache.del([
       `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.id}`,
-      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.source_id}:${this.id}`,
+      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.base_id}:${this.id}`,
       `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.title}`,
-      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.source_id}:${this.title}`,
+      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.base_id}:${this.title}`,
     ]);
 
     cleanCommandPaletteCache(context.workspace_id).catch(() => {
@@ -835,9 +831,9 @@ export default class Model implements TableType {
     // delete alias cache
     await NocoCache.del([
       `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.id}`,
-      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.source_id}:${oldModel.id}`,
+      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.base_id}:${oldModel.id}`,
       `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.title}`,
-      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.source_id}:${oldModel.title}`,
+      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.base_id}:${oldModel.title}`,
     ]);
 
     cleanCommandPaletteCache(context.workspace_id).catch(() => {

@@ -128,7 +128,7 @@ export class ImportService {
     if (param.externalModels) {
       for (const model of param.externalModels) {
         externalIdMap.set(
-          `${model.base_id}::${model.source_id}::${model.id}`,
+          `${model.base_id}::${model.base_id}::${model.id}`,
           model.id,
         );
 
@@ -138,14 +138,14 @@ export class ImportService {
         const primaryKey = model.primaryKey;
         if (primaryKey) {
           idMap.set(
-            `${model.base_id}::${model.source_id}::${model.id}::${primaryKey.id}`,
+            `${model.base_id}::${model.base_id}::${model.id}::${primaryKey.id}`,
             primaryKey.id,
           );
         }
 
         for (const col of model.columns) {
           externalIdMap.set(
-            `${model.base_id}::${model.source_id}::${model.id}::${col.id}`,
+            `${model.base_id}::${model.base_id}::${model.id}::${col.id}`,
             col.id,
           );
         }
@@ -692,7 +692,7 @@ export class ImportService {
                       idMap.set(childColumn.id, nColumn.id);
                     } else {
                       idMap.set(
-                        `${childColumn.base_id}::${childColumn.source_id}::${childColumn.fk_model_id}::${childColumn.id}`,
+                        `${childColumn.base_id}::${childColumn.base_id}::${childColumn.fk_model_id}::${childColumn.id}`,
                         nColumn.id,
                       );
                     }
@@ -829,7 +829,7 @@ export class ImportService {
                       idMap.set(childColumn.id, nColumn.id);
                     } else {
                       idMap.set(
-                        `${childColumn.base_id}::${childColumn.source_id}::${childColumn.fk_model_id}::${childColumn.id}`,
+                        `${childColumn.base_id}::${childColumn.base_id}::${childColumn.fk_model_id}::${childColumn.id}`,
                         nColumn.id,
                       );
                     }
@@ -1008,7 +1008,7 @@ export class ImportService {
                       idMap.set(childColumn.id, nColumn.id);
                     } else {
                       idMap.set(
-                        `${childColumn.base_id}::${childColumn.source_id}::${childColumn.fk_model_id}::${childColumn.id}`,
+                        `${childColumn.base_id}::${childColumn.base_id}::${childColumn.fk_model_id}::${childColumn.id}`,
                         nColumn.id,
                       );
                     }
@@ -1700,7 +1700,6 @@ export class ImportService {
         const kanbanData = withoutNull(vw.view);
         if (kanbanData) {
           const grpCol = await Column.get(context, {
-            source_id: md.source_id,
             colId: idMap.get(kanbanData['fk_grp_col_id']),
           });
           for (const [k, v] of Object.entries(kanbanData)) {
@@ -1906,7 +1905,6 @@ export class ImportService {
               const id = idMap.get(header);
               if (id) {
                 const col = await Column.get(context, {
-                  source_id: destBase.id,
                   colId: id,
                 });
                 if (col) {
@@ -1916,7 +1914,6 @@ export class ImportService {
                       col.meta?.bt)
                   ) {
                     const childCol = await Column.get(context, {
-                      source_id: destBase.id,
                       colId: col.colOptions.fk_child_column_id,
                     });
                     if (childCol) {
@@ -2076,7 +2073,6 @@ export class ImportService {
                   await insertChunks();
 
                   const col = await Column.get(context, {
-                    source_id: destBase.id,
                     colId: findWithIdentifier(idMap, columnId),
                   });
 

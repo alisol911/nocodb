@@ -30,7 +30,6 @@ export default class Filter {
   children?: Filter[];
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
   column?: Column;
 
   constructor(data: Filter | FilterType) {
@@ -70,7 +69,6 @@ export default class Filter {
       'is_group',
       'logical_op',
       'base_id',
-      'source_id',
     ]);
 
     const model = await Column.get(
@@ -79,8 +77,8 @@ export default class Filter {
       ncMeta,
     );
 
-    if (!filter.source_id) {
-      insertObj.source_id = model.source_id;
+    if (!filter.base_id) {
+      insertObj.base_id = model.base_id;
     }
 
     const row = await ncMeta.metaInsert2(

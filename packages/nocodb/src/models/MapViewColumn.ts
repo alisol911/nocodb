@@ -15,7 +15,6 @@ export default class MapViewColumn {
   fk_column_id: string;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
 
   constructor(data: MapViewColumn) {
     Object.assign(this, data);
@@ -61,12 +60,10 @@ export default class MapViewColumn {
       }),
       show: column.show,
       base_id: column.base_id,
-      source_id: column.source_id,
     };
 
-    if (!insertObj.source_id) {
-      const viewRef = await View.get(context, insertObj.fk_view_id, ncMeta);
-      insertObj.source_id = viewRef.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = viewRef.base_id;
     }
 
     const { id } = await ncMeta.metaInsert2(

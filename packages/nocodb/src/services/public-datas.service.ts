@@ -60,7 +60,7 @@ export class PublicDatasService {
       id: view?.fk_model_id,
     });
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -244,7 +244,7 @@ export class PublicDatasService {
     },
   ) {
     const { model, view, query = {}, groupColumnId } = param;
-    const source = await Source.get(context, param.model.source_id);
+    const source = await Source.get(context, param.model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -340,7 +340,7 @@ export class PublicDatasService {
     try {
       const { model, view, query = {} } = param;
 
-      const source = await Source.get(context, model.source_id);
+      const source = await Source.get(context, model.base_id);
 
       const baseModel = await Model.getBaseModelSQL(context, {
         id: model.id,
@@ -395,7 +395,7 @@ export class PublicDatasService {
       id: view?.fk_model_id,
     });
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     if (source?.is_data_readonly) {
       NcError.sourceDataReadOnly(source.alias);
@@ -522,7 +522,7 @@ export class PublicDatasService {
 
     const model = await colOptions.getRelatedTable(context);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -611,7 +611,7 @@ export class PublicDatasService {
     if (column.fk_model_id !== view.fk_model_id)
       NcError.badRequest("Column doesn't belongs to the model");
 
-    const source = await Source.get(context, view.source_id);
+    const source = await Source.get(context, view.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: view.fk_model_id,
@@ -691,7 +691,7 @@ export class PublicDatasService {
     if (column.fk_model_id !== view.fk_model_id)
       NcError.badRequest("Column doesn't belongs to the model");
 
-    const source = await Source.get(context, view.source_id);
+    const source = await Source.get(context, view.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: view.fk_model_id,

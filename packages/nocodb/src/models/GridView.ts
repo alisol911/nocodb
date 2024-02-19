@@ -12,7 +12,6 @@ export default class GridView implements GridType {
   fk_view_id: string;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
   meta?: MetaType;
   row_height?: number;
   columns?: GridViewColumn[];
@@ -59,14 +58,13 @@ export default class GridView implements GridType {
     const insertObj = extractProps(view, [
       'fk_view_id',
       'base_id',
-      'source_id',
       'row_height',
     ]);
 
     const viewRef = await View.get(context, insertObj.fk_view_id, ncMeta);
 
-    if (!insertObj.source_id) {
-      insertObj.source_id = viewRef.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = viewRef.base_id;
     }
 
     await ncMeta.metaInsert2(

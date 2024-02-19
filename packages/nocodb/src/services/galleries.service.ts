@@ -45,7 +45,6 @@ export class GalleriesService {
         fk_model_id: param.tableId,
         type: ViewTypes.GALLERY,
         base_id: model.base_id,
-        source_id: model.source_id,
         created_by: param.user?.id,
         owned_by: param.ownedBy || param.user?.id,
       },

@@ -37,7 +37,7 @@ export default async function ({ ncMeta }: NcUpgraderCtx) {
         context.workspace_id,
         context.base_id,
         MetaTable.FILTER_EXP,
-        { source_id: model.source_id, base_id: model.base_id },
+        { base_id: model.base_id },
         filter.id,
       );
     }

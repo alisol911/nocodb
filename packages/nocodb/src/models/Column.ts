@@ -85,7 +85,6 @@ export default class Column<T = any> implements ColumnType {
   public fk_model_id: string;
   public fk_workspace_id?: string;
   public base_id: string;
-  public source_id: string;
 
   public column_name: string;
   public title: string;
@@ -181,7 +180,6 @@ export default class Column<T = any> implements ColumnType {
       'pv',
       'order',
       'base_id',
-      'source_id',
       'system',
       'meta',
       'virtual',
@@ -212,13 +210,12 @@ export default class Column<T = any> implements ColumnType {
       else insertObj.validate = JSON.stringify(column.validate);
     }
 
-    if (!column.source_id) {
+    if (!column.base_id) {
       const model = await Model.getByIdOrName(
         context,
         { id: column.fk_model_id },
         ncMeta,
       );
-      insertObj.source_id = model.source_id;
     }
     insertObj.id = column.fk_model_id + '-' + insertObj.title;
     console.log(insertObj.id);

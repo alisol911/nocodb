@@ -17,7 +17,6 @@ export default class GridViewColumn implements GridColumnType {
   fk_column_id: string;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
 
   group_by?: BoolType;
   group_by_order?: number;
@@ -101,7 +100,6 @@ export default class GridViewColumn implements GridColumnType {
       'fk_column_id',
       'show',
       'base_id',
-      'source_id',
       'order',
       'width',
       'group_by',
@@ -115,9 +113,8 @@ export default class GridViewColumn implements GridColumnType {
         fk_view_id: column.fk_view_id,
       }));
 
-    if (!insertObj.source_id) {
-      const viewRef = await View.get(context, insertObj.fk_view_id, ncMeta);
-      insertObj.source_id = viewRef.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = viewRef.base_id;
     }
 
     insertObj.width = column?.width ?? '180px';

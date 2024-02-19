@@ -159,7 +159,6 @@ export default class Hook implements HookType {
     );
 
     if (!insertObj.source_id) {
-      insertObj.source_id = model.source_id;
     }
 
     // new hook will set as version 2

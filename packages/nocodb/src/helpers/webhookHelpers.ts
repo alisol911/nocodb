@@ -620,7 +620,7 @@ export async function invokeWebhook(
 
   let hookLog: HookLogType;
   const startTime = process.hrtime();
-  const source = await Source.get(context, model.source_id);
+  const source = await Source.get(context, model.base_id);
   let notification, filters;
   let reqPayload;
   try {

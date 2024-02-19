@@ -15,7 +15,6 @@ export default class ModelRoleVisibility implements ModelRoleVisibilityType {
   id?: string;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
   // fk_model_id?: string;
   fk_view_id?: string;
   role?: string;
@@ -158,13 +157,12 @@ export default class ModelRoleVisibility implements ModelRoleVisibilityType {
       'disabled',
       'fk_view_id',
       'base_id',
-      'source_id',
     ]);
 
     const view = await View.get(context, body.fk_view_id, ncMeta);
 
-    if (!insertObj.source_id) {
-      insertObj.source_id = view.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = view.base_id;
     }
 
     const result = await ncMeta.metaInsert2(

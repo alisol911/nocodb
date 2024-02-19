@@ -4764,7 +4764,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
   async delByPk(id, _trx?, cookie?) {
     let trx: Knex.Transaction = _trx;
     try {
-      const source = await this.getSource();
+      const source = await Source.get(this.model.base_id);
       // retrieve data for handling params in hook
       const data = await this.readRecord({
         idOrRecord: id,

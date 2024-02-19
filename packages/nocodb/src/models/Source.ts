@@ -226,8 +226,6 @@ export default class Source implements SourceType {
     if (JobsRedis.available) {
       await JobsRedis.emitWorkerCommand(InstanceCommands.RELEASE, sourceId);
       await JobsRedis.emitPrimaryCommand(InstanceCommands.RELEASE, sourceId);
-    }
-
     return await this.get(context, oldSource.id, false, ncMeta);
   }
 
@@ -344,6 +342,9 @@ export default class Source implements SourceType {
       const config = { ...metaConfig };
       if (config.client === 'sqlite3') {
         config.connection = metaConfig;
+      }
+      if (this.id != 'public') {
+        config.schema = this.id;
       }
       return config;
     }
