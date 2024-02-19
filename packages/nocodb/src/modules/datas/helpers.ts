@@ -50,7 +50,7 @@ export async function getViewAndModelByAliasOrId(param: {
 }
 
 export async function extractXlsxData(view: View, req) {
-  const source = await Source.get(view.source_id);
+  const source = await Source.get(view.base_id);
 
   await view.getModelWithInfo();
   await view.getColumns();
@@ -84,7 +84,7 @@ export async function extractXlsxData(view: View, req) {
 }
 
 export async function extractCsvData(view: View, req) {
-  const source = await Source.get(view.source_id);
+  const source = await Source.get(view.base_id);
   const fields = req.query.fields;
 
   await view.getModelWithInfo();

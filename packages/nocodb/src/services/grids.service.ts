@@ -32,7 +32,6 @@ export class GridsService {
         fk_model_id: param.tableId,
         type: ViewTypes.GRID,
         base_id: model.base_id,
-        source_id: model.source_id,
       },
       model,
     );

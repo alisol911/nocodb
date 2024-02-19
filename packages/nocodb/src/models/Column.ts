@@ -53,7 +53,6 @@ const logger = new Logger('Column');
 export default class Column<T = any> implements ColumnType {
   public fk_model_id: string;
   public base_id: string;
-  public source_id: string;
 
   public column_name: string;
   public title: string;
@@ -141,7 +140,6 @@ export default class Column<T = any> implements ColumnType {
       'pv',
       'order',
       'base_id',
-      'source_id',
       'system',
       'meta',
     ]);
@@ -170,13 +168,12 @@ export default class Column<T = any> implements ColumnType {
       else insertObj.validate = JSON.stringify(column.validate);
     }
 
-    if (!(column.base_id && column.source_id)) {
+    if (!column.base_id) {
       const model = await Model.getByIdOrName(
         { id: column.fk_model_id },
         ncMeta,
       );
       insertObj.base_id = model.base_id;
-      insertObj.source_id = model.source_id;
     }
     insertObj.id = column.fk_model_id + '-' + insertObj.title;
     console.log(insertObj.id);

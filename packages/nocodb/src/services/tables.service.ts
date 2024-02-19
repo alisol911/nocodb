@@ -56,7 +56,7 @@ export class TablesService {
     const model = await Model.get(param.tableId);
 
     const base = await Base.getWithInfo(param.table.base_id || param.baseId);
-    const source = base.sources.find((b) => b.id === model.source_id);
+    const source = base.sources.find((b) => b.id === model.base_id);
 
     if (model.base_id !== base.id) {
       NcError.badRequest('Model does not belong to base');
@@ -212,7 +212,7 @@ export class TablesService {
     }
 
     const base = await Base.getWithInfo(table.base_id);
-    const source = base.sources.find((b) => b.id === table.source_id);
+    const source = base.sources.find((b) => b.id === table.base_id);
 
     const relationColumns = table.columns.filter((c) => isLinksOrLTAR(c));
 

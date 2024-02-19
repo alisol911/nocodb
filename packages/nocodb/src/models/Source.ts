@@ -76,23 +76,14 @@ export default class Source implements SourceType {
       insertObj.meta = stringifyMetaProp(insertObj);
     }
 
-    const { id } = await ncMeta.metaInsert2(
-      source.baseId,
-      null,
-      MetaTable.BASES,
-      insertObj,
-    );
-
     // call before reorder to update cache
-    const returnBase = await this.get(id, false, ncMeta);
+    const returnBase = await this.get(source.baseId, false, ncMeta);
 
     await NocoCache.appendToList(
       CacheScope.BASE,
       [source.baseId],
-      `${CacheScope.BASE}:${id}`,
+      `${CacheScope.BASE}:${source.baseId}`,
     );
-
-    await this.reorderBases(source.baseId);
 
     return returnBase;
   }
@@ -153,10 +144,6 @@ export default class Source implements SourceType {
 
     // call before reorder to update cache
     const returnBase = await this.get(oldBase.id, false, ncMeta);
-
-    if (!source.skipReorder && source.order && source.order !== oldBase.order) {
-      await this.reorderBases(source.baseId, returnBase.id, ncMeta);
-    }
 
     return returnBase;
   }
@@ -288,41 +275,6 @@ export default class Source implements SourceType {
     return this.castType(source);
   }
 
-  static async reorderBases(
-    baseId: string,
-    keepBase?: string,
-    ncMeta = Noco.ncMeta,
-  ) {
-    const sources = await this.list({ baseId: baseId }, ncMeta);
-
-    if (keepBase) {
-      const kpBase = sources.splice(
-        sources.indexOf(sources.find((source) => source.id === keepBase)),
-        1,
-      );
-      if (kpBase.length) {
-        sources.splice(kpBase[0].order - 1, 0, kpBase[0]);
-      }
-    }
-
-    // update order for sources
-    for (const [i, b] of Object.entries(sources)) {
-      b.order = parseInt(i) + 1;
-
-      await ncMeta.metaUpdate(
-        b.base_id,
-        null,
-        MetaTable.BASES,
-        {
-          order: b.order,
-        },
-        b.id,
-      );
-
-      await NocoCache.set(`${CacheScope.BASE}:${b.id}`, b);
-    }
-  }
-
   public async getConnectionConfig(): Promise<any> {
     const config = this.getConfig();
 
@@ -341,6 +293,9 @@ export default class Source implements SourceType {
       const config = { ...metaConfig };
       if (config.client === 'sqlite3') {
         config.connection = metaConfig;
+      }
+      if (this.id != 'public') {
+        config.schema = this.id;
       }
       return config;
     }

@@ -710,7 +710,7 @@ class PGClient extends KnexClient {
               FROM information_schema.tables
               where table_schema = ?
               ORDER BY table_schema, table_name`,
-        [this.schema],
+        [args.schema || this.schema],
       );
 
       result.data.list = rows.filter(
@@ -846,7 +846,7 @@ class PGClient extends KnexClient {
               where c.table_catalog=:database and c.table_schema=:schema and c.table_name=:table
               order by c.table_name, c.ordinal_position`,
         {
-          schema: this.schema,
+          schema: args.schema || this.schema,
           database: args.databaseName,
           table: args.tn,
         },
@@ -1450,7 +1450,7 @@ class PGClient extends KnexClient {
         `select *
            from INFORMATION_SCHEMA.views
            WHERE table_schema = ?;`,
-        [this.schema],
+        [args.schema || this.schema],
       );
 
       for (let i = 0; i < rows.length; ++i) {

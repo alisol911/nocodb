@@ -869,7 +869,6 @@ async function migrateProjectModelViews(
       order: viewData.view_order,
       fk_model_id: objModelRef[base.id][viewData.parent_model_title].id,
       base_id: base.id,
-      source_id: sourceId,
     };
 
     if (viewData.show_as === 'grid') {

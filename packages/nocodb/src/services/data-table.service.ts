@@ -39,7 +39,7 @@ export class DataTableService {
   }) {
     const { model, view } = await this.getModelAndView(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -66,7 +66,7 @@ export class DataTableService {
     cookie: any;
   }) {
     const { model, view } = await this.getModelAndView(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -99,7 +99,7 @@ export class DataTableService {
 
     await this.checkForDuplicateRow({ rows: param.body, model });
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -131,7 +131,7 @@ export class DataTableService {
 
     await this.checkForDuplicateRow({ rows: param.body, model });
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
       viewId: view?.id,
@@ -158,7 +158,7 @@ export class DataTableService {
   }) {
     const { model, view } = await this.getModelAndView(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -269,7 +269,7 @@ export class DataTableService {
     columnId: string;
   }) {
     const { model, view } = await this.getModelAndView(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -384,7 +384,7 @@ export class DataTableService {
 
     const { model, view } = await this.getModelAndView(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -420,7 +420,7 @@ export class DataTableService {
     const { model, view } = await this.getModelAndView(param);
     if (!model) NcError.tableNotFound(param.modelId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -489,7 +489,7 @@ export class DataTableService {
 
     const { model, view } = await this.getModelAndView(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,

@@ -148,7 +148,6 @@ export default class Hook implements HookType {
     if (!(hook.base_id && hook.source_id)) {
       const model = await Model.getByIdOrName({ id: hook.fk_model_id }, ncMeta);
       insertObj.base_id = model.base_id;
-      insertObj.source_id = model.source_id;
     }
 
     // new hook will set as version 2

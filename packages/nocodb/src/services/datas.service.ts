@@ -60,7 +60,7 @@ export class DatasService {
   async dataCount(param: PathParams & { query: any }) {
     const { model, view } = await getViewAndModelByAliasOrId(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -87,7 +87,7 @@ export class DatasService {
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -107,7 +107,7 @@ export class DatasService {
     },
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -126,7 +126,7 @@ export class DatasService {
 
   async dataDelete(param: PathParams & { rowId: string; cookie: any }) {
     const { model, view } = await getViewAndModelByAliasOrId(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
       viewId: view?.id,
@@ -157,7 +157,7 @@ export class DatasService {
   }) {
     const { model, view, query = {}, ignoreViewFilterAndSort = false } = param;
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel =
       param.baseModel ||
@@ -218,7 +218,7 @@ export class DatasService {
   async getFindOne(param: { model: Model; view: View; query: any }) {
     const { model, view, query = {} } = param;
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -247,7 +247,7 @@ export class DatasService {
   async getDataGroupBy(param: { model: Model; view: View; query?: any }) {
     const { model, view, query = {} } = param;
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -283,7 +283,7 @@ export class DatasService {
   ) {
     const { model, view } = await getViewAndModelByAliasOrId(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -304,7 +304,7 @@ export class DatasService {
   async dataExist(param: PathParams & { rowId: string; query: any }) {
     const { model, view } = await getViewAndModelByAliasOrId(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -335,7 +335,7 @@ export class DatasService {
   }) {
     const { model, view, query = {} } = param;
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -409,7 +409,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -470,7 +470,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -531,7 +531,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -592,7 +592,7 @@ export class DatasService {
 
     if (!model) return NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -653,7 +653,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -705,7 +705,7 @@ export class DatasService {
       });
       if (!model) NcError.tableNotFound(param.viewId);
 
-      const source = await Source.get(model.source_id);
+      const source = await Source.get(model.base_id);
 
       const baseModel = await Model.getBaseModelSQL({
         id: model.id,
@@ -735,7 +735,7 @@ export class DatasService {
     });
     if (!model) return NcError.tableNotFound(param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -756,7 +756,7 @@ export class DatasService {
     });
     if (!model) NcError.tableNotFound(param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -781,7 +781,7 @@ export class DatasService {
     });
     if (!model) NcError.tableNotFound(param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -806,7 +806,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -839,7 +839,7 @@ export class DatasService {
 
     if (!model) NcError.tableNotFound(view?.fk_model_id || param.viewId);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -881,7 +881,7 @@ export class DatasService {
 
   async extractXlsxData(param: { view: View; query: any; siteUrl: string }) {
     const { view, query, siteUrl } = param;
-    const source = await Source.get(view.source_id);
+    const source = await Source.get(view.base_id);
 
     await view.getModelWithInfo();
     await view.getColumns();
@@ -918,7 +918,7 @@ export class DatasService {
   }
 
   async extractCsvData(view: View, req) {
-    const source = await Source.get(view.source_id);
+    const source = await Source.get(view.base_id);
     const fields = req.query.fields;
 
     await view.getModelWithInfo();

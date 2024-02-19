@@ -76,7 +76,6 @@ export default class CalendarViewColumn {
     if (!(insertObj.base_id && insertObj.source_id)) {
       const viewRef = await View.get(insertObj.fk_view_id, ncMeta);
       insertObj.base_id = viewRef.base_id;
-      insertObj.source_id = viewRef.source_id;
     }
 
     const { id } = await ncMeta.metaInsert2(

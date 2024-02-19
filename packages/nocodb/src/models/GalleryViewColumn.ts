@@ -14,7 +14,6 @@ export default class GalleryViewColumn {
   fk_view_id: string;
   fk_column_id: string;
   base_id?: string;
-  source_id?: string;
 
   constructor(data: GalleryViewColumn) {
     Object.assign(this, data);
@@ -50,7 +49,6 @@ export default class GalleryViewColumn {
       'fk_column_id',
       'show',
       'base_id',
-      'source_id',
     ]);
 
     insertObj.order = await ncMeta.metaGetNextOrder(
@@ -60,10 +58,9 @@ export default class GalleryViewColumn {
       },
     );
 
-    if (!(column.base_id && column.source_id)) {
+    if (!column.base_id) {
       const viewRef = await View.get(column.fk_view_id, ncMeta);
       insertObj.base_id = viewRef.base_id;
-      insertObj.source_id = viewRef.source_id;
     }
 
     const { id } = await ncMeta.metaInsert2(

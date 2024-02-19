@@ -67,7 +67,6 @@ export default class CalendarView implements CalendarType {
 
     if (!(view.base_id && view.source_id)) {
       insertObj.base_id = viewRef.base_id;
-      insertObj.source_id = viewRef.source_id;
     }
 
     await ncMeta.metaInsert2(

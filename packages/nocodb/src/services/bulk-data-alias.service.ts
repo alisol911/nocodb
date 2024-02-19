@@ -17,7 +17,7 @@ export class BulkDataAliasService {
   async getModelViewBase(param: PathParams) {
     const { model, view } = await getViewAndModelByAliasOrId(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
     return { model, view, source };
   }
 

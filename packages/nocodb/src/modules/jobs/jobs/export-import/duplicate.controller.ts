@@ -193,7 +193,7 @@ export class DuplicateController {
       throw new Error(`Model not found!`);
     }
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const models = await source.getModels();
 
@@ -243,7 +243,6 @@ export class DuplicateController {
     }
 
     const column = await Column.get({
-      source_id: base.id,
       colId: columnId,
     });
 
@@ -259,7 +258,6 @@ export class DuplicateController {
 
     const job = await this.jobsService.add(JobTypes.DuplicateColumn, {
       baseId: base.id,
-      sourceId: column.source_id,
       modelId: model.id,
       columnId: column.id,
       options: body.options || {},

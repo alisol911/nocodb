@@ -41,7 +41,6 @@ export class KanbansService {
         fk_model_id: param.tableId,
         type: ViewTypes.KANBAN,
         base_id: model.base_id,
-        source_id: model.source_id,
       },
       model,
     );

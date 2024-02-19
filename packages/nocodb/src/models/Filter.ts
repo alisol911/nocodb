@@ -101,7 +101,6 @@ export default class Filter implements FilterType {
 
       if (model != null) {
         insertObj.base_id = model.base_id;
-        insertObj.source_id = model.source_id;
       }
     }
 

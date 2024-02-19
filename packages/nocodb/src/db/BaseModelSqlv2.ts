@@ -2835,7 +2835,7 @@ class BaseModelSqlv2 {
   async delByPk(id, _trx?, cookie?) {
     let trx: Knex.Transaction = _trx;
     try {
-      const source = await Source.get(this.model.source_id);
+      const source = await Source.get(this.model.base_id);
       // retrieve data for handling params in hook
       const data = await this.readRecord({
         idOrRecord: id,
@@ -3115,7 +3115,7 @@ class BaseModelSqlv2 {
   async nestedInsert(data, _trx = null, cookie?) {
     // const driver = trx ? trx : await this.dbDriver.transaction();
     try {
-      const source = await Source.get(this.model.source_id);
+      const source = await Source.get(this.model.base_id);
       await populatePk(this.model, data);
 
       const columns = await this.model.getColumns();
@@ -4039,7 +4039,7 @@ class BaseModelSqlv2 {
         ids: any[],
       ) => Promise<any>)[] = [];
 
-      const base = await Source.get(this.model.source_id);
+      const base = await Source.get(this.model.base_id);
 
       for (const column of this.model.columns) {
         if (column.uidt !== UITypes.LinkToAnotherRecord) continue;
@@ -4224,7 +4224,7 @@ class BaseModelSqlv2 {
         }
       }
 
-      const source = await Source.get(this.model.source_id);
+      const source = await Source.get(this.model.base_id);
 
       trx = await this.dbDriver.transaction();
 

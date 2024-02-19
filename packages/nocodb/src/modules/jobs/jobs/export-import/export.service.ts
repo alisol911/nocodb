@@ -52,8 +52,8 @@ export class ExportService {
       const fndProject = bases.find((p) => p.id === model.base_id);
       const base = fndProject || (await Base.get(model.base_id));
 
-      const fndBase = sources.find((b) => b.id === model.source_id);
-      const source = fndBase || (await Source.get(model.source_id));
+      const fndBase = sources.find((b) => b.id === model.base_id);
+      const source = fndBase || (await Source.get(model.base_id));
 
       if (!fndProject) bases.push(base);
       if (!fndBase) sources.push(source);
@@ -254,7 +254,6 @@ export class ExportService {
               case 'updated_at':
               case 'fk_view_id':
               case 'base_id':
-              case 'source_id':
               case 'uuid':
                 delete view.view[k];
                 break;
@@ -357,7 +356,6 @@ export class ExportService {
               fk_view_id,
               fk_column_id,
               base_id,
-              source_id,
               created_at,
               updated_at,
               uuid,
@@ -394,7 +392,7 @@ export class ExportService {
       viewName: param.viewId,
     });
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     await model.getColumns();
 
@@ -420,7 +418,7 @@ export class ExportService {
 
         btMap.set(
           fkCol.id,
-          `${column.base_id}::${column.source_id}::${column.fk_model_id}::${column.id}`,
+          `${column.base_id}::${column.base_id}::${column.fk_model_id}::${column.id}`,
         );
       }
     }
@@ -452,7 +450,7 @@ export class ExportService {
         for (const [k, v] of Object.entries(row)) {
           const col = model.columns.find((c) => c.title === k);
           if (col) {
-            const colId = `${col.base_id}::${col.source_id}::${col.fk_model_id}::${col.id}`;
+            const colId = `${col.base_id}::${col.base_id}::${col.fk_model_id}::${col.id}`;
             switch (col.uidt) {
               case UITypes.ForeignKey:
                 {
@@ -571,9 +569,9 @@ export class ExportService {
         const mmOffset = 0;
 
         const mmBase =
-          mmModel.source_id === source.id
+          mmModel.base_id === source.id
             ? source
-            : await Source.get(mmModel.source_id);
+            : await Source.get(mmModel.base_id);
 
         const mmBaseModel = await Model.getBaseModelSQL({
           id: mmModel.id,
@@ -725,7 +723,7 @@ export class ExportService {
 
     const models = (await source.getModels()).filter(
       // TODO revert this when issue with cache is fixed
-      (m) => m.source_id === source.id && !m.mm && m.type === 'table',
+      (m) => m.base_id === source.id && !m.mm && m.type === 'table',
     );
 
     const exportedModels = await this.serializeModels({

@@ -19,7 +19,6 @@ export default class Sort {
   fk_column_id?: string;
   direction?: 'asc' | 'desc' | 'count-desc' | 'count-asc';
   base_id?: string;
-  source_id?: string;
 
   constructor(data: Partial<SortType>) {
     Object.assign(this, data);
@@ -51,7 +50,6 @@ export default class Sort {
       'fk_column_id',
       'direction',
       'base_id',
-      'source_id',
     ]);
 
     // todo: implement a generic function
@@ -66,10 +64,9 @@ export default class Sort {
             })
             .first()
         )?.order || 0) + 1;
-    if (!(sortObj.base_id && sortObj.source_id)) {
+    if (!sortObj.base_id) {
       const model = await Column.get({ colId: sortObj.fk_column_id }, ncMeta);
       insertObj.base_id = model.base_id;
-      insertObj.source_id = model.source_id;
     }
 
     // increment existing order

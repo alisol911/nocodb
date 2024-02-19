@@ -110,7 +110,6 @@ export class MetaService {
         ? {}
         : { id: data?.id || (await this.genNanoid(target)) }),
     };
-    if (source_id !== null) insertObj.source_id = source_id;
     if (base_id !== null) insertObj.base_id = base_id;
 
     const command = identity
@@ -415,9 +414,6 @@ export class MetaService {
     if (base_id !== null && base_id !== undefined) {
       query.where('base_id', base_id);
     }
-    if (sourceId !== null && sourceId !== undefined) {
-      query.where('source_id', sourceId);
-    }
 
     if (!idOrCondition) {
       return query.first();
@@ -523,9 +519,6 @@ export class MetaService {
     if (base_id !== null && base_id !== undefined) {
       query.where('base_id', base_id);
     }
-    if (dbAlias !== null && dbAlias !== undefined) {
-      query.where('source_id', dbAlias);
-    }
 
     if (args?.condition) {
       query.where(args.condition);
@@ -566,9 +559,6 @@ export class MetaService {
 
     if (base_id !== null && base_id !== undefined) {
       query.where('base_id', base_id);
-    }
-    if (dbAlias !== null && dbAlias !== undefined) {
-      query.where('source_id', dbAlias);
     }
 
     if (args?.condition) {

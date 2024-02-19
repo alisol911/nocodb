@@ -10,7 +10,7 @@ import NcConnectionMgrv2 from '~/utils/common/NcConnectionMgrv2';
 export class OldDatasService {
   async dataList(param: OldPathParams & { query: any }) {
     const { model, view } = await this.getViewAndModelFromRequest(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -37,7 +37,7 @@ export class OldDatasService {
 
   async dataCount(param: OldPathParams & { query: any }) {
     const { model, view } = await this.getViewAndModelFromRequest(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -56,7 +56,7 @@ export class OldDatasService {
   async dataInsert(param: OldPathParams & { body: unknown; cookie: any }) {
     const { model, view } = await this.getViewAndModelFromRequest(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -70,7 +70,7 @@ export class OldDatasService {
   async dataRead(param: OldPathParams & { query: any; rowId: string }) {
     const { model, view } = await this.getViewAndModelFromRequest(param);
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -96,7 +96,7 @@ export class OldDatasService {
     param: OldPathParams & { body: unknown; cookie: any; rowId: string },
   ) {
     const { model, view } = await this.getViewAndModelFromRequest(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -114,7 +114,7 @@ export class OldDatasService {
 
   async dataDelete(param: OldPathParams & { rowId: string; cookie: any }) {
     const { model, view } = await this.getViewAndModelFromRequest(param);
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
       viewId: view.id,

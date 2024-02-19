@@ -109,7 +109,6 @@ export default class Audit implements AuditType {
         );
 
         insertObj.base_id = model.base_id;
-        insertObj.source_id = model.source_id;
       }
 
       return await ncMeta.metaInsert2(null, null, MetaTable.AUDIT, insertObj);

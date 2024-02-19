@@ -465,7 +465,7 @@ export async function invokeWebhook(
 ) {
   let hookLog: HookLogType;
   const startTime = process.hrtime();
-  const source = await Source.get(model.source_id);
+  const source = await Source.get(model.base_id);
   let notification;
   try {
     notification =

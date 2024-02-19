@@ -153,7 +153,7 @@ export class ColumnsService {
     );
 
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(table.source_id),
+      Source.get(table.base_id),
     );
 
     const sqlClient = await reuseOrSave('sqlClient', reuse, async () =>
@@ -1444,7 +1444,7 @@ export class ColumnsService {
     );
 
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(table.source_id),
+      Source.get(table.base_id),
     );
 
     const base = await reuseOrSave('base', reuse, async () =>
@@ -1566,7 +1566,6 @@ export class ColumnsService {
             ...colBody,
             fk_model_id: param.tableId,
             base_id: base.id,
-            source_id: source.id,
           },
           req: param.req,
         });
@@ -2002,7 +2001,7 @@ export class ColumnsService {
       ),
     );
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(table.source_id, false, ncMeta),
+      Source.get(table.base_id, false, ncMeta),
     );
 
     const sqlMgr = await reuseOrSave('sqlMgr', reuse, async () =>
@@ -3094,10 +3093,10 @@ export class ColumnsService {
       );
     }
 
-    const source = await Source.get(table.source_id);
+    const source = await Source.get(table.base_id);
 
     if (!source) {
-      NcError.sourceNotFound(table.source_id);
+      NcError.sourceNotFound(table.base_id);
     }
 
     const base = await source.getProject();

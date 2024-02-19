@@ -11,7 +11,6 @@ export default class KanbanView implements KanbanType {
   fk_view_id: string;
   title: string;
   base_id?: string;
-  source_id?: string;
   fk_grp_col_id?: string;
   fk_cover_image_col_id?: string;
   meta?: MetaType;
@@ -71,7 +70,6 @@ export default class KanbanView implements KanbanType {
 
     const insertObj = extractProps(view, [
       'base_id',
-      'source_id',
       'fk_view_id',
       'fk_grp_col_id',
       'meta',
@@ -81,10 +79,9 @@ export default class KanbanView implements KanbanType {
       view?.fk_cover_image_col_id ||
       columns?.find((c) => c.uidt === UITypes.Attachment)?.id;
 
-    if (!(view.base_id && view.source_id)) {
+    if (!view.base_id) {
       const viewRef = await View.get(view.fk_view_id);
       insertObj.base_id = viewRef.base_id;
-      insertObj.source_id = viewRef.source_id;
     }
 
     await ncMeta.metaInsert2(

@@ -54,7 +54,7 @@ export class DuplicateProcessor {
 
       const models = (await source.getModels()).filter(
         // TODO revert this when issue with cache is fixed
-        (m) => m.source_id === source.id && !m.mm && m.type === 'table',
+        (m) => m.base_id === source.id && !m.mm && m.type === 'table',
       );
 
       const exportedModels = await this.exportService.serializeModels({
@@ -240,20 +240,19 @@ export class DuplicateProcessor {
 
     const hrTime = initTime();
 
-    const { baseId, sourceId, columnId, extra, req, options } = job.data;
+    const { baseId, columnId, extra, req, options } = job.data;
 
     const excludeData = options?.excludeData || false;
 
     const base = await Base.get(baseId);
 
     const sourceColumn = await Column.get({
-      source_id: sourceId,
       colId: columnId,
     });
 
     const user = (req as any).user;
 
-    const source = await Source.get(sourceColumn.source_id);
+    const source = await Source.get(sourceColumn.base_id);
 
     const models = (await source.getModels()).filter(
       (m) => !m.mm && m.type === 'table',
@@ -375,7 +374,6 @@ export class DuplicateProcessor {
     }
 
     const destColumn = await Column.get({
-      source_id: base.id,
       colId: findWithIdentifier(idMap, sourceColumn.id),
     });
 
@@ -394,7 +392,6 @@ export class DuplicateProcessor {
     this.debugLog(`job completed for ${job.id} (${JobTypes.DuplicateModel})`);
 
     return await Column.get({
-      source_id: base.id,
       colId: findWithIdentifier(idMap, sourceColumn.id),
     });
   }
@@ -525,7 +522,6 @@ export class DuplicateProcessor {
                   const id = idMap.get(header);
                   if (id) {
                     const col = await Column.get({
-                      source_id: destBase.id,
                       colId: id,
                     });
                     if (col) {
@@ -535,7 +531,6 @@ export class DuplicateProcessor {
                           col.meta?.bt)
                       ) {
                         const childCol = await Column.get({
-                          source_id: destBase.id,
                           colId: col.colOptions.fk_child_column_id,
                         });
                         if (childCol) {

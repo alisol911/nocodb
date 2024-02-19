@@ -42,7 +42,6 @@ export class GalleriesService {
         fk_model_id: param.tableId,
         type: ViewTypes.GALLERY,
         base_id: model.base_id,
-        source_id: model.source_id,
       },
       model,
     );

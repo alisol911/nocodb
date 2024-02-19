@@ -50,7 +50,7 @@ export class PublicDatasService {
       id: view?.fk_model_id,
     });
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -132,7 +132,7 @@ export class PublicDatasService {
     groupColumnId: string;
   }) {
     const { model, view, query = {}, groupColumnId } = param;
-    const source = await Source.get(param.model.source_id);
+    const source = await Source.get(param.model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -217,7 +217,7 @@ export class PublicDatasService {
     try {
       const { model, view, query = {} } = param;
 
-      const source = await Source.get(model.source_id);
+      const source = await Source.get(model.base_id);
 
       const baseModel = await Model.getBaseModelSQL({
         id: model.id,
@@ -267,7 +267,7 @@ export class PublicDatasService {
       id: view?.fk_model_id,
     });
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
     const base = await source.getProject();
 
     const baseModel = await Model.getBaseModelSQL({
@@ -443,7 +443,7 @@ export class PublicDatasService {
 
     const model = await colOptions.getRelatedTable();
 
-    const source = await Source.get(model.source_id);
+    const source = await Source.get(model.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: model.id,
@@ -508,7 +508,7 @@ export class PublicDatasService {
     if (column.fk_model_id !== view.fk_model_id)
       NcError.badRequest("Column doesn't belongs to the model");
 
-    const source = await Source.get(view.source_id);
+    const source = await Source.get(view.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: view.fk_model_id,
@@ -583,7 +583,7 @@ export class PublicDatasService {
     if (column.fk_model_id !== view.fk_model_id)
       NcError.badRequest("Column doesn't belongs to the model");
 
-    const source = await Source.get(view.source_id);
+    const source = await Source.get(view.base_id);
 
     const baseModel = await Model.getBaseModelSQL({
       id: view.fk_model_id,
