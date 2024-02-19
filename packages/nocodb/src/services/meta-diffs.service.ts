@@ -51,7 +51,7 @@ const applyChangesPriorityOrder = [
 type MetaDiff = {
   title?: string;
   table_name: string;
-  source_id: string;
+  base_id: string;
   type: ModelTypes;
   meta?: any;
   detectedChanges: Array<MetaDiffChange>;
@@ -191,7 +191,7 @@ export class MetaDiffsService {
       if (oldMetaIdx === -1) {
         changes.push({
           table_name: table.tn,
-          source_id: source.id,
+          base_id: source.id,
           type: ModelTypes.TABLE,
           detectedChanges: [
             {
@@ -211,7 +211,7 @@ export class MetaDiffsService {
         title: oldMeta.title,
         meta: oldMeta.meta,
         table_name: table.tn,
-        source_id: source.id,
+        base_id: source.id,
         type: ModelTypes.TABLE,
         detectedChanges: [],
       };
@@ -320,7 +320,7 @@ export class MetaDiffsService {
       changes.push({
         table_name: model.table_name,
         meta: model.meta,
-        source_id: source.id,
+        base_id: source.id,
         type: ModelTypes.TABLE,
         detectedChanges: [
           {
@@ -533,7 +533,7 @@ export class MetaDiffsService {
       if (oldMetaIdx === -1) {
         changes.push({
           table_name: view.tn,
-          source_id: source.id,
+          base_id: source.id,
           type: ModelTypes.VIEW,
           detectedChanges: [
             {
@@ -553,7 +553,7 @@ export class MetaDiffsService {
         title: oldMeta.title,
         meta: oldMeta.meta,
         table_name: view.tn,
-        source_id: source.id,
+        base_id: source.id,
         type: ModelTypes.VIEW,
         detectedChanges: [],
       };
@@ -633,7 +633,7 @@ export class MetaDiffsService {
       changes.push({
         table_name: model.table_name,
         meta: model.meta,
-        source_id: source.id,
+        base_id: source.id,
         type: ModelTypes.TABLE,
         detectedChanges: [
           {
@@ -885,12 +885,12 @@ export class MetaDiffsService {
               virtualColumnInsert.push(async () => {
                 const parentModel = await Model.getByIdOrName(context, {
                   base_id: source.base_id,
-                  source_id: source.id,
+                  base_id: source.id,
                   table_name: change.rtn,
                 });
                 const childModel = await Model.getByIdOrName(context, {
                   base_id: source.base_id,
-                  source_id: source.id,
+                  base_id: source.id,
                   table_name: change.tn,
                 });
 

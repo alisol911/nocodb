@@ -249,10 +249,10 @@ export default function (API_VERSION: 'v1' | 'v2' | 'v3') {
     expect(responseTable).to.haveOwnProperty('id');
     expect(responseTable.id).to.eq(table.id);
 
-    // for meta source table source_id is not present
+    // for meta source table base_id is not present
     if (isV1 || isV2) {
-      expect(responseTable).to.haveOwnProperty('source_id');
-      expect(responseTable.source_id).to.eq(table.source_id);
+      expect(responseTable).to.haveOwnProperty('base_id');
+      expect(responseTable.base_id).to.eq(table.base_id);
     }
 
     expect(responseTable).to.haveOwnProperty('title');

@@ -17,7 +17,7 @@ export class ApiDocsService {
 
     const models = await Model.list(context, {
       base_id: param.baseId,
-      source_id: null,
+      base_id: null,
     });
 
     const swagger = await getSwaggerJSON(context, base, models);
@@ -49,7 +49,7 @@ export class ApiDocsService {
 
     const models = await Model.list(context, {
       base_id: param.baseId,
-      source_id: null,
+      base_id: null,
     });
 
     const swagger = await getSwaggerJSONV2(context, base, models);

@@ -61,7 +61,7 @@ export class DataTableService {
   ) {
     const { model, view } = await this.getModelAndView(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -93,7 +93,7 @@ export class DataTableService {
   ) {
     const { model, view } = await this.getModelAndView(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -138,7 +138,7 @@ export class DataTableService {
     },
   ) {
     const { model, view } = await this.getModelAndView(context, param);
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -176,7 +176,7 @@ export class DataTableService {
   ) {
     const { model, view } = await this.getModelAndView(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -213,7 +213,7 @@ export class DataTableService {
 
     await this.checkForDuplicateRow(context, { rows: param.body, model });
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -252,7 +252,7 @@ export class DataTableService {
 
     await this.checkForDuplicateRow(context, { rows: param.body, model });
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
       viewId: view?.id,
@@ -283,7 +283,7 @@ export class DataTableService {
   ) {
     const { model, view } = await this.getModelAndView(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -415,7 +415,7 @@ export class DataTableService {
     },
   ) {
     const { model, view } = await this.getModelAndView(context, param);
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -546,7 +546,7 @@ export class DataTableService {
 
     const { model, view } = await this.getModelAndView(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -585,7 +585,7 @@ export class DataTableService {
     const { model, view } = await this.getModelAndView(context, param);
     if (!model) NcError.tableNotFound(param.modelId);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -657,7 +657,7 @@ export class DataTableService {
 
     const { model, view } = await this.getModelAndView(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -897,7 +897,7 @@ export class DataTableService {
   ) {
     const { model, view } = await this.getModelAndView(context, param);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,

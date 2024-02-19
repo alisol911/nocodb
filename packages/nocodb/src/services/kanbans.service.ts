@@ -63,7 +63,6 @@ export class KanbansService {
         fk_model_id: param.tableId,
         type: ViewTypes.KANBAN,
         base_id: model.base_id,
-        source_id: model.source_id,
         created_by: param.user?.id,
         owned_by: param.ownedBy || param.user?.id,
         fk_cover_image_col_id,

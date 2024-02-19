@@ -31,7 +31,7 @@ const column = toRef(props, 'column')
 const { base: activeBase, tables } = storeToRefs(useBase())
 
 const isExternalSource = computed(() =>
-  activeBase.value?.sources?.some((s) => s.id === column.value?.source_id && !s.is_meta && !s.is_local),
+  activeBase.value?.sources?.some((s) => s.id === column.value?.base_id && !s.is_meta && !s.is_local),
 )
 
 const hideMenu = toRef(props, 'hideMenu')

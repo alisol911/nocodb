@@ -211,7 +211,7 @@ export const getMultiSelectValue = (modelValue: any, params: ParsePlainCellValue
     ? Array.isArray(modelValue)
       ? modelValue.join(', ')
       : modelValue.toString()
-    : isMysql(col.source_id)
+    : isMysql(col.base_id)
     ? modelValue.toString().split(',').join(', ')
     : modelValue.split(', ')
 }
@@ -258,7 +258,7 @@ export const getDateTimeValue = (modelValue: string | null, params: ParsePlainCe
   const { timezonize } = withTimezone(timezone?.name)
   const displayTimezone = timezone && columnMeta?.isDisplayTimezone ? ` (${timezone.abbreviation})` : ''
 
-  const isXcDB = isXcdbBase(col.source_id)
+  const isXcDB = isXcdbBase(col.base_id)
 
   if (!isXcDB) {
     return timezonize(dayjs(/^\d+$/.test(modelValue) ? +modelValue : modelValue))?.format(dateTimeFormat) + displayTimezone

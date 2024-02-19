@@ -79,7 +79,7 @@ const isGenerating = computed(
     pk.value && column.value.id && generatingRows.value.includes(pk.value) && generatingColumns.value.includes(column.value.id),
 )
 
-const sourceId = meta.value?.source_id || column.value?.source_id
+const sourceId = meta.value?.base_id || column.value?.base_id
 
 const sqlUi = ref(sourceId && sqlUis.value[sourceId] ? sqlUis.value[sourceId] : Object.values(sqlUis.value)[0])
 

@@ -7,7 +7,7 @@ export default class SyncLogs {
   id?: string;
   fk_workspace_id?: string;
   base_id?: string;
-  fk_sync_source_id?: string;
+  fk_sync_base_id?: string;
   time_taken?: string;
   status?: string;
   status_details?: string;
@@ -40,7 +40,7 @@ export default class SyncLogs {
   ) {
     const insertObj = extractProps(syncLog, [
       'base_id',
-      'fk_sync_source_id',
+      'fk_sync_base_id',
       'time_taken',
       'status',
       'status_details',

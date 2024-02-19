@@ -198,7 +198,7 @@ export const serializeTimeValue = (
     return null;
   }
 
-  const dateFormat = params.isMysql?.(params.col.source_id)
+  const dateFormat = params.isMysql?.(params.col.base_id)
     ? 'YYYY-MM-DD HH:mm:ss'
     : 'YYYY-MM-DD HH:mm:ssZ';
 

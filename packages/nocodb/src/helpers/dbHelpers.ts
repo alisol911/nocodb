@@ -194,7 +194,7 @@ export async function getBaseModelSqlFromModelId({
   modelId: string;
 }) {
   const model = await Model.get(context, modelId);
-  const source = await Source.get(context, model.source_id);
+  const source = await Source.get(context, model.base_id);
   return await Model.getBaseModelSQL(context, {
     id: model.id,
     dbDriver: await NcConnectionMgrv2.get(source),

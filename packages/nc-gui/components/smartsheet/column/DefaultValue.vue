@@ -51,8 +51,8 @@ watch(
 
 const { sqlUis } = storeToRefs(useBase())
 const sqlUi = computed(() =>
-  meta.value?.source_id && sqlUis.value[meta.value?.source_id]
-    ? sqlUis.value[meta.value?.source_id]
+  meta.value?.base_id && sqlUis.value[meta.value?.base_id]
+    ? sqlUis.value[meta.value?.base_id]
     : Object.values(sqlUis.value)[0],
 )
 

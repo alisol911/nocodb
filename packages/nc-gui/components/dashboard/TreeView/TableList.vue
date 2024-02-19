@@ -54,14 +54,14 @@ const sortables: Record<string, Sortable> = {}
 
 // todo: replace with vuedraggable
 const initSortable = (el: Element) => {
-  const source_id = el.getAttribute('nc-source')
-  if (!source_id) return
+  const base_id = el.getAttribute('nc-source')
+  if (!base_id) return
   if (isMobileMode.value) return
 
-  if (sortables[source_id]) sortables[source_id].destroy()
+  if (sortables[base_id]) sortables[base_id].destroy()
   Sortable.create(el as HTMLLIElement, {
     onEnd: async (evt) => {
-      const offset = tables.value.findIndex((table) => table.source_id === source_id)
+      const offset = tables.value.findIndex((table) => table.base_id === base_id)
 
       const { newIndex = 0, oldIndex = 0 } = evt
 
@@ -97,10 +97,10 @@ const initSortable = (el: Element) => {
       tables.value?.splice(newIndex + offset, 0, ...tables.value?.splice(oldIndex + offset, 1))
 
       // force re-render the list
-      if (keys.value[source_id]) {
-        keys.value[source_id] = keys.value[source_id] + 1
+      if (keys.value[base_id]) {
+        keys.value[base_id] = keys.value[base_id] + 1
       } else {
-        keys.value[source_id] = 1
+        keys.value[base_id] = 1
       }
 
       // update the item order
@@ -136,7 +136,7 @@ watchEffect(() => {
 })
 
 const availableTables = computed(() => {
-  return tables.value.filter((table) => table.source_id === base.value?.sources?.[sourceIndex.value].id)
+  return tables.value.filter((table) => table.base_id === base.value?.sources?.[sourceIndex.value].id)
 })
 
 const filteredAvailableTables = computed(() => {

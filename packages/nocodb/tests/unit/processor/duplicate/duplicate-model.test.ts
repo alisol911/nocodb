@@ -43,7 +43,7 @@ function duplicateModelTests() {
         baseId: context.base.id,
         user: user as any,
         modelId: table1.id,
-        sourceId: table1.source_id,
+        sourceId: table1.base_id,
         title: 'Table1 copy',
         extra: {}, // extra data
         req: {

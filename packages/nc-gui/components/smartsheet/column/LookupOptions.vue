@@ -61,7 +61,7 @@ const refTables = computed(() => {
           [RelationTypes.MANY_TO_MANY, RelationTypes.ONE_TO_ONE, RelationTypes.BELONGS_TO].includes(
             (column.colOptions as LinkToAnotherRecordType).type as RelationTypes,
           )) &&
-        column.source_id === meta.value?.source_id,
+        column.base_id === meta.value?.base_id,
     )
     .map((column) => ({
       col: column.colOptions,
@@ -95,7 +95,7 @@ const canUseRecursiveEvaluation = computed(() => {
     isEeUI,
     relationCol,
     relationType: relation.type as any,
-    dbClientType: getBaseType(meta.value?.source_id),
+    dbClientType: getBaseType(meta.value?.base_id),
   })
   */
 })

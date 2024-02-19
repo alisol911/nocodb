@@ -63,7 +63,7 @@ export class SqlViewsService {
       !(await Model.checkTitleAvailable(context, {
         table_name: body.view_name,
         base_id: base.id,
-        source_id: source.id,
+        base_id: source.id,
       }))
     ) {
       NcError.badRequest('Duplicate table name');
@@ -77,7 +77,7 @@ export class SqlViewsService {
       !(await Model.checkAliasAvailable(context, {
         title: body.title,
         base_id: base.id,
-        source_id: source.id,
+        base_id: source.id,
       }))
     ) {
       NcError.badRequest('Duplicate table alias');
@@ -121,7 +121,7 @@ export class SqlViewsService {
 
     const tables = await Model.list(context, {
       base_id: base.id,
-      source_id: source.id,
+      base_id: source.id,
     });
 
     mapDefaultDisplayValue(columns);

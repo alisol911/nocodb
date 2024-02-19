@@ -36,7 +36,6 @@ export default class GalleryView implements GalleryType {
 
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
 
   columns?: GalleryColumnType[];
   meta?: MetaType;
@@ -82,7 +81,6 @@ export default class GalleryView implements GalleryType {
 
     const insertObj = extractProps(view, [
       'base_id',
-      'source_id',
       'fk_view_id',
       'next_enabled',
       'prev_enabled',
@@ -108,8 +106,8 @@ export default class GalleryView implements GalleryType {
 
     const viewRef = await View.get(context, insertObj.fk_view_id, ncMeta);
 
-    if (!insertObj.source_id) {
-      insertObj.source_id = viewRef.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = viewRef.base_id;
     }
 
     await ncMeta.metaInsert2(

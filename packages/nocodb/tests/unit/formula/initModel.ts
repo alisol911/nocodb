@@ -165,7 +165,7 @@ export async function initInitialModel() {
     title: 'table1Name',
     table: await Model.getByIdOrName(ctx, {
       base_id: base.id,
-      source_id: source.id!,
+      base_id: source.id!,
       id: table2.id,
     }),
     relatedTableName: table1.table_name,
@@ -177,7 +177,7 @@ export async function initInitialModel() {
     title: 'table2Name',
     table: await Model.getByIdOrName(ctx, {
       base_id: base.id,
-      source_id: source.id!,
+      base_id: source.id!,
       id: table3.id,
     }),
     relatedTableName: table2.table_name,
@@ -189,7 +189,7 @@ export async function initInitialModel() {
     title: 'table2_table1s',
     table: await Model.getByIdOrName(ctx, {
       base_id: base.id,
-      source_id: source.id!,
+      base_id: source.id!,
       id: table3.id,
     }),
     relatedTableName: table2.table_name,
@@ -294,7 +294,7 @@ export async function initQrBarcodeColumns(context: ITestContext) {
     title: 'table1Qr',
     table: await Model.getByIdOrName(context.ctx, {
       base_id: context.base.id,
-      source_id: source.id!,
+      base_id: source.id!,
       id: context.tables.table2.id,
     }),
     relatedTableName: table1.table_name,
@@ -306,7 +306,7 @@ export async function initQrBarcodeColumns(context: ITestContext) {
     title: 'table1Barcode',
     table: await Model.getByIdOrName(context.ctx, {
       base_id: context.base.id,
-      source_id: source.id!,
+      base_id: source.id!,
       id: context.tables.table2.id,
     }),
     relatedTableName: table1.table_name,
@@ -336,7 +336,7 @@ export async function initFormulaLookupColumns(context: ITestContext) {
     title: 'table1FormulaTitle',
     table: await Model.getByIdOrName(context.ctx, {
       base_id: context.base.id,
-      source_id: source.id!,
+      base_id: source.id!,
       id: context.tables.table2.id,
     }),
     relatedTableName: context.tables.table1.table_name,

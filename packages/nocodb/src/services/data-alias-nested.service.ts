@@ -26,7 +26,7 @@ export class DataAliasNestedService {
 
     if (!model) NcError.tableNotFound(param.tableName);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -75,7 +75,7 @@ export class DataAliasNestedService {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
     if (!model) NcError.tableNotFound(param.tableName);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -119,7 +119,7 @@ export class DataAliasNestedService {
 
     if (!model) NcError.tableNotFound(param.tableName);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -163,7 +163,7 @@ export class DataAliasNestedService {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
     if (!model) NcError.tableNotFound(param.tableName);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -206,7 +206,7 @@ export class DataAliasNestedService {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
     if (!model) NcError.notFound('Table not found');
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -252,7 +252,7 @@ export class DataAliasNestedService {
 
     if (!model) NcError.tableNotFound(param.tableName);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -300,7 +300,7 @@ export class DataAliasNestedService {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
     if (!model) NcError.tableNotFound(param.tableName);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -334,7 +334,7 @@ export class DataAliasNestedService {
     const { model, view } = await getViewAndModelByAliasOrId(context, param);
     if (!model) NcError.tableNotFound(param.tableName);
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,

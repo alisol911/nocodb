@@ -73,7 +73,7 @@ export class RecoverDisconnectedTableNames {
       .knexConnection(MetaTable.MODELS)
       .join(
         MetaTable.SOURCES,
-        `${MetaTable.MODELS}.source_id`,
+        `${MetaTable.MODELS}.base_id`,
         '=',
         `${MetaTable.SOURCES}.id`,
       )
@@ -109,7 +109,7 @@ export class RecoverDisconnectedTableNames {
         const modelToProcessQb = this.getModelsToBeProcessedQueryBuilder(ncMeta)
           .select([
             `${MetaTable.MODELS}.id`,
-            `${MetaTable.MODELS}.source_id`,
+            `${MetaTable.MODELS}.base_id`,
             `${MetaTable.MODELS}.table_name`,
             `${MetaTable.MODELS}.base_id`,
             ...(isEE ? [`${MetaTable.MODELS}.fk_workspace_id`] : []),
@@ -152,7 +152,7 @@ export class RecoverDisconnectedTableNames {
   private async processModel(
     modelData: {
       id: string;
-      source_id: string;
+      base_id: string;
       table_name: string;
       base_id: string;
       fk_workspace_id?: string;
@@ -164,8 +164,8 @@ export class RecoverDisconnectedTableNames {
         base_id: modelData.base_id,
         workspace_id: modelData.fk_workspace_id,
       };
-      const source = await this.cache.get(modelData.source_id, async () =>
-        Source.get(context, modelData.source_id),
+      const source = await this.cache.get(modelData.base_id, async () =>
+        Source.get(context, modelData.base_id),
       );
       if (!(source as Source).isMeta()) {
         this.log(`Model ${modelData.id}:`, 'is not meta, skipping');

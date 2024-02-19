@@ -9,162 +9,162 @@ const up = async (knex: Knex) => {
   if (await knex.schema.hasTable(MetaTableOldV2.BASES))
     await knex.schema.renameTable(MetaTableOldV2.BASES, MetaTable.SOURCES_OLD);
 
-  logger.log('Renaming `base_id` column to `source_id`');
+  logger.log('Renaming `base_id` column to `base_id`');
   if (await knex.schema.hasColumn(MetaTable.MODELS, 'base_id'))
     await knex.schema.alterTable(MetaTable.MODELS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.COLUMNS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.COLUMNS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.COLUMNS, 'base_id'))
     await knex.schema.alterTable(MetaTable.COLUMNS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.VIEWS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.VIEWS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.VIEWS, 'base_id'))
     await knex.schema.alterTable(MetaTable.VIEWS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.GALLERY_VIEW}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.GALLERY_VIEW}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.GALLERY_VIEW, 'base_id'))
     await knex.schema.alterTable(MetaTable.GALLERY_VIEW, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.GRID_VIEW}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.GRID_VIEW}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.GRID_VIEW, 'base_id'))
     await knex.schema.alterTable(MetaTable.GRID_VIEW, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.KANBAN_VIEW}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.KANBAN_VIEW}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.KANBAN_VIEW, 'base_id'))
     await knex.schema.alterTable(MetaTable.KANBAN_VIEW, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.FORM_VIEW}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.FORM_VIEW}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.FORM_VIEW, 'base_id'))
     await knex.schema.alterTable(MetaTable.FORM_VIEW, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.MAP_VIEW}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.MAP_VIEW}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.MAP_VIEW, 'base_id'))
     await knex.schema.alterTable(MetaTable.MAP_VIEW, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.GALLERY_VIEW_COLUMNS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.GALLERY_VIEW_COLUMNS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.GALLERY_VIEW_COLUMNS, 'base_id'))
     await knex.schema.alterTable(MetaTable.GALLERY_VIEW_COLUMNS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.GRID_VIEW_COLUMNS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.GRID_VIEW_COLUMNS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.GRID_VIEW_COLUMNS, 'base_id'))
     await knex.schema.alterTable(MetaTable.GRID_VIEW_COLUMNS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.KANBAN_VIEW_COLUMNS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.KANBAN_VIEW_COLUMNS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.KANBAN_VIEW_COLUMNS, 'base_id'))
     await knex.schema.alterTable(MetaTable.KANBAN_VIEW_COLUMNS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.FORM_VIEW_COLUMNS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.FORM_VIEW_COLUMNS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.FORM_VIEW_COLUMNS, 'base_id'))
     await knex.schema.alterTable(MetaTable.FORM_VIEW_COLUMNS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.SORT}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.SORT}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.SORT, 'base_id'))
     await knex.schema.alterTable(MetaTable.SORT, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.FILTER_EXP}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.FILTER_EXP}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.FILTER_EXP, 'base_id'))
     await knex.schema.alterTable(MetaTable.FILTER_EXP, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.HOOKS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.HOOKS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.HOOKS, 'base_id'))
     await knex.schema.alterTable(MetaTable.HOOKS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.HOOK_LOGS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.HOOK_LOGS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.HOOK_LOGS, 'base_id'))
     await knex.schema.alterTable(MetaTable.HOOK_LOGS, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.MODEL_ROLE_VISIBILITY}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.MODEL_ROLE_VISIBILITY}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.MODEL_ROLE_VISIBILITY, 'base_id'))
     await knex.schema.alterTable(MetaTable.MODEL_ROLE_VISIBILITY, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.AUDIT}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.AUDIT}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.AUDIT, 'base_id'))
     await knex.schema.alterTable(MetaTable.AUDIT, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'base_id' column to 'source_id' in '${MetaTable.SYNC_LOGS}' table`,
+    `Renaming 'base_id' column to 'base_id' in '${MetaTable.SYNC_LOGS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.SYNC_SOURCE, 'base_id'))
     await knex.schema.alterTable(MetaTable.SYNC_SOURCE, (table) => {
-      table.renameColumn('base_id', 'source_id');
+      table.renameColumn('base_id', 'base_id');
     });
 
   logger.log(
-    `Renaming 'fk_sync_base_id' column to 'fk_sync_source_id' in '${MetaTable.SYNC_LOGS}' table`,
+    `Renaming 'fk_sync_base_id' column to 'fk_sync_base_id' in '${MetaTable.SYNC_LOGS}' table`,
   );
   if (await knex.schema.hasColumn(MetaTable.SYNC_LOGS, 'fk_sync_base_id'))
     await knex.schema.alterTable(MetaTable.SYNC_LOGS, (table) => {
-      table.renameColumn('fk_sync_base_id', 'fk_sync_source_id');
+      table.renameColumn('fk_sync_base_id', 'fk_sync_base_id');
     });
 
   logger.log('Renaming project table');

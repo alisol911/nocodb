@@ -1895,7 +1895,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
   async delByPk(id, _trx?, cookie?) {
     let trx: Knex.Transaction = _trx;
     try {
-      const source = await this.getSource();
+      const source = await Source.get(this.model.base_id);
       // retrieve data for handling params in hook
       const data = await this.readRecord({
         idOrRecord: id,
@@ -3857,7 +3857,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
           {
             context: {
               ...this.context,
-              source_id: this.model.source_id,
+              base_id: this.model.base_id,
               fk_model_id: this.model.id,
               row_id: this.extractPksValues(id, true),
             },
@@ -3891,7 +3891,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
             details: {},
             context: {
               ...this.context,
-              source_id: this.model.source_id,
+              base_id: this.model.base_id,
               fk_model_id: this.model.id,
             },
             req,
@@ -3919,7 +3919,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
               {
                 context: {
                   ...this.context,
-                  source_id: this.model.source_id,
+                  base_id: this.model.base_id,
                   fk_model_id: this.model.id,
                   row_id: this.extractPksValues(data, true),
                 },
@@ -3964,7 +3964,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
             },
             context: {
               ...this.context,
-              source_id: this.model.source_id,
+              base_id: this.model.base_id,
               fk_model_id: this.model.id,
               row_id: this.extractPksValues(id, true),
             },
@@ -3998,7 +3998,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
             details: {},
             context: {
               ...this.context,
-              source_id: this.model.source_id,
+              base_id: this.model.base_id,
               fk_model_id: this.model.id,
             },
             req,
@@ -4030,7 +4030,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
                 },
                 context: {
                   ...this.context,
-                  source_id: this.model.source_id,
+                  base_id: this.model.base_id,
                   fk_model_id: this.model.id,
                   row_id: this.extractPksValues(d, true),
                 },
@@ -4066,7 +4066,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
               details: {},
               context: {
                 ...this.context,
-                source_id: this.model.source_id,
+                base_id: this.model.base_id,
                 fk_model_id: this.model.id,
               },
               req,
@@ -4124,7 +4124,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
                     {
                       context: {
                         ...this.context,
-                        source_id: this.model.source_id,
+                        base_id: this.model.base_id,
                         fk_model_id: this.model.id,
                         row_id: this.extractPksValues(d, true),
                       },
@@ -4214,7 +4214,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
             {
               context: {
                 ...this.context,
-                source_id: this.model.source_id,
+                base_id: this.model.base_id,
                 fk_model_id: this.model.id,
                 row_id: id,
               },
@@ -4622,7 +4622,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
         {
           context: {
             ...this.context,
-            source_id: model.source_id,
+            base_id: model.base_id,
             fk_model_id: model.id,
             row_id: this.extractPksValues(rowId, true) as string,
           },
@@ -4763,7 +4763,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
         return generateAuditV1Payload<DataLinkPayload>(opType, {
           context: {
             ...context,
-            source_id: model.source_id,
+            base_id: model.base_id,
             fk_model_id: model.id,
             row_id: this.extractPksValues(auditObj.rowId, true) as string,
           },
@@ -4899,7 +4899,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
         {
           context: {
             ...this.context,
-            source_id: model.source_id,
+            base_id: model.base_id,
             fk_model_id: model.id,
             row_id: this.extractPksValues(rowId, true) as string,
           },
@@ -6652,7 +6652,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
                       sanitizedAttachment.url ?? sanitizedAttachment.path,
                     file_size: sanitizedAttachment.size,
                     fk_user_id: cookie?.user?.id ?? 'anonymous',
-                    source_id: source.id,
+                    base_id: source.id,
                     fk_model_id: this.model.id,
                     fk_column_id: column.id,
                     is_external: !source.isMeta(),
@@ -6893,7 +6893,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
     // return this.source if defined or fetch and return
     return (
       this.source ||
-      (this.source = await Source.get(this.context, this.model.source_id))
+      (this.source = await Source.get(this.context, this.model.base_id))
     );
   }
 
@@ -7028,7 +7028,7 @@ class BaseModelSqlv2 implements IBaseModelSqlV2 {
           {
             context: {
               ...this.context,
-              source_id: this.model.source_id,
+              base_id: this.model.base_id,
               fk_model_id: this.model.id,
               row_id: this.extractPksValues(rowId, true),
             },

@@ -399,7 +399,7 @@ const contextMenuBase = computed(() => {
   if (contextMenuTarget.type === 'source') {
     return contextMenuTarget.value
   } else if (contextMenuTarget.type === 'table') {
-    const source = base.value?.sources?.find((b) => b.id === contextMenuTarget.value.source_id)
+    const source = base.value?.sources?.find((b) => b.id === contextMenuTarget.value.base_id)
     if (source) return source
   }
   return null
@@ -410,7 +410,7 @@ watch(
   async () => {
     if (!activeTable.value) return
 
-    const sourceId = activeTable.value.source_id
+    const sourceId = activeTable.value.base_id
     if (!sourceId) return
 
     if (!activeKey.value.includes(`collapse-${sourceId}`)) {
@@ -983,14 +983,14 @@ defineExpose({
 
           <template
             v-if="
-              isUIAllowed('tableRename', { source: getSource(contextMenuTarget.value?.source_id) }) ||
-              isUIAllowed('tableDelete', { source: getSource(contextMenuTarget.value?.source_id) })
+              isUIAllowed('tableRename', { source: getSource(contextMenuTarget.value?.base_id) }) ||
+              isUIAllowed('tableDelete', { source: getSource(contextMenuTarget.value?.base_id) })
             "
           >
             <NcDivider />
             <NcMenuItem
-              v-if="isUIAllowed('tableRename', { source: getSource(contextMenuTarget.value?.source_id) })"
-              @click="tableRenameId = `${contextMenuTarget.value?.id}:${contextMenuTarget.value?.source_id}`"
+              v-if="isUIAllowed('tableRename', { source: getSource(contextMenuTarget.value?.base_id) })"
+              @click="tableRenameId = `${contextMenuTarget.value?.id}:${contextMenuTarget.value?.base_id}`"
             >
               <div v-e="['c:table:rename']" class="nc-base-option-item flex gap-2 items-center">
                 <GeneralIcon icon="rename" />
@@ -1000,7 +1000,7 @@ defineExpose({
 
             <NcMenuItem
               v-if="
-                isUIAllowed('tableDuplicate', { source: getSource(contextMenuTarget.value?.source_id) }) &&
+                isUIAllowed('tableDuplicate', { source: getSource(contextMenuTarget.value?.base_id) }) &&
                 (contextMenuBase?.is_meta || contextMenuBase?.is_local)
               "
               @click="duplicateTable(contextMenuTarget.value)"
@@ -1012,7 +1012,7 @@ defineExpose({
             </NcMenuItem>
             <NcDivider />
             <NcMenuItem
-              v-if="isUIAllowed('tableDelete', { source: getSource(contextMenuTarget.value?.source_id) })"
+              v-if="isUIAllowed('tableDelete', { source: getSource(contextMenuTarget.value?.base_id) })"
               class="!hover:bg-red-50"
               @click="tableDelete"
             >

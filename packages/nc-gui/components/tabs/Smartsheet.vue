@@ -47,7 +47,7 @@ const openNewRecordFormHook = createEventHook<void>()
 const { base, showBaseAccessRequestOverlay } = storeToRefs(useBase())
 
 const activeSource = computed(() => {
-  return meta.value?.source_id && base.value && base.value.sources?.find((source) => source.id === meta.value?.source_id)
+  return meta.value?.base_id && base.value && base.value.sources?.find((source) => source.id === meta.value?.base_id)
 })
 
 useProvideKanbanViewStore(meta, activeView)
@@ -96,7 +96,7 @@ const onDrop = async (event: DragEvent) => {
     // Do something with the received data
 
     // if dragged item is not from the same source, return
-    if (data.sourceId !== meta.value?.source_id) return
+    if (data.sourceId !== meta.value?.base_id) return
 
     // if dragged item or opened view is not a table, return
     if (data.type !== 'table' || meta.value?.type !== 'table') return

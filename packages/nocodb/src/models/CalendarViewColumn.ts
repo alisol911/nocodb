@@ -13,7 +13,7 @@ export default class CalendarViewColumn {
   base_id?: string;
   fk_view_id?: string;
   fk_column_id?: string;
-  source_id?: string;
+  base_id?: string;
   show?: BoolType;
   underline?: BoolType;
   bold?: BoolType;
@@ -69,7 +69,7 @@ export default class CalendarViewColumn {
       'fk_column_id',
       'show',
       'base_id',
-      'source_id',
+      'base_id',
       'underline',
       'bold',
       'italic',
@@ -82,9 +82,9 @@ export default class CalendarViewColumn {
       },
     );
 
-    if (!insertObj.source_id) {
+    if (!insertObj.base_id) {
       const viewRef = await View.get(context, insertObj.fk_view_id, ncMeta);
-      insertObj.source_id = viewRef.source_id;
+      insertObj.base_id = viewRef.base_id;
     }
 
     const { id } = await ncMeta.metaInsert2(

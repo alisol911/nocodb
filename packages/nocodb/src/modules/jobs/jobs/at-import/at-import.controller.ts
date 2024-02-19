@@ -56,7 +56,7 @@ export class AtImportController {
       syncId: req.params.syncId,
       ...(syncSource?.details || {}),
       baseId: syncSource.base_id,
-      sourceId: syncSource.source_id,
+      sourceId: syncSource.base_id,
       authToken: '',
       baseURL,
       user: user,

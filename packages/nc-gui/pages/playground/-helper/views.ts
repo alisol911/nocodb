@@ -9,7 +9,7 @@ export const defaultViews = [
       hasNonDefaultViews: false,
     },
     id: 'vw84fn9hsxrz14b1',
-    source_id: 'bmpgnvh49n8i51l',
+    base_id: 'bmpgnvh49n8i51l',
     base_id: 'pRdVnZXPZgA',
     fk_model_id: 'mtWA9ZXvsuh',
     title: 'Table-1',
@@ -33,7 +33,7 @@ export const defaultViews = [
     fk_custom_url_id: null,
     view: {
       fk_view_id: 'vw84fn9hsxrz14b1',
-      source_id: 'bmpgnvh49n8i51l',
+      base_id: 'bmpgnvh49n8i51l',
       base_id: 'ptj6yehq48r8i0o',
       uuid: null,
       created_at: '2025-04-21 08:28:04+00:00',

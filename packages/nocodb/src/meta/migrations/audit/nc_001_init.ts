@@ -11,7 +11,7 @@ const up = async (knex: Knex) => {
 
     table.string('user', 255);
     table.string('ip', 255);
-    table.string('source_id', 20);
+    table.string('base_id', 20);
     table.string('base_id', 20);
     table.string('fk_model_id', 20);
     table.string('row_id', 255);

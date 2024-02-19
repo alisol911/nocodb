@@ -17,10 +17,10 @@ const { openTable, openTableCreateDialog: _openTableCreateDialog } = tablesStore
 
 const isOpen = ref<boolean>(false)
 
-const activeTableSourceIndex = computed(() => base.value?.sources?.findIndex((s) => s.id === activeTable.value?.source_id) ?? -1)
+const activeTableSourceIndex = computed(() => base.value?.sources?.findIndex((s) => s.id === activeTable.value?.base_id) ?? -1)
 
 const filteredTableList = computed(() => {
-  return activeTables.value.filter((t: TableType) => t?.source_id === activeTable.value?.source_id) || []
+  return activeTables.value.filter((t: TableType) => t?.base_id === activeTable.value?.base_id) || []
 })
 
 /**

@@ -957,7 +957,7 @@ const createRollupColumn = async (
   const childBases = await base.getSources();
   const childTable = await Model.getByIdOrName(ctx, {
     base_id: base.id,
-    source_id: childBases[0].id!,
+    base_id: childBases[0].id!,
     table_name: relatedTableName,
   });
   const childTableColumns = await childTable.getColumns(ctx);
@@ -1011,7 +1011,7 @@ const createLookupColumn = async (
   const childBases = await base.getSources();
   const childTable = await Model.getByIdOrName(ctx, {
     base_id: base.id,
-    source_id: childBases[0].id!,
+    base_id: childBases[0].id!,
     table_name: relatedTableName,
   });
   const childTableColumns = await childTable.getColumns(ctx);

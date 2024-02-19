@@ -38,7 +38,7 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
 
     const { $e } = useNuxtApp()
 
-    const sqlUi = ref(meta.value?.source_id ? sqlUis.value[meta.value?.source_id] : Object.values(sqlUis.value)[0])
+    const sqlUi = ref(meta.value?.base_id ? sqlUis.value[meta.value?.base_id] : Object.values(sqlUis.value)[0])
 
     const viewsStore = useViewsStore()
 
@@ -62,14 +62,14 @@ const [useProvideColumnCreateStore, useColumnCreateStore] = createInjectionState
 
     const isEdit = computed(() => !!column?.value?.id)
 
-    const isMysql = computed(() => isMysqlFunc(meta.value?.source_id ? meta.value?.source_id : Object.keys(sqlUis.value)[0]))
+    const isMysql = computed(() => isMysqlFunc(meta.value?.base_id ? meta.value?.base_id : Object.keys(sqlUis.value)[0]))
 
-    const isPg = computed(() => isPgFunc(meta.value?.source_id ? meta.value?.source_id : Object.keys(sqlUis.value)[0]))
+    const isPg = computed(() => isPgFunc(meta.value?.base_id ? meta.value?.base_id : Object.keys(sqlUis.value)[0]))
 
     const isSystem = computed(() => isSystemColumn(column.value))
 
     const isXcdbBase = computed(() =>
-      isXcdbBaseFunc(meta.value?.source_id ? meta.value?.source_id : Object.keys(sqlUis.value)[0]),
+      isXcdbBaseFunc(meta.value?.base_id ? meta.value?.base_id : Object.keys(sqlUis.value)[0]),
     )
 
     let postSaveOrUpdateCbk:

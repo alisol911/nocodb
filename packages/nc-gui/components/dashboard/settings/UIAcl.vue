@@ -34,7 +34,7 @@ const searchInput = ref('')
 const filteredTables = computed(() =>
   tables.value.filter(
     (el) =>
-      el?.source_id === props.sourceId &&
+      el?.base_id === props.sourceId &&
       ((typeof el?._ptn === 'string' && el._ptn.toLowerCase().includes(searchInput.value.toLowerCase())) ||
         (typeof el?.title === 'string' && el.title.toLowerCase().includes(searchInput.value.toLowerCase()))),
   ),

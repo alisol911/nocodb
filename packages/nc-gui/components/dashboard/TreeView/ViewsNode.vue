@@ -65,7 +65,7 @@ const isLocked = inject(IsLockedInj, ref(false))
 const isDefaultBaseLocal = computed(() => {
   if (base.value?.sources?.length === 1) return true
 
-  const source = base.value?.sources?.find((b) => b.id === vModel.value.source_id)
+  const source = base.value?.sources?.find((b) => b.id === vModel.value.base_id)
   if (!source) return false
 
   return isDefaultBase(source)

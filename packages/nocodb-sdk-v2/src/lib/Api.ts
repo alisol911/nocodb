@@ -109,7 +109,7 @@ export interface TableList {
     /** Unique identifier for the base to which this table belongs to. */
     base_id: string;
     /** Unique identifier for the data source. This information will be included only if the table is associated with an external data source. */
-    source_id?: string;
+    base_id?: string;
     /** Unique identifier for the workspace to which this base belongs to. */
     workspace_id: string;
   }[];
@@ -127,7 +127,7 @@ export interface TableCreate {
   description?: string | null;
   meta?: TableMeta;
   /** Unique identifier for the data source. Include this information only if the table being created is part of a data source. */
-  source_id?: string;
+  base_id?: string;
   fields?: CreateField[];
 }
 
@@ -139,7 +139,7 @@ export interface Table {
   /** Unique identifier for the table. */
   id: string;
   /** Unique identifier for the data source. This information will be included only if the table is associated with an external data source. */
-  source_id?: string;
+  base_id?: string;
   /** Unique identifier for the base to which this table belongs to. */
   base_id: string;
   /** Title of the table. */

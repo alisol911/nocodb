@@ -46,7 +46,7 @@ export default class Hook implements HookType {
 
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
+  base_id?: string;
   version?: 'v1' | 'v2' | 'v3';
   trigger_field?: boolean;
   trigger_fields?: string[];
@@ -217,7 +217,7 @@ export default class Hook implements HookType {
         'timeout',
         'active',
         'base_id',
-        'source_id',
+        'base_id',
         'trigger_field',
       ]);
 
@@ -231,8 +231,7 @@ export default class Hook implements HookType {
       ncMeta,
     );
 
-    if (!insertObj.source_id) {
-      insertObj.source_id = model.source_id;
+    if (!insertObj.base_id) {
     }
 
     // new hook will set as version 3
@@ -303,7 +302,7 @@ export default class Hook implements HookType {
         'active',
         'base_id',
         'version',
-        'source_id',
+        'base_id',
         'trigger_field',
       ]);
 
@@ -317,8 +316,8 @@ export default class Hook implements HookType {
       ncMeta,
     );
 
-    if (!insertObj.source_id) {
-      insertObj.source_id = model.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = model.base_id;
     }
 
     const { id } = await ncMeta.metaInsert2(

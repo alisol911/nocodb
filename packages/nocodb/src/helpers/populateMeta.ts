@@ -529,7 +529,7 @@ export async function populateMeta(
   // fix pv column for created grid views
   const models = await Model.list(context, {
     base_id: base.id,
-    source_id: source.id,
+    base_id: source.id,
   });
 
   for (const model of models) {
@@ -558,7 +558,7 @@ export async function populateRollupColumnAndHideLTAR(
 ) {
   for (const model of await Model.list(context, {
     base_id: base.id,
-    source_id: source.id,
+    base_id: source.id,
   })) {
     const columns = await model.getColumns(context);
     const hmAndMmLTARColumns = columns.filter(

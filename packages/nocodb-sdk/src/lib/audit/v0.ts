@@ -86,7 +86,6 @@ interface AuditV0 {
   ip: string;
   fk_workspace_id: string | null;
   base_id: string | null;
-  source_id: string | null;
   fk_model_id: string | null;
   row_id: string | null;
   op_type: AuditOperationTypes;

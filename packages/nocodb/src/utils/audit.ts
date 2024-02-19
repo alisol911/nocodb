@@ -63,7 +63,7 @@ export const removeBlankPropsAndMask = (
     'created_at',
     'updated_at',
     'base_id',
-    'source_id',
+    'base_id',
     'fk_workspace_id',
   ];
 
@@ -86,7 +86,7 @@ const systemColumns = [
   'id',
   'base_id',
   'fk_workspace_id',
-  'source_id',
+  'base_id',
   'is_deleted',
   'created_by',
   'updated_by',
@@ -150,14 +150,14 @@ export async function generateAuditV1Payload<T = any>(
   params: {
     details?: T & { table_title?: string };
     context?: NcContext & {
-      source_id?: string;
+      base_id?: string;
       fk_model_id?: string;
       row_id?: string;
     };
     req?: NcRequest & Partial<Request>;
     id?: string;
     base_id?: string;
-    source_id?: string;
+    base_id?: string;
     fk_model_id?: string;
     fk_workspace_id?: string;
     row_id?: string;
@@ -186,7 +186,7 @@ export async function generateAuditV1Payload<T = any>(
     fk_workspace_id:
       params.fk_workspace_id ?? context?.workspace_id ?? req?.ncWorkspaceId,
     base_id: params.base_id ?? context?.base_id ?? req?.ncBaseId,
-    source_id: params.source_id ?? context?.source_id ?? req?.ncSourceId,
+    base_id: params.base_id ?? context?.base_id ?? req?.ncSourceId,
     fk_model_id: params.fk_model_id ?? context?.fk_model_id,
     row_id: context?.row_id ?? params.row_id,
     op_type: opType,
@@ -214,7 +214,7 @@ const extractReqPropsFromColOpt = (colOptions: ColumnType['colOptions']) => {
       ![
         'id',
         'base_id',
-        'source_id',
+        'base_id',
         'created_by',
         'updated_by',
         'created_at',
@@ -1086,7 +1086,7 @@ export const generateUpdateAuditV1Payload = async ({
     {
       context: {
         ...baseModelSqlV2.context,
-        source_id: baseModelSqlV2.model.source_id,
+        base_id: baseModelSqlV2.model.base_id,
         fk_model_id: baseModelSqlV2.model.id,
         row_id:
           typeof rowId === 'string'

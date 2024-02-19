@@ -128,9 +128,9 @@ export class TablesV3Service {
 
     return tableReadBuilder().build(
       tables.map((table) => {
-        // exclude source_id for tables from meta source
-        if (metaSourceId && table.source_id === metaSourceId) {
-          table.source_id = undefined;
+        // exclude base_id for tables from meta source
+        if (metaSourceId && table.base_id === metaSourceId) {
+          table.base_id = undefined;
         }
         return table;
       }),

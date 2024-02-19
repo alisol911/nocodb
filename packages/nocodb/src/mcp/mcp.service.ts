@@ -124,7 +124,7 @@ export class McpService {
               sourceId: undefined as string,
               roles: extractRolesObj(user?.base_roles),
             })
-          ).filter((t) => !t.source_id);
+          ).filter((t) => !t.base_id);
 
           return {
             content: [{ type: 'text', text: JSON.stringify(tables, null, 2) }],

@@ -130,7 +130,7 @@ export function useSharedView() {
         id: viewMeta.base_id,
         sources: [
           {
-            id: viewMeta.source_id,
+            id: viewMeta.base_id,
             type: viewMeta.client,
             ...(viewMeta.source || {}),
           },

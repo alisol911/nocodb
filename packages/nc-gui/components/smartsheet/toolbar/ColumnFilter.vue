@@ -554,7 +554,7 @@ async function resetDynamicField(filter: any, i) {
 
 const { sqlUis } = storeToRefs(useBase())
 
-const sqlUi = meta.value?.source_id ? sqlUis.value[meta.value?.source_id] : Object.values(sqlUis.value)[0]
+const sqlUi = meta.value?.base_id ? sqlUis.value[meta.value?.base_id] : Object.values(sqlUis.value)[0]
 
 const isDynamicFilterAllowed = (filter: FilterType) => {
   const col = getColumn(filter)

@@ -98,7 +98,7 @@ export const MultiSelectCellRenderer: CellRenderer = {
 
     if (ncIsArray(value)) {
       return value
-    } else if (isMysql?.(column?.source_id)) {
+    } else if (isMysql?.(column?.base_id)) {
       const optionsMap = (column.extra as ReturnType<typeof getSingleMultiselectColOptions>)?.optionsMap
 
       return value

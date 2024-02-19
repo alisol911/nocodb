@@ -1181,8 +1181,6 @@ export interface BaseUserV3Type {
 export interface TableV3Type {
   /** Unique identifier for the table. */
   id: string;
-  /** Unique identifier for the data source. This information will be included only if the table is associated with an external data source. */
-  source_id?: string;
   /** Unique identifier for the base to which this table belongs to. */
   base_id: string;
   /** Title of the table. */
@@ -1210,7 +1208,7 @@ export interface TableCreateV3Type {
   description?: string | null;
   meta?: TableMetaV3Type;
   /** Unique identifier for the data source. Include this information only if the table being created is part of a data source. */
-  source_id?: string;
+  base_id?: string;
   fields?: CreateFieldV3Type[];
 }
 
@@ -1228,10 +1226,8 @@ export interface TableListV3Type {
     /** Description of the table. */
     description?: string | null;
     meta?: TableMetaV3Type;
-    /** Unique identifier for the base to which this table belongs to. */
-    base_id: string;
     /** Unique identifier for the data source. This information will be included only if the table is associated with an external data source. */
-    source_id?: string;
+    base_id: string;
     /** Unique identifier for the workspace to which this base belongs to. */
     workspace_id: string;
   }[];
@@ -1443,11 +1439,6 @@ export interface AuditType {
    * @example ::ffff:127.0.0.1
    */
   ip?: string;
-  /**
-   * Source ID in where action is performed
-   * @example ds_3l9qx8xqksenrl
-   */
-  source_id?: string;
   /**
    * Base ID in where action is performed
    * @example p_9sx43moxhqtjm3
@@ -1755,7 +1746,7 @@ export interface ColumnType {
    * Source ID that this column belongs to
    * @example ds_krsappzu9f8vmo
    */
-  source_id?: string;
+  base_id?: string;
   /** Column Comment */
   cc?: string;
   /** Column Default */
@@ -1972,8 +1963,8 @@ export interface CommentUpdateReqType {
  * Model for Filter
  */
 export interface FilterType {
-  /** Unqiue Source ID */
-  source_id?: string;
+  /** Unique Base ID */
+  base_id?: string;
   /** Children filters. Available when the filter is grouped. */
   children?: FilterType[];
   /** Comparison Operator */
@@ -2102,8 +2093,6 @@ export interface FilterType {
   is_group?: boolean | number | null;
   /** Logical Operator */
   logical_op?: 'and' | 'not' | 'or';
-  /** Unique Base ID */
-  base_id?: string;
   /** The filter value. Can be NULL for some operators. */
   value?: any;
   /**
@@ -2280,7 +2269,7 @@ export interface FormType {
    * Source ID
    * @example md_rsu68aqjsbyqtl
    */
-  source_id?: string;
+  base_id?: string;
   /**
    * The heading of the form
    * @example My Form
@@ -2610,10 +2599,8 @@ export interface GeoLocationType {
 export interface GridType {
   /** Unique ID */
   id?: IdType;
-  /** Base ID */
-  base_id?: IdType;
   /** Source ID */
-  source_id?: IdType;
+  base_id?: IdType;
   /** Foreign Key to View */
   fk_view_id?: IdType;
   /**
@@ -2633,10 +2620,8 @@ export interface GridType {
 export interface GridCopyType {
   /** Unique ID */
   id?: IdType;
-  /** Base ID */
-  base_id?: IdType;
   /** Source ID */
-  source_id?: IdType;
+  base_id?: IdType;
   /** Foreign Key to View */
   fk_view_id?: IdType;
   /**
@@ -2660,10 +2645,8 @@ export interface GridColumnType {
   fk_view_id?: IdType;
   /** Foreign Key to Column */
   fk_column_id?: IdType;
-  /** Base ID */
-  base_id?: IdType;
   /** Source ID */
-  source_id?: IdType;
+  base_id?: IdType;
   /** Model for Bool */
   show?: BoolType;
   /**
@@ -2894,10 +2877,10 @@ export interface HookListType {
  */
 export interface HookLogType {
   /**
-   * Unique Source ID
-   * @example ds_jxuewivwbxeum2
+   * Base ID
+   * @example p_tbhl1hnycvhe5l
    */
-  source_id?: string;
+  base_id?: string;
   /** Hook Conditions */
   conditions?: string;
   /** Error */
@@ -2932,11 +2915,6 @@ export interface HookLogType {
    * @example {"method":"POST","body":"{{ json data }}","headers":[{}],"parameters":[{}],"auth":"","path":"https://webhook.site/6eb45ce5-b611-4be1-8b96-c2965755662b"}
    */
   payload?: string;
-  /**
-   * Base ID
-   * @example p_tbhl1hnycvhe5l
-   */
-  base_id?: string;
   /** Hook Response */
   response?: StringOrNullType;
   /** Is this testing hook call? */
@@ -3008,11 +2986,6 @@ export interface KanbanColumnType {
   fk_column_id?: IdType;
   /** Foreign Key to View */
   fk_view_id?: IdType;
-  /**
-   * Baes ID
-   *
-   */
-  source_id?: IdType;
   /** Base ID */
   base_id?: IdType;
   /** Base ID */
@@ -3095,11 +3068,6 @@ export interface CalendarColumnType {
   fk_column_id?: IdType;
   /** Foreign Key to View */
   fk_view_id?: IdType;
-  /**
-   * Baes ID
-   *
-   */
-  source_id?: IdType;
   /** Base ID */
   base_id?: IdType;
   /** Base ID */
@@ -3205,8 +3173,6 @@ export interface LinkToAnotherRecordType {
   fk_related_base_id?: string;
   fk_mm_base_id?: string;
   base_id?: string;
-  fk_related_source_id?: string;
-  fk_mm_source_id?: string;
 }
 
 /**
@@ -3250,10 +3216,10 @@ export interface LookupColumnReqType {
  */
 export interface MapType {
   /**
-   * The ID of the source that this view belongs to
-   * @example ds_g4ccx6e77h1dmi
+   * The ID of the base that this view belongs to
+   * @example p_xm3thidrblw4n7
    */
-  source_id?: string;
+  base_id?: string;
   /** Columns in this view */
   columns?: MapColumnType[];
   /**
@@ -3270,11 +3236,6 @@ export interface MapType {
   meta?: MetaType;
   /** The order of the map list */
   order?: number;
-  /**
-   * The ID of the base that this view belongs to
-   * @example p_xm3thidrblw4n7
-   */
-  base_id?: string;
   /** To show this Map or not */
   show?: boolean;
   /**
@@ -3302,10 +3263,10 @@ export interface MapUpdateReqType {
  */
 export interface MapColumnType {
   /**
-   * The ID of the source that this map column belongs to
-   * @example ds_g4ccx6e77h1dmi
+   * The ID of the base that this map column belongs to
+   * @example p_xm3thidrblw4n7
    */
-  source_id?: string;
+  base_id?: string;
   /**
    * Foreign Key to Column
    * @example cl_8iw2o4ejzvdyna
@@ -3327,11 +3288,6 @@ export interface MapColumnType {
    */
   order?: number;
   /**
-   * The ID of the base that this map column belongs to
-   * @example p_xm3thidrblw4n7
-   */
-  base_id?: string;
-  /**
    * Whether to show this column or not
    * @example 1
    */
@@ -3347,14 +3303,13 @@ export type MetaType = null | object | string;
  * Model for ModelRoleVisibility
  */
 export interface ModelRoleVisibilityType {
-  source_id?: string;
+  base_id?: string;
   /** Model for Bool */
   disabled?: BoolType;
   fk_model_id?: string;
   fk_view_id?: string;
   /** Unique ID */
   id?: IdType;
-  base_id?: string;
   role?: string;
 }
 
@@ -3983,10 +3938,10 @@ export interface SortType {
   /** Model for ID */
   fk_model_id?: IdType;
   /**
-   * Source ID
-   * @example ds_3l9qx8xqksenrl
+   * Base ID
+   * @example p_9sx43moxhqtjm3
    */
-  source_id?: string;
+  base_id?: string;
   /**
    * Sort direction
    * @example desc
@@ -3994,11 +3949,6 @@ export interface SortType {
   direction?: 'asc' | 'desc' | 'count-desc' | 'count-asc';
   /** @example 1 */
   order?: number;
-  /**
-   * Base ID
-   * @example p_9sx43moxhqtjm3
-   */
-  base_id?: string;
 }
 
 /**
@@ -4055,8 +4005,8 @@ export type IdOrNullType = IdType | null;
  * Model for Table
  */
 export interface TableType {
-  /** Unique Source ID */
-  source_id?: string;
+  /** Unique Base ID */
+  base_id?: string;
   /** The columns included in this table */
   columns?: ColumnType[];
   /** Column Models grouped by IDs */
@@ -4077,8 +4027,6 @@ export interface TableType {
   order?: number;
   /** Currently not in use */
   pinned?: BoolType;
-  /** Unique Base ID */
-  base_id?: string;
   /** Table Description */
   description?: TextOrNullType;
   /** Table Name. Prefix will be added for XCDB bases. */
@@ -4202,8 +4150,8 @@ export interface UserListType {
  * Model for View
  */
 export interface ViewType {
-  /** Unique Source ID */
-  source_id?: IdType;
+  /** Unique Base ID */
+  base_id?: IdType;
   /** Unique Model ID */
   fk_model_id: IdType;
   /** Unique ID for View */
@@ -4218,8 +4166,6 @@ export interface ViewType {
   description?: TextOrNullType;
   /** Password for protecting the view */
   password?: StringOrNullType;
-  /** Unique Base ID */
-  base_id?: IdType;
   /** If this view is shown? */
   show: BoolType;
   /** Should show system fields in this view? */
@@ -4555,11 +4501,6 @@ export interface CommentType {
    */
   parent_comment_id?: IdType;
   /**
-   * Source ID
-   * @example src0Adp9PMG9o7uJy
-   */
-  source_id?: IdType;
-  /**
    * Base ID
    * @example bas0Adp9PMG9o7uJy
    */
@@ -4594,11 +4535,6 @@ export interface UserCommentNotificationPreferenceType {
   /** User ID */
   user_id?: IdType;
   /**
-   * Source ID
-   * @example src0Adp9PMG9o7uJy
-   */
-  source_id?: IdType;
-  /**
    * Base ID
    * @example bas0Adp9PMG9o7uJy
    */
@@ -4630,11 +4566,6 @@ export interface CommentReactionsType {
   reaction?: string;
   /** User ID */
   user_id?: IdType;
-  /**
-   * Source ID
-   * @example src0Adp9PMG9o7uJy
-   */
-  source_id?: IdType;
   /**
    * Base ID
    * @example bas0Adp9PMG9o7uJy
@@ -7061,7 +6992,7 @@ export class Api<
    * Source ID
    * @example ds_rrplkgy0pq1f3c
    *\
-  source_id?: string,
+  base_id?: string,
   \**
    * Change Type
    * @example table
@@ -7089,7 +7020,7 @@ export class Api<
            * Source ID
            * @example ds_rrplkgy0pq1f3c
            */
-          source_id?: string;
+          base_id?: string;
           /**
            * Change Type
            * @example table
@@ -7458,7 +7389,7 @@ export class Api<
    * Source ID
    * @example ds_rrplkgy0pq1f3c
    *\
-  source_id?: string,
+  base_id?: string,
   \**
    * Change Type
    * @example table
@@ -7490,7 +7421,7 @@ export class Api<
            * Source ID
            * @example ds_rrplkgy0pq1f3c
            */
-          source_id?: string;
+          base_id?: string;
           /**
            * Change Type
            * @example table
@@ -11851,7 +11782,7 @@ export class Api<
  * @response `200` `(ViewType & {
   relatedMetas?: any,
   client?: string,
-  source_id?: string,
+  base_id?: string,
   columns?: ((GridColumnType | FormColumnType | GalleryColumnType | (GridColumnType & FormColumnType & GalleryColumnType)) & ColumnType),
   \** Model for Table *\
   model?: TableType,
@@ -11871,7 +11802,7 @@ export class Api<
         ViewType & {
           relatedMetas?: any;
           client?: string;
-          source_id?: string;
+          base_id?: string;
           columns?: (
             | GridColumnType
             | FormColumnType

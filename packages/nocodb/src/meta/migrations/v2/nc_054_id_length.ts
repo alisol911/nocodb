@@ -168,9 +168,9 @@ const up = async (knex: Knex) => {
   for (const table of tablesToAlterSourceId) {
     hrTime = process.hrtime();
     await knex.schema.alterTable(table, (tableQb) => {
-      tableQb.string('source_id', 20).alter();
+      tableQb.string('base_id', 20).alter();
     });
-    logExecutionTime(`Altered ${table}.source_id to 20 characters`);
+    logExecutionTime(`Altered ${table}.base_id to 20 characters`);
   }
 };
 
@@ -183,7 +183,7 @@ const down = async (knex: Knex) => {
 
   for (const table of tablesToAlterSourceId) {
     await knex.schema.alterTable(table, (tableQb) => {
-      tableQb.string('source_id', 128).alter();
+      tableQb.string('base_id', 128).alter();
     });
   }
 };

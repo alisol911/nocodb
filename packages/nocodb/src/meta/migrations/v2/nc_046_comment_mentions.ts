@@ -19,7 +19,7 @@ const up = async (knex: Knex) => {
 
     table.string('parent_comment_id', 20);
 
-    table.string('source_id', 20);
+    table.string('base_id', 20);
 
     table.string('base_id', 128);
 
@@ -43,7 +43,7 @@ const up = async (knex: Knex) => {
 
       table.string('fk_model_id', 20);
 
-      table.string('source_id', 20);
+      table.string('base_id', 20);
 
       table.string('base_id', 128);
 
@@ -65,7 +65,7 @@ const up = async (knex: Knex) => {
 
     table.string('comment_id', 20).index();
 
-    table.string('source_id', 20);
+    table.string('base_id', 20);
 
     table.string('fk_model_id', 20);
 

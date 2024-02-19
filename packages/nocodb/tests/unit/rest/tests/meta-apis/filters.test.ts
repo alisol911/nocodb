@@ -82,8 +82,8 @@ export default async function (API_VERSION: 'v1' | 'v2' | 'v3') {
         expect(addedFilter).to.haveOwnProperty('base_id');
         expect(addedFilter.base_id).to.eq(base.id);
 
-        expect(addedFilter).to.haveOwnProperty('source_id');
-        expect(addedFilter.source_id).to.eq(table.source_id);
+        expect(addedFilter).to.haveOwnProperty('base_id');
+        expect(addedFilter.base_id).to.eq(table.base_id);
 
         expect(addedFilter).to.haveOwnProperty('comparison_op');
         expect(addedFilter.comparison_op).to.eq(

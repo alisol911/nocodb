@@ -94,7 +94,7 @@ export class HookHandlerService implements OnModuleInit, OnModuleDestroy {
               return c;
             });
 
-          const source = await Source.get(context, model.source_id);
+          const source = await Source.get(context, model.base_id);
 
           const models = await source.getModels(context);
 

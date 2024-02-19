@@ -38,7 +38,7 @@ async function xcVisibilityMetaGet(
     _models ||
     (await Model.list(context, {
       base_id: baseId,
-      source_id: undefined,
+      base_id: undefined,
     }));
 
   models = includeM2M ? models : (models.filter((t) => !t.mm) as Model[]);

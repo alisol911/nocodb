@@ -371,7 +371,7 @@ export function useCanvasTable({
           aiIntegrations.value,
           isPublicView.value || !isDataEditAllowed.value || isSqlView.value,
         )
-        const sqlUi = sqlUis.value[f.source_id] ?? Object.values(sqlUis.value)[0]
+        const sqlUi = sqlUis.value[f.base_id] ?? Object.values(sqlUis.value)[0]
 
         const isCellEditable =
           showReadonlyColumnTooltip(f) ||

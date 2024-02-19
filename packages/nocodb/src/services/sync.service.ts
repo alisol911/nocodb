@@ -34,7 +34,7 @@ export class SyncService {
     const sync = await SyncSource.insert(context, {
       ...param.syncPayload,
       fk_user_id: param.userId,
-      source_id: param.sourceId ? param.sourceId : base.sources[0].id,
+      base_id: param.sourceId ? param.sourceId : base.sources[0].id,
       base_id: param.baseId,
     });
 

@@ -13,7 +13,7 @@ export default class Comment implements CommentType {
   row_id?: string;
   comment?: string;
   parent_comment_id?: string;
-  source_id?: string;
+  base_id?: string;
   fk_workspace_id?: string;
   base_id?: string;
   created_by?: string;
@@ -104,7 +104,7 @@ export default class Comment implements CommentType {
       'row_id',
       'comment',
       'parent_comment_id',
-      'source_id',
+      'base_id',
       'base_id',
       'fk_model_id',
       'created_by',
@@ -113,13 +113,13 @@ export default class Comment implements CommentType {
 
     if (!insertObj.fk_model_id) NcError.tableNotFound(insertObj.fk_model_id);
 
-    if (!insertObj.source_id) {
+    if (!insertObj.base_id) {
       const model = await Model.getByIdOrName(
         context,
         { id: insertObj.fk_model_id },
         ncMeta,
       );
-      insertObj.source_id = model.source_id;
+      insertObj.base_id = model.base_id;
     }
 
     const res = await ncMeta.metaInsert2(

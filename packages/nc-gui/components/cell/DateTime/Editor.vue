@@ -84,7 +84,7 @@ const localState = computed({
       return undefined
     }
 
-    const isXcDB = isXcdbBase(column.value.source_id)
+    const isXcDB = isXcdbBase(column.value.base_id)
 
     // cater copy and paste
     // when copying a datetime cell, the copied value would be local time

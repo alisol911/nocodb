@@ -226,8 +226,6 @@ export default class Source implements SourceType {
     if (JobsRedis.available) {
       await JobsRedis.emitWorkerCommand(InstanceCommands.RELEASE, sourceId);
       await JobsRedis.emitPrimaryCommand(InstanceCommands.RELEASE, sourceId);
-    }
-
     return await this.get(context, oldSource.id, false, ncMeta);
   }
 
@@ -345,6 +343,9 @@ export default class Source implements SourceType {
       if (config.client === 'sqlite3') {
         config.connection = metaConfig;
       }
+      if (this.id != 'public') {
+        config.schema = this.id;
+      }
       return config;
     }
 
@@ -422,7 +423,7 @@ export default class Source implements SourceType {
     const models = await Model.list(
       context,
       {
-        source_id: this.id,
+        base_id: this.id,
         base_id: this.base_id,
       },
       ncMeta,
@@ -537,7 +538,7 @@ export default class Source implements SourceType {
   async getModels(context: NcContext, ncMeta = Noco.ncMeta) {
     return await Model.list(
       context,
-      { base_id: this.base_id, source_id: this.id },
+      { base_id: this.base_id, base_id: this.id },
       ncMeta,
     );
   }
@@ -617,7 +618,7 @@ export default class Source implements SourceType {
     // get models
     const models = await Model.list(
       context,
-      { source_id: sourceId, base_id: context.base_id },
+      { base_id: sourceId, base_id: context.base_id },
       ncMeta,
     );
 

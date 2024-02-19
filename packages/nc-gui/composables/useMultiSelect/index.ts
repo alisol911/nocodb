@@ -501,7 +501,7 @@ export function useMultiSelect(
                 isColInfoShown[cpCol.title!] = true
               },
             },
-            isMysql(meta.value?.source_id),
+            isMysql(meta.value?.base_id),
             true,
           )
           rowObj.row[cpCol.title] = pasteValue
@@ -646,7 +646,7 @@ export function useMultiSelect(
                         isColInfoShown[colObj.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
+                    isMysql(meta.value?.base_id),
                     true,
                   )
                 } catch (ex) {
@@ -1264,7 +1264,7 @@ export function useMultiSelect(
                       isColInfoShown[column.title!] = true
                     },
                   },
-                  isMysql(meta.value?.source_id),
+                  isMysql(meta.value?.base_id),
                   true,
                 )
                 validateColumnValue(column, pasteValue)
@@ -1324,7 +1324,7 @@ export function useMultiSelect(
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
+              isMysql(meta.value?.base_id),
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -1360,7 +1360,7 @@ export function useMultiSelect(
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
+              isMysql(meta.value?.base_id),
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -1641,7 +1641,7 @@ export function useMultiSelect(
                 maxAttachmentsAllowedInCell: maxAttachmentsAllowedInCell.value,
                 showUpgradeToAddMoreAttachmentsInCell,
               },
-              isMysql(meta.value?.source_id),
+              isMysql(meta.value?.base_id),
             )
             validateColumnValue(columnObj, pasteValue)
           } catch (ex) {
@@ -1735,7 +1735,7 @@ export function useMultiSelect(
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
+                    isMysql(meta.value?.base_id),
                     true,
                   )
 
@@ -1761,7 +1761,7 @@ export function useMultiSelect(
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
+                    isMysql(meta.value?.base_id),
                     true,
                   )
                   validateColumnValue(col, pasteValue)

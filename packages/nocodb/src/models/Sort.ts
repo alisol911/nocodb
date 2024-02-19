@@ -21,7 +21,6 @@ export default class Sort {
   direction?: 'asc' | 'desc' | 'count-desc' | 'count-asc';
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
 
   constructor(data: Partial<SortType>) {
     Object.assign(this, data);
@@ -68,7 +67,6 @@ export default class Sort {
       'fk_column_id',
       'direction',
       'base_id',
-      'source_id',
     ]);
 
     // todo: implement a generic function
@@ -90,8 +88,8 @@ export default class Sort {
       ncMeta,
     );
 
-    if (!sortObj.source_id) {
-      insertObj.source_id = model.source_id;
+    if (!sortObj.base_id) {
+      insertObj.base_id = model.base_id;
     }
 
     // increment existing order

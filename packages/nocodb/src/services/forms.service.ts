@@ -46,7 +46,7 @@ export class FormsService {
       });
     }
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     if (source.is_data_readonly) {
       NcError.sourceDataReadOnly(source.alias);
@@ -59,7 +59,6 @@ export class FormsService {
         fk_model_id: param.tableId,
         type: ViewTypes.FORM,
         base_id: model.base_id,
-        source_id: model.source_id,
         created_by: param.user?.id,
         owned_by: param.ownedBy || param.user?.id,
       },

@@ -68,7 +68,7 @@ export class TablesService {
       context,
       param.table.base_id || param.baseId,
     );
-    const source = base.sources.find((b) => b.id === model.source_id);
+    const source = base.sources.find((b) => b.id === model.base_id);
 
     if (model.base_id !== base.id) {
       NcError.get(context).invalidRequestBody('Model does not belong to base');
@@ -141,7 +141,7 @@ export class TablesService {
       !(await Model.checkTitleAvailable(context, {
         table_name: param.table.table_name,
         base_id: base.id,
-        source_id: source.id,
+        base_id: source.id,
       }))
     ) {
       NcError.get(context).invalidRequestBody('Duplicate table name');
@@ -159,7 +159,7 @@ export class TablesService {
       !(await Model.checkAliasAvailable(context, {
         title: param.table.title,
         base_id: base.id,
-        source_id: source.id,
+        base_id: source.id,
       }))
     ) {
       NcError.get(context).invalidRequestBody('Duplicate table alias');
@@ -308,7 +308,7 @@ export class TablesService {
     }
 
     const base = await Base.getWithInfo(context, table.base_id);
-    const source = base.sources.find((b) => b.id === table.source_id);
+    const source = base.sources.find((b) => b.id === table.base_id);
 
     const relationColumns = table.columns.filter((c) => isLinksOrLTAR(c));
 
@@ -443,7 +443,7 @@ export class TablesService {
       _models ||
       (await Model.list(context, {
         base_id: baseId,
-        source_id: undefined,
+        base_id: undefined,
       }));
 
     models = includeM2M ? models : (models.filter((t) => !t.mm) as Model[]);
@@ -505,7 +505,7 @@ export class TablesService {
     const tableList = (
       await Model.list(context, {
         base_id: param.baseId,
-        source_id: param.sourceId,
+        base_id: param.sourceId,
       })
     ).filter((t) => tableViewMapping[t.id]);
 
@@ -698,7 +698,7 @@ export class TablesService {
       !(await Model.checkAliasAvailable(context, {
         title: tableCreatePayLoad.title,
         base_id: base.id,
-        source_id: source.id,
+        base_id: source.id,
       }))
     ) {
       NcError.get(context).invalidRequestBody('Duplicate table alias');
@@ -748,7 +748,7 @@ export class TablesService {
       !(await Model.checkTitleAvailable(context, {
         table_name: tableCreatePayLoad.table_name,
         base_id: base.id,
-        source_id: source.id,
+        base_id: source.id,
       }))
     ) {
       NcError.get(context).invalidRequestBody('Duplicate table name');
@@ -873,7 +873,7 @@ export class TablesService {
 
     const tables = await Model.list(context, {
       base_id: base.id,
-      source_id: source.id,
+      base_id: source.id,
     });
 
     // todo: type correction

@@ -165,17 +165,17 @@ export class AttachmentMigration {
 
       const processModel = async (modelData) => {
         // we increment on start of processing as getting a rough progress is enough
-        const { fk_workspace_id, base_id, source_id, fk_model_id } = modelData;
+        const { fk_workspace_id, base_id, base_id, fk_model_id } = modelData;
 
         const context = {
           workspace_id: fk_workspace_id,
           base_id,
         };
 
-        const source = await Source.get(context, source_id);
+        const source = await Source.get(context, base_id);
 
         if (!source) {
-          this.log(`source not found for ${source_id}`);
+          this.log(`source not found for ${base_id}`);
           return;
         }
 
@@ -197,7 +197,7 @@ export class AttachmentMigration {
         const dbDriver = await NcConnectionMgrv2.get(source);
 
         if (!dbDriver) {
-          this.log(`connection can't achieved for ${source_id}`);
+          this.log(`connection can't achieved for ${base_id}`);
           return;
         }
 
@@ -208,7 +208,7 @@ export class AttachmentMigration {
 
         if (isExternal) {
           try {
-            this.log(`Checking connection for ${source_id} (${source.alias})`);
+            this.log(`Checking connection for ${base_id} (${source.alias})`);
             // run SELECT 1 to check if connection is working
             // return if no response in 10 seconds
             await Promise.race([
@@ -219,11 +219,11 @@ export class AttachmentMigration {
             ]);
 
             this.log(
-              `External source ${source_id} (${source.alias}) is accessible`,
+              `External source ${base_id} (${source.alias}) is accessible`,
             );
           } catch (e) {
             this.log(
-              `External source ${source_id} (${source.alias}) is not accessible`,
+              `External source ${base_id} (${source.alias}) is not accessible`,
             );
             throw e;
           }
@@ -375,7 +375,7 @@ export class AttachmentMigration {
 
                       if (!('id' in attachment)) {
                         attachment.id = await FileReference.insert(context, {
-                          source_id: source.id,
+                          base_id: source.id,
                           fk_model_id,
                           fk_column_id: column.id,
                           file_url: attachment.path || attachment.url,
@@ -394,7 +394,7 @@ export class AttachmentMigration {
                         if (!fileReference) {
                           await FileReference.insert(context, {
                             id: attachment.id,
-                            source_id: source.id,
+                            base_id: source.id,
                             fk_model_id,
                             fk_column_id: column.id,
                             file_url: attachment.path || attachment.url,
@@ -474,7 +474,7 @@ export class AttachmentMigration {
       const selectFields = [
         ...(Noco.isEE() ? ['fk_workspace_id'] : []),
         'base_id',
-        'source_id',
+        'base_id',
         'fk_model_id',
       ];
 

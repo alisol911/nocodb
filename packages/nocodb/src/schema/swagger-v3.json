@@ -625,7 +625,7 @@
                       "id": "mo0tpvd1hjvfbrx",
                       "title": "Sample Table",
                       "description": "Sample Description",
-                      "source_id": "bzyr9k9ui4oudwx",
+                      "base_id": "bzyr9k9ui4oudwx",
                       "base_id": "p13yxf5plzg73jm",
                       "workspace_id": "wsdkr9ub",
                       "display_field_id": "c455mde7px2yidt",
@@ -914,7 +914,7 @@
                       "id": "mo0tpvd1hjvfbrx",
                       "title": "Sample Table",
                       "description": "Sample Description",
-                      "source_id": "bzyr9k9ui4oudwx",
+                      "base_id": "bzyr9k9ui4oudwx",
                       "base_id": "p13yxf5plzg73jm",
                       "workspace_id": "wsdkr9ub",
                       "display_field_id": "c455mde7px2yidt",
@@ -1225,7 +1225,7 @@
                       "meta": {
                         "icon": "🚞"
                       },
-                      "source_id": "bbtx6pvj7b8yszy",
+                      "base_id": "bbtx6pvj7b8yszy",
                       "base_id": "pn9mmowpquxj60w",
                       "workspace_id": "w6wqiisd",
                       "views": [
@@ -3806,7 +3806,7 @@
                   "type": "string",
                   "description": "Unique identifier for the base to which this table belongs to."
                 },
-                "source_id": {
+                "base_id": {
                   "type": "string",
                   "description": "Unique identifier for the data source. This information will be included only if the table is associated with an external data source."
                 },
@@ -3854,7 +3854,7 @@
           "meta": {
             "$ref": "#/components/schemas/TableMeta"
           },
-          "source_id": {
+          "base_id": {
             "type": "string",
             "description": "Unique identifier for the data source. Include this information only if the table being created is part of a data source."
           },
@@ -4412,7 +4412,7 @@
             "type": "string",
             "description": "Unique identifier for the table."
           },
-          "source_id": {
+          "base_id": {
             "type": "string",
             "description": "Unique identifier for the data source. This information will be included only if the table is associated with an external data source."
           },

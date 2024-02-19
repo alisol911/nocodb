@@ -189,7 +189,7 @@ export class FormFilters {
             [UITypes.Date, UITypes.DateTime, UITypes.CreatedTime, UITypes.LastModifiedTime].includes(column.uidt) &&
             !['empty', 'blank', 'notempty', 'notblank'].includes(filter.comparison_op)
           ) {
-            const dateFormat = this.isMysql?.(column.source_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
+            const dateFormat = this.isMysql?.(column.base_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
 
             let now = dayjs(new Date())
             const dateFormatFromMeta = column?.meta?.date_format

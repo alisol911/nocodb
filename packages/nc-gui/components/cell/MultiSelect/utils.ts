@@ -60,7 +60,7 @@ export const getSelectedTitles = (
   return modelValue
     ? Array.isArray(modelValue)
       ? modelValue
-      : isMysql(column.source_id)
+      : isMysql(column.base_id)
       ? modelValue
           .toString()
           .split(',')

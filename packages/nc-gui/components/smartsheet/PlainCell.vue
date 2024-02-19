@@ -29,8 +29,8 @@ const { basesUser } = storeToRefs(basesStore)
 const { isXcdbBase, isMysql } = useBase()
 
 const sqlUi = ref(
-  column.value?.source_id && sqlUis.value[column.value?.source_id]
-    ? sqlUis.value[column.value?.source_id]
+  column.value?.base_id && sqlUis.value[column.value?.base_id]
+    ? sqlUis.value[column.value?.base_id]
     : Object.values(sqlUis.value)[0],
 )
 

@@ -112,7 +112,7 @@ export class OrderColumnMigration {
           .knexConnection(MetaTable.MODELS)
           .join(
             MetaTable.SOURCES,
-            `${MetaTable.MODELS}.source_id`,
+            `${MetaTable.MODELS}.base_id`,
             '=',
             `${MetaTable.SOURCES}.id`,
           )
@@ -131,7 +131,7 @@ export class OrderColumnMigration {
 
       const wrapper = async (model: {
         id: string;
-        source_id: string;
+        base_id: string;
         fk_workspace_id?: string;
         base_id: string;
       }) => {
@@ -303,20 +303,20 @@ export class OrderColumnMigration {
   private async processModel(
     modelData: {
       id: string;
-      source_id: string;
+      base_id: string;
       fk_workspace_id?: string;
       base_id: string;
     },
     ncMeta: Upgrader,
   ) {
-    const { id: modelId, source_id, base_id } = modelData;
+    const { id: modelId, base_id, base_id } = modelData;
     const context = { workspace_id: modelData?.fk_workspace_id, base_id };
 
     try {
       const hrtime = process.hrtime();
 
-      const originalSource = await this.cache.get(source_id, async () =>
-        Source.get(context, source_id),
+      const originalSource = await this.cache.get(base_id, async () =>
+        Source.get(context, base_id),
       );
 
       if (!originalSource || !originalSource.isMeta()) {
@@ -363,7 +363,7 @@ export class OrderColumnMigration {
             ...orderColumn,
             system: true,
             fk_model_id: model.id,
-            source_id,
+            base_id,
           },
           ncMeta,
         );
@@ -430,14 +430,14 @@ export class OrderColumnMigration {
       .knexConnection(MetaTable.MODELS)
       .select([
         `${MetaTable.MODELS}.id`,
-        'source_id',
+        'base_id',
         `${MetaTable.MODELS}.base_id`,
         ...(isEE ? [`${MetaTable.MODELS}.fk_workspace_id`] : []),
       ])
       .where(`${MetaTable.MODELS}.mm`, false)
       .join(
         MetaTable.SOURCES,
-        `${MetaTable.MODELS}.source_id`,
+        `${MetaTable.MODELS}.base_id`,
         '=',
         `${MetaTable.SOURCES}.id`,
       )
@@ -453,7 +453,7 @@ export class OrderColumnMigration {
         `${MetaTable.MODELS}.id`,
         this.processingModels.map((m) => m.fk_model_id),
       )
-      .orderBy(`${MetaTable.MODELS}.source_id`)
+      .orderBy(`${MetaTable.MODELS}.base_id`)
       .limit(PARALLEL_LIMIT * 10);
   }
 

@@ -16,7 +16,7 @@ const { isPg } = useBase()
 const { showNull } = useGlobal()
 
 const result = computed(() =>
-  isPg(column.value.source_id) ? renderValue(handleTZ(cellValue?.value)) : renderValue(cellValue?.value),
+  isPg(column.value.base_id) ? renderValue(handleTZ(cellValue?.value)) : renderValue(cellValue?.value),
 )
 
 const urls = computed(() => replaceUrlsWithLink(result.value))

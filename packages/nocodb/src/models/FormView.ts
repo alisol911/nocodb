@@ -40,7 +40,6 @@ export default class FormView implements FormViewType {
   columns?: FormViewColumn[];
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
   meta?: MetaType;
 
   constructor(data: FormView) {
@@ -98,7 +97,6 @@ export default class FormView implements FormViewType {
     const insertObj = extractProps(view, [
       'fk_view_id',
       'base_id',
-      'source_id',
       'heading',
       'subheading',
       'success_msg',
@@ -127,8 +125,8 @@ export default class FormView implements FormViewType {
 
     const viewRef = await View.get(context, view.fk_view_id, ncMeta);
 
-    if (!view.source_id) {
-      insertObj.source_id = viewRef.source_id;
+    if (!view.base_id) {
+      insertObj.base_id = viewRef.base_id;
     }
     await ncMeta.metaInsert2(
       context.workspace_id,

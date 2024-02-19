@@ -44,7 +44,6 @@ export class CalendarsService {
         fk_model_id: param.tableId,
         type: ViewTypes.CALENDAR,
         base_id: model.base_id,
-        source_id: model.source_id,
         created_by: param.user?.id,
         owned_by: param.ownedBy || param.user?.id,
       },

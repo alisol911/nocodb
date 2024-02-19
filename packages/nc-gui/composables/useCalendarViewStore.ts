@@ -174,7 +174,7 @@ const [useProvideCalendarViewStore, useCalendarViewStore] = useInjectionState(
 
     // In timezone is removed from the date string for mysql for reverse compatibility upto mysql5
     const updateFormat = computed(() => {
-      return isMysql(meta.value?.source_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
+      return isMysql(meta.value?.base_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
     })
 
     // The current view meta properties

@@ -178,7 +178,7 @@ export async function getJunctionTableName(
       MetaTable.MODELS,
       {
         table_name: `${tableName}${suffix ?? ''}`,
-        source_id: parent.source_id,
+        base_id: parent.base_id,
       },
     )
   ) {
@@ -330,7 +330,7 @@ export class ColumnsService implements IColumnsService {
     }
 
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(context, table.source_id),
+      Source.get(context, table.base_id),
     );
 
     // TODO: Refactor the columnUpdate function to handle metaOnly changes and
@@ -1951,7 +1951,7 @@ export class ColumnsService implements IColumnsService {
     );
 
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(context, table.source_id),
+      Source.get(context, table.base_id),
     );
 
     // check if source is readonly and column type is not allowed
@@ -2086,7 +2086,6 @@ export class ColumnsService implements IColumnsService {
             ...colBody,
             fk_model_id: param.tableId,
             base_id: base.id,
-            source_id: source.id,
           },
           req: param.req,
           context,
@@ -2674,7 +2673,7 @@ export class ColumnsService implements IColumnsService {
       ),
     );
     const source = await reuseOrSave('source', reuse, async () =>
-      Source.get(context, table.source_id, false, ncMeta),
+      Source.get(context, table.base_id, false, ncMeta),
     );
 
     // check if source is readonly and column type is not allowed
@@ -3057,11 +3056,11 @@ export class ColumnsService implements IColumnsService {
                     // the expected 2 columns would be table1_id & table2_id
                     if (mmTable.columns.length === 2) {
                       const mmSource =
-                        relationColOpt.fk_mm_source_id &&
-                        relationColOpt.fk_mm_source_id !== source.id
+                        relationColOpt.fk_mm_base_id &&
+                        relationColOpt.fk_mm_base_id !== source.id
                           ? await Source.get(
                               mmContext,
-                              relationColOpt.fk_mm_source_id,
+                              relationColOpt.fk_mm_base_id,
                               undefined,
                               ncMeta,
                             )
@@ -3261,9 +3260,9 @@ export class ColumnsService implements IColumnsService {
         // Ensure relation deletion is not attempted for virtual relations
         try {
           const childSource =
-            childColumn.source_id === source.id
+            childColumn.base_id === source.id
               ? source
-              : await Source.get(childContext, childColumn.source_id);
+              : await Source.get(childContext, childColumn.base_id);
 
           // Attempt to delete the foreign key constraint from the database
           await sqlMgr.sqlOpPlus(childSource, 'relationDelete', {
@@ -3352,9 +3351,9 @@ export class ColumnsService implements IColumnsService {
       );
 
       const childSource =
-        childColumn.source_id === source.id
+        childColumn.base_id === source.id
           ? source
-          : await Source.get(childContext, childColumn.source_id);
+          : await Source.get(childContext, childColumn.base_id);
 
       // if virtual column delete all index before deleting the column
       if (relationColOpt?.virtual) {
@@ -3442,9 +3441,9 @@ export class ColumnsService implements IColumnsService {
     ignoreFkDelete = false,
   ) => {
     const childSource =
-      childColumn.source_id === source.id
+      childColumn.base_id === source.id
         ? source
-        : await Source.get(childContext, childColumn.source_id);
+        : await Source.get(childContext, childColumn.base_id);
 
     if (childTable) {
       if (!custom) {
@@ -3671,13 +3670,13 @@ export class ColumnsService implements IColumnsService {
     );
 
     const refSource =
-      param.source.id === refTable.source_id
+      param.source.id === refTable.base_id
         ? param.source
-        : await Source.get(refContext, refTable.source_id);
+        : await Source.get(refContext, refTable.base_id);
 
     // support cross base relations only if the bases are meta bases
     if (
-      param.source.id !== refTable.source_id &&
+      param.source.id !== refTable.base_id &&
       (!param.source.isMeta() || !refSource.isMeta())
     ) {
       NcError.badRequest(
@@ -4046,14 +4045,14 @@ export class ColumnsService implements IColumnsService {
       let refCrossBaseLinkProps: {
         fk_related_base_id?: string;
         fk_mm_base_id?: string;
-        fk_related_source_id?: string;
-        fk_mm_source_id?: string;
+        fk_related_base_id?: string;
+        fk_mm_base_id?: string;
       } = {};
       let crossBaseLinkProps: {
         fk_related_base_id?: string;
         fk_mm_base_id?: string;
-        fk_related_source_id?: string;
-        fk_mm_source_id?: string;
+        fk_related_base_id?: string;
+        fk_mm_base_id?: string;
       } = {};
 
       // if cross base link set cross base link props
@@ -4061,14 +4060,14 @@ export class ColumnsService implements IColumnsService {
         crossBaseLinkProps = {
           fk_related_base_id: refContext.base_id,
           fk_mm_base_id: assocModel.base_id,
-          fk_related_source_id: refTable.source_id,
-          fk_mm_source_id: assocModel.source_id,
+          fk_related_base_id: refTable.base_id,
+          fk_mm_base_id: assocModel.base_id,
         };
         refCrossBaseLinkProps = {
           fk_related_base_id: context.base_id,
           fk_mm_base_id: assocModel.base_id,
-          fk_related_source_id: table.source_id,
-          fk_mm_source_id: assocModel.source_id,
+          fk_related_base_id: table.base_id,
+          fk_mm_base_id: assocModel.base_id,
         };
       }
 
@@ -4285,10 +4284,10 @@ export class ColumnsService implements IColumnsService {
       );
     }
 
-    const source = await Source.get(context, table.source_id);
+    const source = await Source.get(context, table.base_id);
 
     if (!source) {
-      NcError.sourceNotFound(table.source_id);
+      NcError.sourceNotFound(table.base_id);
     }
 
     const base = await source.getProject(context);

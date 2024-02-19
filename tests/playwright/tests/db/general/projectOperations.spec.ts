@@ -95,7 +95,7 @@ test.describe('Base operations', () => {
         'base_id',
         'fk_view_id',
         'ptn',
-        'source_id',
+        'base_id',
         'table_name',
         'fk_model_id',
         'fk_column_id',
@@ -108,7 +108,7 @@ test.describe('Base operations', () => {
         '.base.id',
         '.base.title',
         '.base.tables.0.id',
-        '.base.tables.0.source_id',
+        '.base.tables.0.base_id',
 
         // below are potential bugs
         '.base.status',

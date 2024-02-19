@@ -259,15 +259,15 @@ const up = async (knex: Knex) => {
 
   logExecutionTime('Dropped existing base_id indexes');
 
-  // Recreate existing source_id indexes as name might clash with base_id (old name for source_id)
+  // Recreate existing base_id indexes as name might clash with base_id (old name for base_id)
   const recreateSourceIdIndexes = [MetaTable.MODELS, MetaTable.SYNC_SOURCE];
 
-  log('Recreating existing source_id indexes');
+  log('Recreating existing base_id indexes');
 
   hrTime = process.hrtime();
 
   for (const tbl of recreateSourceIdIndexes) {
-    const indexes: string[] = await listIndexesOnColumn(knex, tbl, 'source_id');
+    const indexes: string[] = await listIndexesOnColumn(knex, tbl, 'base_id');
 
     // remove duplicate indexes
     const uniqueIndexes = Array.from(new Set(indexes));
@@ -278,16 +278,16 @@ const up = async (knex: Knex) => {
         continue;
       }
 
-      log(`Recreating index ${index} on ${tbl}.source_id`);
+      log(`Recreating index ${index} on ${tbl}.base_id`);
 
       await knex.schema.alterTable(tbl, (table) => {
-        table.dropIndex('source_id', `${tbl}_base_id_index`);
-        table.index('source_id');
+        table.dropIndex('base_id', `${tbl}_base_id_index`);
+        table.index('base_id');
       });
     }
   }
 
-  logExecutionTime('Recreated existing source_id indexes');
+  logExecutionTime('Recreated existing base_id indexes');
 
   // Add indexes
 

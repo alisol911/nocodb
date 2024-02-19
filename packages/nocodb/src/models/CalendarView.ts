@@ -13,7 +13,7 @@ export default class CalendarView implements CalendarType {
   title: string;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
+  base_id?: string;
   meta?: MetaType;
   calendar_range?: Array<Partial<CalendarRange>>;
   fk_cover_image_col_id?: string;
@@ -72,7 +72,7 @@ export default class CalendarView implements CalendarType {
   ) {
     const insertObj = {
       base_id: view.base_id,
-      source_id: view.source_id,
+      base_id: view.base_id,
       fk_view_id: view.fk_view_id,
       meta: view.meta,
     };

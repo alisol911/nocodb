@@ -126,7 +126,7 @@ export class AuditMigration {
             id,
             user: record.user,
             ip: record.ip,
-            source_id: record.source_id,
+            base_id: record.base_id,
             base_id: record.base_id,
             fk_model_id: record.fk_model_id,
             row_id: record.row_id,

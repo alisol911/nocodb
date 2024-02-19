@@ -7,14 +7,14 @@ export const MOCK_TABLES_RAW = [
   {
     id: 'mtWA9ZXvsuh',
     name: 'table1',
-    source_id: 'bmpgnvh49n8i51l',
+    base_id: 'bmpgnvh49n8i51l',
     columns: defaultColumns,
     base_id: defaultBaseId,
   },
   {
     id: 'mehpRLA42Cz',
     name: 'table2',
-    source_id: 'bmpgnvh49n8i51l',
+    base_id: 'bmpgnvh49n8i51l',
     columns: table2Columns,
     base_id: defaultBaseId,
   },

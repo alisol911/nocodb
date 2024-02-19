@@ -218,7 +218,7 @@ export function useFillHandler({
                 isColInfoShown[cpCol.title!] = true
               },
             },
-            isMysql(meta.value?.source_id),
+            isMysql(meta.value?.base_id),
             true,
           )
           rowObj.row[cpCol.title] = pasteValue
@@ -428,7 +428,7 @@ export function useFillHandler({
                         isColInfoShown[colObj.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
+                    isMysql(meta.value?.base_id),
                     true,
                   )
                 } catch (ex) {

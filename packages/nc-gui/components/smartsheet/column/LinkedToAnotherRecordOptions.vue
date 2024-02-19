@@ -120,7 +120,7 @@ const refTables = computed(() => {
       return []
     }
 
-    return tables.value.filter((t) => t.type === ModelTypes.TABLE && t.source_id === meta.value?.source_id)
+    return tables.value.filter((t) => t.type === ModelTypes.TABLE && t.base_id === meta.value?.base_id)
   }
 
   if (!baseTables.value.get(vModel.value.ref_base_id)) {

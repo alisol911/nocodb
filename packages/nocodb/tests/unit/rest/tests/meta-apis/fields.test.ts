@@ -106,7 +106,7 @@ export default function (API_VERSION: 'v1' | 'v2' | 'v3') {
     expect(responseColumn).to.haveOwnProperty('id');
     if (isV1 || isV2) {
       expect(responseColumn).to.haveOwnProperty('description');
-      expect(responseColumn).to.haveOwnProperty('source_id');
+      expect(responseColumn).to.haveOwnProperty('base_id');
       expect(responseColumn).to.haveOwnProperty('base_id');
       expect(responseColumn).to.haveOwnProperty('fk_model_id');
       expect(responseColumn).to.haveOwnProperty('title');

@@ -30,7 +30,7 @@ const dropTablesAllNonExternalProjects = async () => {
           },
           {
             base_id: base.id,
-            source_id: source.id!,
+            base_id: source.id!,
           },
         );
         models.forEach((model) => {

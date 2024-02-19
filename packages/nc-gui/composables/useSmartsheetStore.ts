@@ -28,7 +28,7 @@ const [useProvideSmartsheetStore, useSmartsheetStore] = useInjectionState(
     const { sqlUis, base } = storeToRefs(baseStore)
 
     const sqlUi = computed(() =>
-      (meta.value as TableType)?.source_id ? sqlUis.value[(meta.value as TableType).source_id!] : Object.values(sqlUis.value)[0],
+      (meta.value as TableType)?.base_id ? sqlUis.value[(meta.value as TableType).base_id!] : Object.values(sqlUis.value)[0],
     )
 
     const { search, getValidSearchQueryForColumn } = useFieldQuery()
@@ -52,7 +52,7 @@ const [useProvideSmartsheetStore, useSmartsheetStore] = useInjectionState(
     const gridEditEnabled = ref(true)
 
     const isExternalSource = computed(
-      () => !!base.value?.sources?.some((s) => s.id === (meta.value as TableType)?.source_id && !s.is_meta && !s.is_local),
+      () => !!base.value?.sources?.some((s) => s.id === (meta.value as TableType)?.base_id && !s.is_meta && !s.is_local),
     )
 
     const isAlreadyShownUpgradeModal = ref(false)

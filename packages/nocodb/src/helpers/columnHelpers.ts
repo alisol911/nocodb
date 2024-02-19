@@ -54,7 +54,7 @@ export async function createHmAndBtColumn(
   let savedColumn: Column;
   let crossBaseProps: {
     fk_related_base_id?: string;
-    fk_related_source_id?: string;
+    fk_related_base_id?: string;
   } = {};
 
   // save bt column
@@ -68,7 +68,7 @@ export async function createHmAndBtColumn(
     if (parent.base_id !== child.base_id) {
       crossBaseProps = {
         fk_related_base_id: parent.base_id,
-        fk_related_source_id: parent.id,
+        fk_related_base_id: parent.id,
       };
     }
 
@@ -128,7 +128,7 @@ export async function createHmAndBtColumn(
     if (parent.base_id !== child.base_id) {
       crossBaseProps = {
         fk_related_base_id: child.base_id,
-        fk_related_source_id: child.id,
+        fk_related_base_id: child.id,
       };
     }
 
@@ -203,7 +203,7 @@ export async function createOOColumn(
 
   let crossBaseProps: {
     fk_related_base_id?: string;
-    fk_related_source_id?: string;
+    fk_related_base_id?: string;
   } = {};
 
   // save bt column
@@ -217,7 +217,7 @@ export async function createOOColumn(
     if (parent.base_id !== child.base_id) {
       crossBaseProps = {
         fk_related_base_id: parent.base_id,
-        fk_related_source_id: parent.id,
+        fk_related_base_id: parent.id,
       };
     }
 
@@ -271,7 +271,7 @@ export async function createOOColumn(
     if (parent.base_id !== child.base_id) {
       crossBaseProps = {
         fk_related_base_id: child.base_id,
-        fk_related_source_id: child.id,
+        fk_related_base_id: child.id,
       };
     }
 

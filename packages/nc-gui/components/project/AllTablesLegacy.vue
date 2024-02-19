@@ -129,7 +129,7 @@ async function toggleTable(tableId: string) {
 
 const borderlessIndexRange = ref<[start: number, end: number][]>([])
 
-const sortedActiveTables = computed(() => [...activeTables.value].sort((a, b) => a.source_id!.localeCompare(b.source_id!) * 20))
+const sortedActiveTables = computed(() => [...activeTables.value].sort((a, b) => a.base_id!.localeCompare(b.base_id!) * 20))
 
 const tableAndViewData = computed(() => {
   const combined: Array<TableType | ViewType | { isEmptyView: true }> = []
@@ -383,8 +383,8 @@ const sourceIdToIconMap = computed(() => {
               <div v-else class="w-full flex justify-center items-center max-w-full" data-testid="proj-view-list__item-type">
                 <div class="w-8 h-8 flex justify-center items-center">
                   <component
-                    :is="sourceIdToIconMap[record.source_id!]"
-                    v-if="sourceIdToIconMap[record.source_id!]"
+                    :is="sourceIdToIconMap[record.base_id!]"
+                    v-if="sourceIdToIconMap[record.base_id!]"
                     class="w-6 h-6"
                   />
                   <div v-else>-</div>

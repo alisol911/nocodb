@@ -45,7 +45,7 @@ export default class Filter implements FilterType {
   is_group?: BoolType;
   children?: Filter[];
   base_id?: string;
-  source_id?: string;
+  base_id?: string;
   column?: Column;
   order?: number;
 
@@ -100,7 +100,7 @@ export default class Filter implements FilterType {
       'is_group',
       'logical_op',
       'base_id',
-      'source_id',
+      'base_id',
       'order',
     ]);
 
@@ -115,8 +115,8 @@ export default class Filter implements FilterType {
       [referencedModelColName]: filter[referencedModelColName],
     });
 
-    if (!filter.source_id) {
-      let model: { base_id?: string; source_id?: string };
+    if (!filter.base_id) {
+      let model: { base_id?: string; base_id?: string };
       if (filter.fk_view_id && !filter.fk_parent_column_id) {
         model = await View.get(context, filter.fk_view_id, ncMeta);
       } else if (filter.fk_hook_id) {
@@ -144,7 +144,6 @@ export default class Filter implements FilterType {
       }
 
       if (model != null) {
-        insertObj.source_id = model.source_id;
       }
     }
 

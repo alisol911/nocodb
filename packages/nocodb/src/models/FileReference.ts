@@ -16,7 +16,7 @@ export default class FileReference {
   fk_user_id: string;
   fk_workspace_id: string;
   base_id: string;
-  source_id: string;
+  base_id: string;
   fk_model_id: string;
   fk_column_id: string;
   is_external: boolean;
@@ -39,7 +39,7 @@ export default class FileReference {
       'file_url',
       'file_size',
       'fk_user_id',
-      'source_id',
+      'base_id',
       'fk_model_id',
       'fk_column_id',
       'is_external',

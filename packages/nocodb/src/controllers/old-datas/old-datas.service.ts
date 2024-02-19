@@ -14,7 +14,7 @@ export class OldDatasService {
       context,
       param,
     );
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -44,7 +44,7 @@ export class OldDatasService {
       context,
       param,
     );
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -69,7 +69,7 @@ export class OldDatasService {
       param,
     );
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -89,7 +89,7 @@ export class OldDatasService {
       param,
     );
 
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -119,7 +119,7 @@ export class OldDatasService {
       context,
       param,
     );
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
 
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
@@ -143,7 +143,7 @@ export class OldDatasService {
       context,
       param,
     );
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
       viewId: view.id,

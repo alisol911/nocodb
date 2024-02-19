@@ -8,7 +8,7 @@ import { isOnPrem } from '~/utils';
 
 export default class HookLog implements HookLogType {
   id?: string;
-  source_id?: string;
+  base_id?: string;
   fk_workspace_id?: string;
   base_id?: string;
   fk_hook_id?: string;
@@ -80,7 +80,7 @@ export default class HookLog implements HookLogType {
       return;
     }
     const insertObj: any = extractProps(hookLog, [
-      'source_id',
+      'base_id',
       'base_id',
       'fk_hook_id',
       'type',
@@ -100,8 +100,8 @@ export default class HookLog implements HookLogType {
 
     const hook = await Hook.get(context, hookLog.fk_hook_id, ncMeta);
 
-    if (!hookLog.source_id) {
-      insertObj.source_id = hook.source_id;
+    if (!hookLog.base_id) {
+      insertObj.base_id = hook.base_id;
     }
 
     if (typeof insertObj.notification === 'object') {

@@ -175,7 +175,7 @@ const [useProvideSharedFormStore, useSharedFormStore] = useInjectionState((share
         baseStore.setProject({
           sources: [
             {
-              id: viewMeta.source_id,
+              id: viewMeta.base_id,
               type: viewMeta.client,
             },
           ],
@@ -544,7 +544,7 @@ const [useProvideSharedFormStore, useSharedFormStore] = useInjectionState((share
   }
 
   function getColAbstractType(c: ColumnType) {
-    return (c?.source_id ? sqlUis.value[c?.source_id] : Object.values(sqlUis.value)[0])?.getAbstractType(c)
+    return (c?.base_id ? sqlUis.value[c?.base_id] : Object.values(sqlUis.value)[0])?.getAbstractType(c)
   }
 
   async function getPreFillValue(c: ColumnType, value: string | string[]) {
@@ -669,7 +669,7 @@ const [useProvideSharedFormStore, useSharedFormStore] = useInjectionState((share
           parsedTime = dayjs(`1999-01-01 ${value}`)
         }
         if (parsedTime.isValid()) {
-          preFillValue = parsedTime.format(baseStore.isMysql(c.source_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ')
+          preFillValue = parsedTime.format(baseStore.isMysql(c.base_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ')
         }
         break
       }

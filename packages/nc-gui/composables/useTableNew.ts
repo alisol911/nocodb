@@ -212,7 +212,7 @@ export function useTableNew(param: {
           const meta = (await getMeta(table.id as string, true)) as TableType
           const relationColumns = meta?.columns?.filter((c) => c.uidt === UITypes.LinkToAnotherRecord && !isSystemColumn(c))
 
-          if (relationColumns?.length && !isXcdbBase(table.source_id)) {
+          if (relationColumns?.length && !isXcdbBase(table.base_id)) {
             const refColMsgs = await Promise.all(
               relationColumns.map(async (c, i) => {
                 const refMeta = (await getMeta(

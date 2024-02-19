@@ -55,7 +55,7 @@ export const parseDateTimeValue = (
     return;
   }
 
-  const isMySQL = params.isMysql?.(params.col.source_id);
+  const isMySQL = params.isMysql?.(params.col.base_id);
 
   let d = dayjs(value);
 

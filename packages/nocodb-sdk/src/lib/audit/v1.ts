@@ -831,7 +831,7 @@ export interface SharedBasePayloadType {
 /* Source */
 export interface SourceCreatePayload {
   source_title: string;
-  source_id: string;
+  base_id: string;
   source_integration_id: string;
   source_integration_title: string;
   is_data_readonly: boolean;
@@ -840,7 +840,7 @@ export interface SourceCreatePayload {
 
 export interface SourceUpdatePayload extends UpdatePayload {
   source_title: string;
-  source_id: string;
+  base_id: string;
   source_integration_id: string;
   source_integration_title: string;
   is_data_readonly: boolean;
@@ -849,7 +849,7 @@ export interface SourceUpdatePayload extends UpdatePayload {
 
 export interface SourceDeletePayload {
   source_title: string;
-  source_id: string;
+  base_id: string;
   source_integration_id: string;
   source_integration_title: string;
   is_data_readonly: boolean;
@@ -1021,7 +1021,6 @@ export interface AuditV1<T = any> {
   user_agent: string;
   fk_workspace_id: string | null;
   base_id: string | null;
-  source_id: string | null;
   fk_model_id: string | null;
   row_id: string | null;
   op_type: AuditV1OperationTypes;

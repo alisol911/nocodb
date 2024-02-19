@@ -34,7 +34,7 @@ const toBeCreateType = ref<ViewTypes | 'AI'>()
 const isSqlView = computed(() => (activeTable.value as TableType)?.type === 'view')
 
 const activeSource = computed(() => {
-  return base.value.sources?.find((s) => s.id === activeView.value?.source_id)
+  return base.value.sources?.find((s) => s.id === activeView.value?.base_id)
 })
 
 async function onOpenModal({
@@ -82,7 +82,7 @@ async function onOpenModal({
     coverImageColumnId,
     baseId: base.value.id!,
     tableId: activeTable.value.id!,
-    sourceId: activeTable.value?.source_id,
+    sourceId: activeTable.value?.base_id,
   })
 }
 

@@ -13,7 +13,7 @@ export default async (
 ): Promise<SwaggerColumn[]> => {
   // extract dbtype based on column source
   const dbType = await base.getSources().then((sources) => {
-    const sourceId = columns[0]?.source_id;
+    const sourceId = columns[0]?.base_id;
     return sources.find((s) => s.id === sourceId)?.type || sources[0]?.type;
   });
   return Promise.all(

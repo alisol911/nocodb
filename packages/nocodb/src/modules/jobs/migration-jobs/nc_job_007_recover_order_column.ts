@@ -53,7 +53,7 @@ export class RecoverOrderColumnMigration {
           .knexConnection(MetaTable.MODELS)
           .join(
             MetaTable.SOURCES,
-            `${MetaTable.MODELS}.source_id`,
+            `${MetaTable.MODELS}.base_id`,
             '=',
             `${MetaTable.SOURCES}.id`,
           )
@@ -111,14 +111,14 @@ export class RecoverOrderColumnMigration {
           .knexConnection(MetaTable.MODELS)
           .select([
             `${MetaTable.MODELS}.id`,
-            `${MetaTable.MODELS}.source_id`,
+            `${MetaTable.MODELS}.base_id`,
             `${MetaTable.MODELS}.table_name`,
             `${MetaTable.MODELS}.base_id`,
             ...(isEE ? [`${MetaTable.MODELS}.fk_workspace_id`] : []),
           ])
           .join(
             MetaTable.SOURCES,
-            `${MetaTable.MODELS}.source_id`,
+            `${MetaTable.MODELS}.base_id`,
             '=',
             `${MetaTable.SOURCES}.id`,
           )
@@ -197,7 +197,7 @@ export class RecoverOrderColumnMigration {
   private async processModel(
     modelData: {
       id: string;
-      source_id: string;
+      base_id: string;
       table_name: string;
       base_id: string;
       fk_workspace_id?: string;
@@ -211,8 +211,8 @@ export class RecoverOrderColumnMigration {
       };
 
       const originalSource = await this.cache.get(
-        modelData.source_id,
-        async () => Source.get(context, modelData.source_id),
+        modelData.base_id,
+        async () => Source.get(context, modelData.base_id),
       );
 
       if (!originalSource || !originalSource.isMeta()) {

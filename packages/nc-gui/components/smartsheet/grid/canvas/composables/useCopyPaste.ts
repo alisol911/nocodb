@@ -389,7 +389,7 @@ export function useCopyPaste({
                       isColInfoShown[column.title!] = true
                     },
                   },
-                  isMysql(meta.value?.source_id),
+                  isMysql(meta.value?.base_id),
                   true,
                 )
                 validateColumnValue(column, pasteValue)
@@ -454,7 +454,7 @@ export function useCopyPaste({
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
+              isMysql(meta.value?.base_id),
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -493,7 +493,7 @@ export function useCopyPaste({
                 column: columnObj,
                 appInfo: unref(appInfo),
               },
-              isMysql(meta.value?.source_id),
+              isMysql(meta.value?.base_id),
             )
 
             if (pasteVal === undefined || !ncIsObject(pasteVal)) return
@@ -649,7 +649,7 @@ export function useCopyPaste({
                 maxAttachmentsAllowedInCell: maxAttachmentsAllowedInCell.value,
                 showUpgradeToAddMoreAttachmentsInCell,
               },
-              isMysql(meta.value?.source_id),
+              isMysql(meta.value?.base_id),
             )
             validateColumnValue(columnObj, pasteValue)
           } catch (ex) {
@@ -733,7 +733,7 @@ export function useCopyPaste({
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
+                    isMysql(meta.value?.base_id),
                     true,
                   )
 
@@ -759,7 +759,7 @@ export function useCopyPaste({
                         isColInfoShown[col.title!] = true
                       },
                     },
-                    isMysql(meta.value?.source_id),
+                    isMysql(meta.value?.base_id),
                     true,
                   )
                   validateColumnValue(col, pasteValue)

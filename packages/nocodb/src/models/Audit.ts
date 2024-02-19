@@ -12,7 +12,7 @@ export default class Audit {
   fk_user_id?: string;
   user_agent?: string;
   ip?: string;
-  source_id?: string;
+  base_id?: string;
   fk_workspace_id?: string;
   base_id?: string;
   fk_model_id?: string;
@@ -57,7 +57,7 @@ export default class Audit {
       const propsToExtract = [
         'user',
         'ip',
-        'source_id',
+        'base_id',
         'fk_workspace_id',
         'base_id',
         'row_id',

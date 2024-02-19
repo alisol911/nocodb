@@ -40,7 +40,7 @@ function baseModelSqlTests() {
     table = await createTable(context, base);
     view = await table.getViews(ctx)[0];
 
-    const source = await Source.get(ctx, table.source_id);
+    const source = await Source.get(ctx, table.base_id);
     baseModelSql = new BaseModelSqlv2({
       dbDriver: await NcConnectionMgrv2.get(source),
       model: table,
@@ -80,7 +80,7 @@ function baseModelSqlTests() {
     expect(rowInsertedAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       base_id: base.id,
       fk_model_id: table.id,
       row_id: '1',
@@ -124,7 +124,7 @@ function baseModelSqlTests() {
     expect(rowBulkInsertedAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       base_id: base.id,
       fk_model_id: table.id,
       row_id: null,
@@ -161,7 +161,7 @@ function baseModelSqlTests() {
     expect(rowUpdatedAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       base_id: base.id,
       fk_model_id: table.id,
       row_id: '1',
@@ -209,7 +209,7 @@ function baseModelSqlTests() {
     expect(rowBulkUpdateAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       fk_model_id: table.id,
       base_id: base.id,
       row_id: null,
@@ -260,7 +260,7 @@ function baseModelSqlTests() {
     expect(rowBulkUpdateAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       fk_model_id: table.id,
       base_id: base.id,
       row_id: null,
@@ -299,7 +299,7 @@ function baseModelSqlTests() {
     expect(rowDeletedAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       base_id: base.id,
       fk_model_id: table.id,
       row_id: '1',
@@ -340,7 +340,7 @@ function baseModelSqlTests() {
     expect(rowBulkDeleteAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       fk_model_id: table.id,
       base_id: base.id,
       row_id: null,
@@ -388,7 +388,7 @@ function baseModelSqlTests() {
     expect(rowBulkDeleteAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       fk_model_id: table.id,
       base_id: base.id,
       row_id: null,
@@ -436,7 +436,7 @@ function baseModelSqlTests() {
 
     const childBaseModel = new BaseModelSqlv2({
       dbDriver: await NcConnectionMgrv2.get(
-        await Source.get(ctx, table.source_id),
+        await Source.get(ctx, table.base_id),
       ),
       model: childTable,
       view,
@@ -455,7 +455,7 @@ function baseModelSqlTests() {
     expect(rowInsertedAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       base_id: base.id,
       fk_model_id: table.id,
       row_id: '1',
@@ -505,7 +505,7 @@ function baseModelSqlTests() {
 
     const childBaseModel = new BaseModelSqlv2({
       dbDriver: await NcConnectionMgrv2.get(
-        await Source.get(ctx, table.source_id),
+        await Source.get(ctx, table.base_id),
       ),
       model: childTable,
       view,
@@ -524,7 +524,7 @@ function baseModelSqlTests() {
     expect(rowInsertedAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       base_id: base.id,
       fk_model_id: table.id,
       row_id: '1',
@@ -582,7 +582,7 @@ function baseModelSqlTests() {
 
     const childBaseModel = new BaseModelSqlv2({
       dbDriver: await NcConnectionMgrv2.get(
-        await Source.get(ctx, table.source_id),
+        await Source.get(ctx, table.base_id),
       ),
       model: childTable,
       view,
@@ -601,7 +601,7 @@ function baseModelSqlTests() {
     expect(rowInsertedAudit).to.include({
       user: 'test@example.com',
       ip: '::ffff:192.0.0.1',
-      source_id: table.source_id,
+      base_id: table.base_id,
       base_id: base.id,
       fk_model_id: table.id,
       row_id: '1',

@@ -1661,7 +1661,7 @@ ALTER SEQUENCE public.nc_store_id_seq OWNED BY public.nc_store.id;
 CREATE TABLE public.nc_sync_logs_v2 (
     id character varying(20) NOT NULL,
     project_id character varying(128),
-    fk_sync_source_id character varying(20),
+    fk_sync_base_id character varying(20),
     time_taken integer,
     status character varying(255),
     status_details text,
@@ -3502,7 +3502,7 @@ SELECT pg_catalog.setval('public.nc_store_id_seq', 5, true);
 -- Data for Name: nc_sync_logs_v2; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.nc_sync_logs_v2 (id, project_id, fk_sync_source_id, time_taken, status, status_details, created_at, updated_at) FROM stdin;
+COPY public.nc_sync_logs_v2 (id, project_id, fk_sync_base_id, time_taken, status, status_details, created_at, updated_at) FROM stdin;
 \.
 
 

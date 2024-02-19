@@ -40,7 +40,7 @@ const { showRecordPlanLimitExceededModal, getPlanTitle } = useEeConfig()
 
 const lockType = computed(() => (view.value?.lock_type as LockType) || LockType.Collaborative)
 
-const currentSourceId = computed(() => table.value?.source_id)
+const currentSourceId = computed(() => table.value?.base_id)
 
 const onRenameMenuClick = () => {
   emits('rename')

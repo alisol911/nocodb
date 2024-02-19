@@ -43,7 +43,7 @@ function duplicateColumnTests() {
         baseId: context.base.id,
         user: user as any,
         modelId: table1.id,
-        sourceId: table1.source_id,
+        sourceId: table1.base_id,
         columnId: (
           await table1.getColumns(context.ctx)
         ).find((col) => col.title === 'Title').id,

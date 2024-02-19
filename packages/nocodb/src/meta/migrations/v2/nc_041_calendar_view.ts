@@ -7,7 +7,7 @@ const up = async (knex: Knex) => {
 
     table.string('base_id', 20);
 
-    table.string('source_id', 128);
+    table.string('base_id', 128);
 
     table.string('title');
 
@@ -23,7 +23,7 @@ const up = async (knex: Knex) => {
     table.string('id', 20).primary().notNullable();
 
     table.string('base_id', 20);
-    table.string('source_id', 128);
+    table.string('base_id', 128);
 
     table.string('fk_view_id', 20);
 

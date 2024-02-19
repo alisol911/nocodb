@@ -61,7 +61,7 @@ const getTable = async ({ base, name }: { base: Base; name: string }) => {
     },
     {
       base_id: base.id,
-      source_id: sources[0].id!,
+      base_id: sources[0].id!,
       table_name: name,
     },
   );
@@ -76,7 +76,7 @@ const getAllTables = async ({ base }: { base: Base }) => {
     },
     {
       base_id: base.id,
-      source_id: sources[0].id!,
+      base_id: sources[0].id!,
     },
   );
 

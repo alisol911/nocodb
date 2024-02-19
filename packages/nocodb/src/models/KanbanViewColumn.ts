@@ -16,7 +16,6 @@ export default class KanbanViewColumn implements KanbanColumnType {
   fk_column_id: string;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
 
   constructor(data: KanbanViewColumn) {
     Object.assign(this, data);
@@ -59,7 +58,6 @@ export default class KanbanViewColumn implements KanbanColumnType {
       'fk_column_id',
       'show',
       'base_id',
-      'source_id',
     ]);
 
     insertObj.order = await ncMeta.metaGetNextOrder(
@@ -69,9 +67,8 @@ export default class KanbanViewColumn implements KanbanColumnType {
       },
     );
 
-    if (!insertObj.source_id) {
-      const viewRef = await View.get(context, insertObj.fk_view_id, ncMeta);
-      insertObj.source_id = viewRef.source_id;
+    if (!insertObj.base_id) {
+      insertObj.base_id = viewRef.base_id;
     }
 
     const { id } = await ncMeta.metaInsert2(

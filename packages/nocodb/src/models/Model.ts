@@ -45,7 +45,6 @@ const logger = new Logger('Model');
 
 export default class Model implements TableType {
   copy_enabled: BoolType;
-  source_id: 'db' | string;
   deleted: BoolType;
   enabled: BoolType;
   export_enabled: BoolType;
@@ -180,7 +179,7 @@ export default class Model implements TableType {
     model: Partial<TableReqType> & {
       mm?: BoolType;
       type?: ModelTypes;
-      source_id?: string;
+      base_id?: string;
       user_id: string;
     },
     ncMeta = Noco.ncMeta,
@@ -204,7 +203,6 @@ export default class Model implements TableType {
         MetaTable.FORM_VIEW_COLUMNS,
         {
           base_id: baseId,
-          source_id: sourceId,
         },
       );
     }
@@ -213,9 +211,7 @@ export default class Model implements TableType {
       insertObj.type = ModelTypes.TABLE;
     }
 
-    insertObj.source_id = sourceId;
-    insertObj.id = baseId + '-' + model.table_name;
-
+    insertObj.base_id = sourceId;
     const { id } = await ncMeta.metaInsert2(
       context.workspace_id,
       context.base_id,
@@ -229,7 +225,7 @@ export default class Model implements TableType {
       {
         columns: (model?.columns || []) as Column[],
         fk_model_id: id,
-        source_id: sourceId,
+        base_id: sourceId,
         base_id: baseId,
       },
       ncMeta,
@@ -244,7 +240,7 @@ export default class Model implements TableType {
           is_default: true,
           type: ViewTypes.GRID,
           base_id: baseId,
-          source_id: sourceId,
+          base_id: sourceId,
           created_by: model.user_id,
           owned_by: model.user_id,
         },
@@ -289,16 +285,16 @@ export default class Model implements TableType {
     context: NcContext,
     {
       base_id,
-      source_id,
+      base_id,
     }: {
       base_id: string;
-      source_id?: string;
+      base_id?: string;
     },
     ncMeta = Noco.ncMeta,
   ): Promise<Model[]> {
     const cachedList = await NocoCache.getList(CacheScope.MODEL, [
       base_id,
-      source_id,
+      base_id,
     ]);
     let { list: modelList } = cachedList;
     const { isNoneList } = cachedList;
@@ -312,7 +308,7 @@ export default class Model implements TableType {
           orderBy: {
             order: 'asc',
           },
-          ...(source_id ? { condition: { source_id } } : {}),
+          ...(base_id ? { condition: { base_id } } : {}),
         },
       );
 
@@ -321,11 +317,11 @@ export default class Model implements TableType {
         model.meta = parseMetaProp(model);
       }
 
-      // set cache based on source_id presence
-      if (source_id) {
+      // set cache based on base_id presence
+      if (base_id) {
         await NocoCache.setList(
           CacheScope.MODEL,
-          [base_id, source_id],
+          [base_id, base_id],
           modelList,
         );
       } else {
@@ -408,7 +404,7 @@ export default class Model implements TableType {
     args:
       | {
           base_id: string;
-          source_id: string;
+          base_id: string;
           table_name: string;
         }
       | {
@@ -508,7 +504,7 @@ export default class Model implements TableType {
     const model = args?.model || (await this.get(context, args.id, ncMeta));
     const source =
       args.source ||
-      (await Source.get(context, model.source_id, false, ncMeta));
+      (await Source.get(context, model.base_id, false, ncMeta));
 
     if (!args?.viewId && args.extractDefaultView) {
       const view = await View.getDefaultView(context, model.id, ncMeta);
@@ -661,9 +657,9 @@ export default class Model implements TableType {
     // delete alias cache
     await NocoCache.del([
       `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.id}`,
-      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.source_id}:${this.id}`,
+      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.base_id}:${this.id}`,
       `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.title}`,
-      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.source_id}:${this.title}`,
+      `${CacheScope.MODEL_ALIAS}:${this.base_id}:${this.base_id}:${this.title}`,
     ]);
 
     cleanCommandPaletteCache(context.workspace_id).catch(() => {
@@ -823,9 +819,9 @@ export default class Model implements TableType {
     // delete alias cache
     await NocoCache.del([
       `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.id}`,
-      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.source_id}:${oldModel.id}`,
+      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.base_id}:${oldModel.id}`,
       `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.title}`,
-      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.source_id}:${oldModel.title}`,
+      `${CacheScope.MODEL_ALIAS}:${oldModel.base_id}:${oldModel.base_id}:${oldModel.title}`,
     ]);
 
     cleanCommandPaletteCache(context.workspace_id).catch(() => {
@@ -1028,29 +1024,29 @@ export default class Model implements TableType {
     context: NcContext,
     {
       base_id,
-      source_id,
+      base_id,
       aliasOrId,
     }: {
       base_id: string;
-      source_id?: string;
+      base_id?: string;
       aliasOrId: string;
     },
     ncMeta = Noco.ncMeta,
   ) {
-    const cacheKey = source_id
-      ? `${CacheScope.MODEL_ALIAS}:${base_id}:${source_id}:${aliasOrId}`
+    const cacheKey = base_id
+      ? `${CacheScope.MODEL_ALIAS}:${base_id}:${base_id}:${aliasOrId}`
       : `${CacheScope.MODEL_ALIAS}:${base_id}:${aliasOrId}`;
     const modelId =
       base_id &&
       aliasOrId &&
       (await NocoCache.get(cacheKey, CacheGetType.TYPE_STRING));
     if (!modelId) {
-      const model = source_id
+      const model = base_id
         ? await ncMeta.metaGet2(
             context.workspace_id,
             context.base_id,
             MetaTable.MODELS,
-            { base_id, source_id },
+            { base_id, base_id },
             null,
             {
               _or: [
@@ -1101,9 +1097,9 @@ export default class Model implements TableType {
     context: NcContext,
     {
       table_name,
-      source_id,
+      base_id,
       exclude_id,
-    }: { table_name; base_id; source_id; exclude_id? },
+    }: { table_name; base_id; base_id; exclude_id? },
     ncMeta = Noco.ncMeta,
   ) {
     return !(await ncMeta.metaGet2(
@@ -1112,7 +1108,7 @@ export default class Model implements TableType {
       MetaTable.MODELS,
       {
         table_name,
-        ...(source_id ? { source_id } : {}),
+        ...(base_id ? { base_id } : {}),
       },
       null,
       exclude_id && { id: { neq: exclude_id } },
@@ -1123,9 +1119,9 @@ export default class Model implements TableType {
     context: NcContext,
     {
       title,
-      source_id,
+      base_id,
       exclude_id,
-    }: { title; base_id; source_id; exclude_id? },
+    }: { title; base_id; base_id; exclude_id? },
     ncMeta = Noco.ncMeta,
   ) {
     return !(await ncMeta.metaGet2(
@@ -1134,7 +1130,7 @@ export default class Model implements TableType {
       MetaTable.MODELS,
       {
         title,
-        ...(source_id ? { source_id } : {}),
+        ...(base_id ? { base_id } : {}),
       },
       null,
       exclude_id && { id: { neq: exclude_id } },

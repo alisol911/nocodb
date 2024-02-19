@@ -79,7 +79,7 @@ export default function (API_VERSION: 'v1' | 'v2' | 'v3') {
         // expect(sortResponse).to.haveOwnProperty("fk_model_id");
         // expect(sortResponse.fk_model_id).to.eq(table.id);
 
-        expect(sortResponse).to.haveOwnProperty('source_id');
+        expect(sortResponse).to.haveOwnProperty('base_id');
 
         expect(sortResponse).to.haveOwnProperty('direction');
         expect(sortResponse.direction).to.eq(DIRECTION_1);

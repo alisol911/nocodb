@@ -1725,7 +1725,7 @@ export function useInfiniteData(args: {
       [...allFilters.value, ...computedWhereFilter.value],
       data,
       meta.value?.columns as ColumnType[],
-      getBaseType(viewMeta.value?.view?.source_id),
+      getBaseType(viewMeta.value?.view?.base_id),
       metas.value,
       {
         currentUser: user.value,
@@ -1749,7 +1749,7 @@ export function useInfiniteData(args: {
         [...(allGroupFilter ?? [])],
         data,
         meta.value?.columns as ColumnType[],
-        getBaseType(viewMeta.value?.view?.source_id),
+        getBaseType(viewMeta.value?.view?.base_id),
         metas.value,
         {
           currentUser: user.value,

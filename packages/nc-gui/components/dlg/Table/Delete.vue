@@ -42,7 +42,7 @@ const onDelete = async () => {
     const meta = (await getMeta(toBeDeletedTable.id as string, true)) as TableType
     const relationColumns = meta?.columns?.filter((c) => c.uidt === UITypes.LinkToAnotherRecord && !isSystemColumn(c))
 
-    if (relationColumns?.length && !isXcdbBase(toBeDeletedTable.source_id)) {
+    if (relationColumns?.length && !isXcdbBase(toBeDeletedTable.base_id)) {
       const refColMsgs = await Promise.all(
         relationColumns.map(async (c, i) => {
           const refMeta = (await getMeta((c?.colOptions as LinkToAnotherRecordType)?.fk_related_model_id as string)) as TableType
@@ -71,7 +71,7 @@ const onDelete = async () => {
     // Deleted table successfully
     $e('a:table:delete')
     if (oldActiveTableId === toBeDeletedTable.id) {
-      const sourceTables = tables.value.filter((t) => t.source_id === toBeDeletedTable.source_id)
+      const sourceTables = tables.value.filter((t) => t.base_id === toBeDeletedTable.base_id)
       // Navigate to base if no tables left or open first table
       if (sourceTables.length === 0) {
         await navigateTo(

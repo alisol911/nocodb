@@ -1454,7 +1454,7 @@ function tableTest() {
   // it('Get nested sorted filtered table with nested fields data list with a formula > lookup > rollup column in customer table', async function () {
   //   const rentalTable = await Model.getByIdOrName({
   //     base_id: sakilaProject.id,
-  //     source_id: sakilaProject.sources[0].id,
+  //     base_id: sakilaProject.sources[0].id,
   //     table_name: 'rental',
   //   });
 

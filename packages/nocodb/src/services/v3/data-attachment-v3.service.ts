@@ -77,7 +77,7 @@ export class DataAttachmentV3Service {
             file_url: downloadedAttachment.url ?? downloadedAttachment.path,
             file_size: downloadedAttachment.fileSize,
             fk_user_id: context?.user?.id ?? 'anonymous',
-            source_id: baseModel.model.source_id,
+            base_id: baseModel.model.base_id,
             fk_model_id: modelId,
             fk_column_id: column.id,
             is_external: !(await baseModel.getSource()).isMeta(),
@@ -135,7 +135,7 @@ export class DataAttachmentV3Service {
           fk_model_id: baseModel.model.id,
           fk_workspace_id: context.workspace_id,
           base_id: context.base_id,
-          source_id: baseModel.model.source_id,
+          base_id: baseModel.model.base_id,
           details: {
             table_title: baseModel.model.title,
             column_meta: extractColsMetaForAudit([column], {
@@ -243,7 +243,7 @@ export class DataAttachmentV3Service {
           resultAttachmentUrl ?? path.join('download', filePath, filename),
         file_size: fileSize,
         fk_user_id: context?.user?.id ?? 'anonymous',
-        source_id: baseModel.model.source_id,
+        base_id: baseModel.model.base_id,
         fk_model_id: modelId,
         fk_column_id: column.id,
         is_external: !(await baseModel.getSource()).isMeta(),
@@ -306,7 +306,7 @@ export class DataAttachmentV3Service {
           fk_model_id: baseModel.model.id,
           fk_workspace_id: context.workspace_id,
           base_id: context.base_id,
-          source_id: baseModel.model.source_id,
+          base_id: baseModel.model.base_id,
           details: {
             table_title: baseModel.model.title,
             column_meta: extractColsMetaForAudit([column], {

@@ -31,7 +31,7 @@ export class MigrateService {
     }
 
     const models = (await source.getModels(context)).filter(
-      (m) => m.source_id === source.id && !m.mm && m.type === 'table',
+      (m) => m.base_id === source.id && !m.mm && m.type === 'table',
     );
 
     const { serializedModels: exportedModels } =

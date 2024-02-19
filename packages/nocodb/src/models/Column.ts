@@ -80,7 +80,6 @@ export default class Column<T = any> implements ColumnType {
   public fk_model_id: string;
   public fk_workspace_id?: string;
   public base_id: string;
-  public source_id: string;
 
   public column_name: string;
   public title: string;
@@ -143,7 +142,7 @@ export default class Column<T = any> implements ColumnType {
   public static async insert<T>(
     context: NcContext,
     column: Partial<T> & {
-      source_id?: string;
+      base_id?: string;
       [key: string]: any;
       fk_model_id: string;
       uidt: UITypes | string;
@@ -181,7 +180,6 @@ export default class Column<T = any> implements ColumnType {
       'pv',
       'order',
       'base_id',
-      'source_id',
       'system',
       'meta',
       'virtual',
@@ -213,13 +211,12 @@ export default class Column<T = any> implements ColumnType {
       else insertObj.validate = JSON.stringify(column.validate);
     }
 
-    if (!column.source_id) {
+    if (!column.base_id) {
       const model = await Model.getByIdOrName(
         context,
         { id: column.fk_model_id },
         ncMeta,
       );
-      insertObj.source_id = model.source_id;
     }
 
     // Fallback to SingleLineText if no UI Datatype is provided
@@ -227,7 +224,7 @@ export default class Column<T = any> implements ColumnType {
       if (column.dt) {
         const source = await Source.get(
           context,
-          column.source_id || insertObj.source_id,
+          column.base_id || insertObj.base_id,
         );
         const sqlUi = SqlUiFactory.create(await source.getConnectionConfig());
         insertObj.uidt =
@@ -286,7 +283,7 @@ export default class Column<T = any> implements ColumnType {
 
   private static async insertColOption<T>(
     context,
-    column: Partial<T> & { source_id?: string; [p: string]: any },
+    column: Partial<T> & { base_id?: string; [p: string]: any },
     colId,
     ncMeta = Noco.ncMeta,
   ) {
@@ -340,8 +337,8 @@ export default class Column<T = any> implements ColumnType {
             // cross base link props
             fk_related_base_id: column.fk_related_base_id,
             fk_mm_base_id: column.fk_mm_base_id,
-            fk_related_source_id: column.fk_related_source_id,
-            fk_mm_source_id: column.fk_mm_source_id,
+            fk_related_base_id: column.fk_related_base_id,
+            fk_mm_base_id: column.fk_mm_base_id,
 
             ur: column.ur,
             dr: column.dr,
@@ -621,7 +618,7 @@ export default class Column<T = any> implements ColumnType {
       this.model = await Model.getByIdOrName(
         context,
         {
-          // source_id: this.base_id,
+          // base_id: this.base_id,
           // db_alias: this.db_alias,
           id: this.fk_model_id,
         },
@@ -732,7 +729,7 @@ export default class Column<T = any> implements ColumnType {
       )
       .condition(condition)
       .where({
-        'tab.source_id': source_id,
+        'tab.base_id': base_id,
         'tab.db_alias': db_alias
       });
 
@@ -744,7 +741,7 @@ export default class Column<T = any> implements ColumnType {
     {
       colId,
     }: {
-      source_id?: string;
+      base_id?: string;
       db_alias?: string;
       colId: string;
     },
@@ -2044,7 +2041,7 @@ export default class Column<T = any> implements ColumnType {
     param: {
       columns: Column[];
       fk_model_id: any;
-      source_id: string;
+      base_id: string;
       base_id: string;
     },
     ncMeta = Noco.ncMeta,
@@ -2060,7 +2057,7 @@ export default class Column<T = any> implements ColumnType {
         ...column,
         id,
         base_id: param.base_id,
-        source_id: param.source_id,
+        base_id: param.base_id,
         fk_model_id: param.fk_model_id,
       };
 
@@ -2092,7 +2089,7 @@ export default class Column<T = any> implements ColumnType {
         'pv',
         'order',
         'base_id',
-        'source_id',
+        'base_id',
         'system',
         'meta',
         'readonly',
@@ -2130,7 +2127,7 @@ export default class Column<T = any> implements ColumnType {
 
   private static async bulkInsertColOption<T>(
     context: NcContext,
-    columns: (Partial<T> & { source_id?: string; [p: string]: any })[],
+    columns: (Partial<T> & { base_id?: string; [p: string]: any })[],
     ncMeta = Noco.ncMeta,
   ) {
     const insertGroups = new Map<UITypes, Record<string, any>[]>();

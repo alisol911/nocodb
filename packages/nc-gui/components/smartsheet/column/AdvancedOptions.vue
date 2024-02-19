@@ -114,7 +114,7 @@ vModel.value.au = !!vModel.value.au */
         <a-input v-model:value="vModel.dtxs" class="!rounded-lg" :disabled="!sqlUi.columnEditable(vModel)" @input="onAlter" />
       </a-form-item>
 
-      <LazySmartsheetColumnPgBinaryOptions v-if="isPg(meta?.source_id) && vModel.dt === 'bytea'" v-model:value="vModel" />
+      <LazySmartsheetColumnPgBinaryOptions v-if="isPg(meta?.base_id) && vModel.dt === 'bytea'" v-model:value="vModel" />
     </template>
   </div>
 </template>

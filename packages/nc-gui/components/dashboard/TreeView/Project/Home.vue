@@ -205,7 +205,7 @@ watch(
   async () => {
     if (!activeTable.value) return
 
-    const sourceId = activeTable.value.source_id
+    const sourceId = activeTable.value.base_id
     if (!sourceId) return
 
     if (!activeKey.value.includes(`collapse-${sourceId}`)) {

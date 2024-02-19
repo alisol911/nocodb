@@ -549,7 +549,7 @@ export class DataV3Service {
     }
 
     // Fetch full records using baseModel.chunkList() for better performance
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
       dbDriver: await NcConnectionMgrv2.get(source),
@@ -690,7 +690,7 @@ export class DataV3Service {
     }
 
     // Fetch full records using baseModel.chunkList() for better performance
-    const source = await Source.get(context, model.source_id);
+    const source = await Source.get(context, model.base_id);
     const baseModel = await Model.getBaseModelSQL(context, {
       id: model.id,
       dbDriver: await NcConnectionMgrv2.get(source),

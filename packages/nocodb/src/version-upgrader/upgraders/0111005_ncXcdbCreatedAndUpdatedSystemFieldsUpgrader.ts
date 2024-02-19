@@ -418,7 +418,7 @@ export default async function ({ ncMeta }: NcUpgraderCtx) {
           context,
           {
             base_id: source.base_id,
-            source_id: source.id,
+            base_id: source.id,
           },
           ncMeta,
         );

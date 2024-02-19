@@ -150,8 +150,8 @@ export const parseTimeValue = (
   // e.g. "2023-05-12T08:03:53.000Z" -> 2023-05-12T08:03:53.000Z
   value = value.replace(/["']/g, '');
 
-  const isMySQL = params.isMysql?.(params.col.source_id);
-  const isPostgres = params.isPg?.(params.col.source_id);
+  const isMySQL = params.isMysql?.(params.col.base_id);
+  const isPostgres = params.isPg?.(params.col.base_id);
 
   let d = dayjs(value);
 

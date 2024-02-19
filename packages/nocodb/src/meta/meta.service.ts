@@ -477,7 +477,6 @@ export class MetaService {
       }
 
       this.contextCondition(query, workspace_id, base_id, target);
-    }
 
     if (!idOrCondition) {
       return query.first();
@@ -560,7 +559,6 @@ export class MetaService {
       }
 
       this.contextCondition(query, workspace_id, base_id, target);
-    }
 
     if (args?.condition) {
       query.where(args.condition);

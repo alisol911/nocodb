@@ -86,7 +86,7 @@ export default function (API_VERSION: 'v1' | 'v2' | 'v3') {
       expect(commentResponse).to.haveOwnProperty('updated_at');
 
       if (isV1 || isV2) {
-        expect(commentResponse).to.haveOwnProperty('source_id');
+        expect(commentResponse).to.haveOwnProperty('base_id');
 
         expect(commentResponse).to.haveOwnProperty('base_id');
         expect(commentResponse.base_id).to.eq(base.id);

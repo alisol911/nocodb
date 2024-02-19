@@ -14,7 +14,7 @@ export default class SyncSource {
   order?: number;
   fk_workspace_id?: string;
   base_id?: string;
-  source_id?: string;
+  base_id?: string;
   fk_user_id?: string;
 
   constructor(syncSource: Partial<SyncSource>) {
@@ -51,7 +51,7 @@ export default class SyncSource {
     ncMeta = Noco.ncMeta,
   ) {
     const condition = sourceId
-      ? { base_id: baseId, source_id: sourceId }
+      ? { base_id: baseId, base_id: sourceId }
       : { base_id: baseId };
     const syncSources = await ncMeta.metaList2(
       context.workspace_id,
@@ -86,7 +86,7 @@ export default class SyncSource {
       'type',
       'details',
       'base_id',
-      'source_id',
+      'base_id',
       'fk_user_id',
     ]);
 
@@ -118,7 +118,7 @@ export default class SyncSource {
       'deleted',
       'order',
       'base_id',
-      'source_id',
+      'base_id',
     ]);
 
     if (updateObj.details && typeof updateObj.details === 'object') {

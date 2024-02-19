@@ -85,7 +85,7 @@ export const FormulaCellRenderer: CellRenderer = {
       return
     }
 
-    const result = isPg(column.source_id) ? renderValue(handleTZ(value)) : renderValue(value)
+    const result = isPg(column.base_id) ? renderValue(handleTZ(value)) : renderValue(value)
 
     // If the resultant type is Numeric, render as a Numeric Field
     if (column?.colOptions?.parsed_tree?.dataType === FormulaDataTypes.NUMERIC) {
@@ -186,7 +186,7 @@ export const FormulaCellRenderer: CellRenderer = {
       }
     }
 
-    const result = isPg(column.columnObj.source_id) ? renderValue(handleTZ(props.value)) : renderValue(props.value)
+    const result = isPg(column.columnObj.base_id) ? renderValue(handleTZ(props.value)) : renderValue(props.value)
 
     if (column.columnObj?.colOptions?.parsed_tree?.dataType === FormulaDataTypes.STRING) {
       const urls = replaceUrlsWithLink(result)

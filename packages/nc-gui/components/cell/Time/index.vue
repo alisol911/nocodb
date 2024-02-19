@@ -35,7 +35,7 @@ const isExpandedForm = inject(IsExpandedFormOpenInj, ref(false))
 
 const column = inject(ColumnInj)!
 
-const dateFormat = isMysql(column.value.source_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
+const dateFormat = isMysql(column.value.base_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
 
 const isTimeInvalid = ref(false)
 

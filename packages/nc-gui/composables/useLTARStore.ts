@@ -127,8 +127,8 @@ const [useProvideLTARStore, useLTARStore] = useInjectionState(
     })
 
     const sqlUi = computed(() =>
-      (relatedTableMeta.value as TableType)?.source_id
-        ? sqlUis.value[(relatedTableMeta.value as TableType).source_id!]
+      (relatedTableMeta.value as TableType)?.base_id
+        ? sqlUis.value[(relatedTableMeta.value as TableType).base_id!]
         : Object.values(sqlUis.value)[0],
     )
 

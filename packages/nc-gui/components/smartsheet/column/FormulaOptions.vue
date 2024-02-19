@@ -90,7 +90,7 @@ if ((column.value?.colOptions as any)?.formula_raw) {
     ) || ''
 }
 
-const source = computed(() => activeBase.value?.sources?.find((s) => s.id === meta.value?.source_id))
+const source = computed(() => activeBase.value?.sources?.find((s) => s.id === meta.value?.base_id))
 
 const parsedTree = ref<any>({
   dataType: FormulaDataTypes.UNKNOWN,

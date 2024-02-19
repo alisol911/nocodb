@@ -182,7 +182,7 @@ const uiFilters = (t: UiTypesType) => {
   }
   const systemFiledNotEdited = !isSystemField(t) || formState.value.uidt === t.name || !isEdit.value
   const geoDataToggle = geoDataToggleCondition(t) && (!isEdit.value || !t.virtual || t.name === formState.value.uidt)
-  const specificDBType = t.name === UITypes.SpecificDBType && isXcdbBase(meta.value?.source_id)
+  const specificDBType = t.name === UITypes.SpecificDBType && isXcdbBase(meta.value?.base_id)
   const showDeprecatedField = !t.deprecated || showDeprecated.value
 
   const showAiFields = [AIPrompt, AIButton].includes(t.name) ? isAiBetaFeaturesEnabled.value && !isEdit.value : true
@@ -1295,8 +1295,8 @@ const lookupRollupFilterEnabled = computed(() => {
               v-else-if="
           !isVirtualCol(formState) &&
           !isAttachment(formState) &&
-          !(isMysql(meta!.source_id) && (isJSON(formState) || isTextArea(formState))) &&
-          !(isDatabricks(meta!.source_id) && formState.unique) &&
+          !(isMysql(meta!.base_id) && (isJSON(formState) || isTextArea(formState))) &&
+          !(isDatabricks(meta!.base_id) && formState.unique) &&
           !isAI(formState)
           "
               v-model:value="formState"
@@ -1304,7 +1304,7 @@ const lookupRollupFilterEnabled = computed(() => {
             />
 
             <div
-              v-if="isDatabricks(meta!.source_id) && !formState.cdf && ![UITypes.MultiSelect, UITypes.Checkbox, UITypes.Rating, UITypes.Attachment, UITypes.Lookup, UITypes.Rollup, UITypes.Formula, UITypes.Barcode, UITypes.QrCode, UITypes.CreatedTime, UITypes.LastModifiedTime, UITypes.CreatedBy, UITypes.LastModifiedBy].includes(formState.uidt)"
+              v-if="isDatabricks(meta!.base_id) && !formState.cdf && ![UITypes.MultiSelect, UITypes.Checkbox, UITypes.Rating, UITypes.Attachment, UITypes.Lookup, UITypes.Rollup, UITypes.Formula, UITypes.Barcode, UITypes.QrCode, UITypes.CreatedTime, UITypes.LastModifiedTime, UITypes.CreatedBy, UITypes.LastModifiedBy].includes(formState.uidt)"
               class="flex gap-1"
             >
               <NcSwitch v-model:checked="formState.unique" size="small" class="nc-switch">
@@ -1314,7 +1314,7 @@ const lookupRollupFilterEnabled = computed(() => {
           </div>
 
           <div
-            v-if="!props.hideAdditionalOptions && !isVirtualCol(formState.uidt)&&!(!appInfo.ee && isAttachment(formState)) && (!appInfo.ee || (appInfo.ee && !isXcdbBase(meta!.source_id) && formState.uidt === UITypes.SpecificDBType))"
+            v-if="!props.hideAdditionalOptions && !isVirtualCol(formState.uidt)&&!(!appInfo.ee && isAttachment(formState)) && (!appInfo.ee || (appInfo.ee && !isXcdbBase(meta!.base_id) && formState.uidt === UITypes.SpecificDBType))"
             class="text-xs text-gray-400 flex items-center justify-end"
           >
             <div
