@@ -98,6 +98,9 @@ importers:
       httpsnippet:
         specifier: ^2.0.0
         version: 2.0.0(mkdirp@2.1.6)
+      isomorphic-dompurify:
+        specifier: ^2.10.0
+        version: 2.10.0
       jsbarcode:
         specifier: ^3.11.6
         version: 3.11.6
@@ -182,9 +185,6 @@ importers:
       vue-dompurify-html:
         specifier: ^3.1.2
         version: 3.1.2(vue@3.3.13(typescript@5.3.3))
-      vue-github-button:
-        specifier: ^3.1.0
-        version: 3.1.0
       vue-i18n:
         specifier: ^9.9.1
         version: 9.9.1(vue@3.3.13(typescript@5.3.3))
@@ -389,7 +389,7 @@ importers:
         version: 0.10.0(encoding@0.1.13)(vite@5.1.4(@types/node@20.11.30)(sass@1.71.1)(terser@5.27.0))
       vitest:
         specifier: ^1.2.2
-        version: 1.2.2(@types/node@20.11.30)(@vitest/ui@0.34.7)(happy-dom@6.0.4(encoding@0.1.13))(jsdom@23.2.0)(sass@1.71.1)(terser@5.27.0)
+        version: 1.2.2(@types/node@20.11.30)(@vitest/ui@0.34.7)(happy-dom@6.0.4(encoding@0.1.13))(jsdom@24.0.0)(sass@1.71.1)(terser@5.27.0)
       windicss:
         specifier: ^3.5.6
         version: 3.5.6
@@ -513,9 +513,6 @@ packages:
 
   '@antfu/utils@0.7.7':
     resolution: {integrity: sha512-gFPqTG7otEJ8uP6wrhDv6mqwGWYZKNvAcCq6u9hOj0c+IKCEsY4L1oC9trPq2SaWIzAfHvqfBDxF591JkMf+kg==}
-
-  '@asamuzakjp/dom-selector@2.0.2':
-    resolution: {integrity: sha512-x1KXOatwofR6ZAYzXRBL5wrdV0vwNxlTCK9NCuLqAzQYARqGcvFwiJA6A1ERuh+dgeA4Dxm3JBYictIes+SqUQ==}
 
   '@azure/abort-controller@1.1.0':
     resolution: {integrity: sha512-TrRLIoSQVzfAJX9H1JeFjzAoDGcoK1IYX1UImfceTZpsyYfWr09Ss1aHW1y5TrrR3iq6RZLBwJ3E24uwPhwahw==}
@@ -2529,6 +2526,9 @@ packages:
   '@types/dagre@0.7.52':
     resolution: {integrity: sha512-XKJdy+OClLk3hketHi9Qg6gTfe1F3y+UFnHxKA2rn9Dw+oXa4Gb378Ztz9HlMgZKSxpPmn4BNVh9wgkpvrK1uw==}
 
+  '@types/dompurify@3.0.5':
+    resolution: {integrity: sha512-1Wg0g3BtQF7sSb27fJQAKck1HECM6zV1EB66j8JH9i3LCjYabJa0FSdiSgsD5K/RbrsR0SiraKacLB+T8ZVYAg==}
+
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
 
@@ -2639,6 +2639,9 @@ packages:
 
   '@types/tinycolor2@1.4.6':
     resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
+
+  '@types/trusted-types@2.0.7':
+    resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
   '@types/turndown@5.0.4':
     resolution: {integrity: sha512-28GI33lCCkU4SGH1GvjDhFgOVr+Tym4PXGBIU1buJUa6xQolniPArtUT+kv42RR2N9MsMLInkr904Aq+ESHBJg==}
@@ -3502,9 +3505,6 @@ packages:
   batch-processor@1.0.0:
     resolution: {integrity: sha512-xoLQD8gmmR32MeuBHgH0Tzd5PuSZx71ZsbhVxOCRbgktZEPe4SQy7s9Z50uPp0F/f7iw2XmkHN2xkgbMfckMDA==}
 
-  bidi-js@1.0.3:
-    resolution: {integrity: sha512-RKshQI1R3YQ+n9YJz2QQ147P66ELpa1FQEg20Dk8oW9t2KgLbpDLLp9aGZ7y8WHSshDknG0bknqGw5/tyCs5tw==}
-
   big.js@5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
 
@@ -4240,6 +4240,9 @@ packages:
   dompurify@2.4.7:
     resolution: {integrity: sha512-kxxKlPEDa6Nc5WJi+qRgPbOAbgTpSULL+vI3NUXsZMlkJxTqYI9wg5ZTay2sFrdZRWHPWNi+EdAhcJf81WtoMQ==}
 
+  dompurify@3.1.3:
+    resolution: {integrity: sha512-5sOWYSNPaxz6o2MUPvtyxTTqR4D3L77pr5rUQoWgD5ROQtVIZQgJkXbo1DLlK3vj11YGw5+LnF4SYti4gZmwng==}
+
   domutils@3.1.0:
     resolution: {integrity: sha512-H78uMmQtI2AhgDJjWeQmHwJJ2bLPD3GMmO7Zja/ZZh84wkm+4ut+IUnUdRa8uCGX88DiVx1j6FRe1XfxEgjEZA==}
 
@@ -4925,9 +4928,6 @@ packages:
   git-url-parse@13.1.1:
     resolution: {integrity: sha512-PCFJyeSSdtnbfhSNRw9Wk96dDCNx+sogTe4YNXeXSJxt7xz5hvXekuRn9JX7m+Mf4OscCu8h+mtAl3+h5Fo8lQ==}
 
-  github-buttons@2.27.0:
-    resolution: {integrity: sha512-PmfRMI2Rttg/2jDfKBeSl621sEznrsKF019SuoLdoNlO7qRUZaOyEI5Li4uW+79pVqnDtKfIEVuHTIJ5lgy64w==}
-
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -5504,6 +5504,10 @@ packages:
     resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
     engines: {node: '>=0.10.0'}
 
+  isomorphic-dompurify@2.10.0:
+    resolution: {integrity: sha512-rqWVh1tZtHL4NsSn+bifrxhZ0CqNNShGEkV+m2SFLL3d4D4jcIbkSVMva5Eep50uCxiCCNJmCLGbuAWY/QoNcQ==}
+    engines: {node: '>=18'}
+
   istanbul-lib-coverage@3.2.0:
     resolution: {integrity: sha512-eOeJ5BHCmHYvQK7xt9GkdHuzuCGS1Y6g9Gvnx3Ym33fz/HpLRYxiS0wHNr+m/MBC8B647Xt608vCDEvhl9c6Mw==}
     engines: {node: '>=8'}
@@ -5710,8 +5714,8 @@ packages:
   jsbarcode@3.11.6:
     resolution: {integrity: sha512-G5TKGyKY1zJo0ZQKFM1IIMfy0nF2rs92BLlCz+cU4/TazIc4ZH+X1GYeDRt7TKjrYqmPfTjwTBkU/QnQlsYiuA==}
 
-  jsdom@23.2.0:
-    resolution: {integrity: sha512-L88oL7D/8ufIES+Zjz7v0aes+oBMh2Xnh3ygWvL0OaICOomKEPKuPnIfBJekiXr+BHbbMjrWn/xqrDQuxFTeyA==}
+  jsdom@24.0.0:
+    resolution: {integrity: sha512-UDS2NayCvmXSXVP6mpTj+73JnNQadZlr9N68189xib2tx5Mls7swlTNao26IoHv46BZJFvXygyRtyXd1feAk1A==}
     engines: {node: '>=18'}
     peerDependencies:
       canvas: ^2.11.2
@@ -6383,6 +6387,9 @@ packages:
         optional: true
       '@types/node':
         optional: true
+
+  nwsapi@2.2.10:
+    resolution: {integrity: sha512-QK0sRs7MKv0tKe1+5uZIQk/C8XGza4DAnztJG8iD+TpJIORARrCxczA738awHrZoHeTjSSoHqao2teO0dC/gFQ==}
 
   nypm@0.3.6:
     resolution: {integrity: sha512-2CATJh3pd6CyNfU5VZM7qSwFu0ieyabkEdnogE30Obn1czrmOYiZ8DOZLe1yBdLKWoyD3Mcy2maUs+0MR3yVjQ==}
@@ -7112,10 +7119,6 @@ packages:
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
-    engines: {node: '>=0.10.0'}
-
-  require-from-string@2.0.2:
-    resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
 
   require-main-filename@2.0.0:
@@ -8380,9 +8383,6 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  vue-github-button@3.1.0:
-    resolution: {integrity: sha512-S69NFalucetUW4AjMkLlHY/fgTWu6LEGEtehMewXRNLnjODhDvJj4lwt0u0BSPXLTDB+PLk1tWlwx3pw+ItLgQ==}
-
   vue-i18n@9.9.1:
     resolution: {integrity: sha512-xyQ4VspLdNSPTKBFBPWa1tvtj+9HuockZwgFeD2OhxxXuC2CWeNvV4seu2o9+vbQOyQbhAM5Ez56oxUrrnTWdw==}
     engines: {node: '>= 16'}
@@ -8839,13 +8839,6 @@ snapshots:
   '@antfu/utils@0.7.6': {}
 
   '@antfu/utils@0.7.7': {}
-
-  '@asamuzakjp/dom-selector@2.0.2':
-    dependencies:
-      bidi-js: 1.0.3
-      css-tree: 2.3.1
-      is-potential-custom-element-name: 1.0.1
-    optional: true
 
   '@azure/abort-controller@1.1.0':
     dependencies:
@@ -11142,6 +11135,10 @@ snapshots:
 
   '@types/dagre@0.7.52': {}
 
+  '@types/dompurify@3.0.5':
+    dependencies:
+      '@types/trusted-types': 2.0.7
+
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 8.56.10
@@ -11250,6 +11247,8 @@ snapshots:
   '@types/throttle-debounce@2.1.0': {}
 
   '@types/tinycolor2@1.4.6': {}
+
+  '@types/trusted-types@2.0.7': {}
 
   '@types/turndown@5.0.4': {}
 
@@ -11722,7 +11721,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.0
       sirv: 2.0.3
-      vitest: 1.2.2(@types/node@20.11.30)(@vitest/ui@0.34.7)(happy-dom@6.0.4(encoding@0.1.13))(jsdom@23.2.0)(sass@1.71.1)(terser@5.27.0)
+      vitest: 1.2.2(@types/node@20.11.30)(@vitest/ui@0.34.7)(happy-dom@6.0.4(encoding@0.1.13))(jsdom@24.0.0)(sass@1.71.1)(terser@5.27.0)
 
   '@vitest/utils@0.34.7':
     dependencies:
@@ -12504,11 +12503,6 @@ snapshots:
 
   batch-processor@1.0.0: {}
 
-  bidi-js@1.0.3:
-    dependencies:
-      require-from-string: 2.0.2
-    optional: true
-
   big.js@5.2.2: {}
 
   binary-extensions@2.2.0: {}
@@ -13131,7 +13125,6 @@ snapshots:
   cssstyle@4.0.1:
     dependencies:
       rrweb-cssom: 0.6.0
-    optional: true
 
   csstype@3.1.3: {}
 
@@ -13204,7 +13197,6 @@ snapshots:
     dependencies:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
-    optional: true
 
   dayjs@1.11.10: {}
 
@@ -13224,8 +13216,7 @@ snapshots:
 
   decamelize@1.2.0: {}
 
-  decimal.js@10.4.3:
-    optional: true
+  decimal.js@10.4.3: {}
 
   declass@0.0.1:
     dependencies:
@@ -13339,6 +13330,8 @@ snapshots:
   domino@2.1.6: {}
 
   dompurify@2.4.7: {}
+
+  dompurify@3.1.3: {}
 
   domutils@3.1.0:
     dependencies:
@@ -14364,8 +14357,6 @@ snapshots:
     dependencies:
       git-up: 7.0.0
 
-  github-buttons@2.27.0: {}
-
   glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
@@ -14599,7 +14590,6 @@ snapshots:
   html-encoding-sniffer@4.0.0:
     dependencies:
       whatwg-encoding: 3.1.1
-    optional: true
 
   html-escaper@2.0.2: {}
 
@@ -14930,8 +14920,7 @@ snapshots:
 
   is-plain-object@3.0.1: {}
 
-  is-potential-custom-element-name@1.0.1:
-    optional: true
+  is-potential-custom-element-name@1.0.1: {}
 
   is-primitive@3.0.1: {}
 
@@ -15014,6 +15003,17 @@ snapshots:
   iso639-codes@1.0.1: {}
 
   isobject@3.0.1: {}
+
+  isomorphic-dompurify@2.10.0:
+    dependencies:
+      '@types/dompurify': 3.0.5
+      dompurify: 3.1.3
+      jsdom: 24.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - utf-8-validate
 
   istanbul-lib-coverage@3.2.0: {}
 
@@ -15439,9 +15439,8 @@ snapshots:
 
   jsbarcode@3.11.6: {}
 
-  jsdom@23.2.0:
+  jsdom@24.0.0:
     dependencies:
-      '@asamuzakjp/dom-selector': 2.0.2
       cssstyle: 4.0.1
       data-urls: 5.0.0
       decimal.js: 10.4.3
@@ -15450,6 +15449,7 @@ snapshots:
       http-proxy-agent: 7.0.0
       https-proxy-agent: 7.0.2
       is-potential-custom-element-name: 1.0.1
+      nwsapi: 2.2.10
       parse5: 7.1.2
       rrweb-cssom: 0.6.0
       saxes: 6.0.0
@@ -15466,7 +15466,6 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
-    optional: true
 
   jsep@1.3.8: {}
 
@@ -16353,6 +16352,8 @@ snapshots:
       - vue-tsc
       - xml2js
 
+  nwsapi@2.2.10: {}
+
   nypm@0.3.6:
     dependencies:
       citty: 0.1.5
@@ -16996,15 +16997,13 @@ snapshots:
 
   prr@1.0.1: {}
 
-  psl@1.9.0:
-    optional: true
+  psl@1.9.0: {}
 
   punycode.js@2.3.1: {}
 
   punycode@2.3.0: {}
 
-  punycode@2.3.1:
-    optional: true
+  punycode@2.3.1: {}
 
   pure-rand@6.0.2: {}
 
@@ -17019,8 +17018,7 @@ snapshots:
     dependencies:
       side-channel: 1.0.4
 
-  querystringify@2.2.0:
-    optional: true
+  querystringify@2.2.0: {}
 
   queue-lit@1.5.0: {}
 
@@ -17144,13 +17142,9 @@ snapshots:
 
   require-directory@2.1.1: {}
 
-  require-from-string@2.0.2:
-    optional: true
-
   require-main-filename@2.0.0: {}
 
-  requires-port@1.0.0:
-    optional: true
+  requires-port@1.0.0: {}
 
   resize-detector@0.3.0: {}
 
@@ -17248,8 +17242,7 @@ snapshots:
 
   rope-sequence@1.3.4: {}
 
-  rrweb-cssom@0.6.0:
-    optional: true
+  rrweb-cssom@0.6.0: {}
 
   rtcpeerconnection-shim@1.2.15:
     dependencies:
@@ -17309,7 +17302,6 @@ snapshots:
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
-    optional: true
 
   schema-utils@3.3.0:
     dependencies:
@@ -17769,8 +17761,7 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.0.0
 
-  symbol-tree@3.2.4:
-    optional: true
+  symbol-tree@3.2.4: {}
 
   sync-request@6.1.0:
     dependencies:
@@ -17885,14 +17876,12 @@ snapshots:
       punycode: 2.3.1
       universalify: 0.2.0
       url-parse: 1.5.10
-    optional: true
 
   tr46@0.0.3: {}
 
   tr46@5.0.0:
     dependencies:
       punycode: 2.3.1
-    optional: true
 
   ts-api-utils@1.0.2(typescript@5.3.3):
     dependencies:
@@ -18134,8 +18123,7 @@ snapshots:
     dependencies:
       '@types/unist': 2.0.7
 
-  universalify@0.2.0:
-    optional: true
+  universalify@0.2.0: {}
 
   universalify@2.0.0: {}
 
@@ -18324,7 +18312,6 @@ snapshots:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
-    optional: true
 
   urlpattern-polyfill@8.0.2: {}
 
@@ -18482,7 +18469,7 @@ snapshots:
       sass: 1.71.1
       terser: 5.27.0
 
-  vitest@1.2.2(@types/node@20.11.30)(@vitest/ui@0.34.7)(happy-dom@6.0.4(encoding@0.1.13))(jsdom@23.2.0)(sass@1.71.1)(terser@5.27.0):
+  vitest@1.2.2(@types/node@20.11.30)(@vitest/ui@0.34.7)(happy-dom@6.0.4(encoding@0.1.13))(jsdom@24.0.0)(sass@1.71.1)(terser@5.27.0):
     dependencies:
       '@vitest/expect': 1.2.2
       '@vitest/runner': 1.2.2
@@ -18509,7 +18496,7 @@ snapshots:
       '@types/node': 20.11.30
       '@vitest/ui': 0.34.7(vitest@1.2.2)
       happy-dom: 6.0.4(encoding@0.1.13)
-      jsdom: 23.2.0
+      jsdom: 24.0.0
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -18598,10 +18585,6 @@ snapshots:
       semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
-
-  vue-github-button@3.1.0:
-    dependencies:
-      github-buttons: 2.27.0
 
   vue-i18n@9.9.1(vue@3.3.13(typescript@5.3.3)):
     dependencies:
@@ -18695,7 +18678,6 @@ snapshots:
   w3c-xmlserializer@5.0.0:
     dependencies:
       xml-name-validator: 5.0.0
-    optional: true
 
   walker@1.0.8:
     dependencies:
@@ -18763,18 +18745,15 @@ snapshots:
   whatwg-encoding@3.1.1:
     dependencies:
       iconv-lite: 0.6.3
-    optional: true
 
   whatwg-mimetype@3.0.0: {}
 
-  whatwg-mimetype@4.0.0:
-    optional: true
+  whatwg-mimetype@4.0.0: {}
 
   whatwg-url@14.0.0:
     dependencies:
       tr46: 5.0.0
       webidl-conversions: 7.0.0
-    optional: true
 
   whatwg-url@5.0.0:
     dependencies:
@@ -18925,8 +18904,7 @@ snapshots:
 
   xml-name-validator@4.0.0: {}
 
-  xml-name-validator@5.0.0:
-    optional: true
+  xml-name-validator@5.0.0: {}
 
   xml2js@0.6.2:
     dependencies:
@@ -18937,8 +18915,7 @@ snapshots:
   xmlbuilder@11.0.1:
     optional: true
 
-  xmlchars@2.2.0:
-    optional: true
+  xmlchars@2.2.0: {}
 
   xmlhttprequest-ssl@2.0.0: {}
 
