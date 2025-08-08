@@ -1293,7 +1293,7 @@ export interface BaseV3Type {
     id: string;
     /** Title of the data source. */
     title: string;
-    /** Type of the data source (e.g., pg, mysql). */
+    /** Type of the data source (e.g., pg). */
     type: string;
     /** Indicates if the schema in this data source is read-only. */
     is_schema_readonly: boolean;
@@ -1626,12 +1626,12 @@ export interface IntegrationType {
   type?: IntegrationsType;
   /**
    * DB Type
-   * @example mysql2
+   * @example pg
    */
   sub_type?: string;
   /**
    * DB Type
-   * @example mysql2
+   * @example pg
    */
   created_by?: string;
 }
